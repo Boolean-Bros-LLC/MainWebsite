@@ -343,23 +343,22 @@
           we read every message.
         </p>
 
-        <form class="flex flex-col gap-4"
-              onsubmit="window.location='mailto:nweber.software@gmail.com?subject=Hello+from+your+site&body='+encodeURIComponent(document.getElementById('msg').value);return false;">
+        <form id="contact-form" class="flex flex-col gap-4" onsubmit="submitContactForm(event);">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="font-mono text-[9px] tracking-widest uppercase text-charcoal-dim block mb-1">Name</label>
-              <input type="text" placeholder="Your name"
+              <input id="contact-name" type="text" placeholder="Your name"
                 class="w-full border border-charcoal bg-transparent px-4 py-3 font-mono text-xs text-charcoal">
             </div>
             <div>
               <label class="font-mono text-[9px] tracking-widest uppercase text-charcoal-dim block mb-1">Email</label>
-              <input type="email" placeholder="you@example.com"
+              <input id="contact-email" type="email" placeholder="you@example.com"
                 class="w-full border border-charcoal bg-transparent px-4 py-3 font-mono text-xs text-charcoal">
             </div>
           </div>
           <div>
             <label class="font-mono text-[9px] tracking-widest uppercase text-charcoal-dim block mb-1">Message</label>
-            <textarea id="msg" rows="5" placeholder="Your message..."
+            <textarea id="contact-msg" rows="5" placeholder="Your message..."
               class="w-full border border-charcoal bg-transparent px-4 py-3 font-mono text-xs text-charcoal resize-none"></textarea>
           </div>
           <div class="flex flex-wrap items-center gap-5 pt-1">
@@ -371,6 +370,21 @@
             </a>
           </div>
         </form>
+        <script>
+          function submitContactForm(e) {
+            e.preventDefault();
+            var name  = document.getElementById('contact-name').value;
+            var email = document.getElementById('contact-email').value;
+            var msg   = document.getElementById('contact-msg').value;
+            var subject = encodeURIComponent('Message from ' + (name || 'your site'));
+            var body    = encodeURIComponent(
+              (name  ? 'Name: '  + name  + '\n' : '') +
+              (email ? 'Email: ' + email + '\n' : '') +
+              (msg   ? '\n'      + msg          : '')
+            );
+            window.open('mailto:nweber.software@gmail.com?subject=' + subject + '&body=' + body);
+          }
+        </script>
       </div>
     </div>
   </section>
