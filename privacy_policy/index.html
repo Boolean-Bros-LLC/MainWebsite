@@ -3,95 +3,157 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy</title>
+  <title>Privacy Policy — Boolean Bros LLC</title>
+  <meta name="description" content="Privacy Policy for mobile applications developed and published by Boolean Bros LLC.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper:          '#f0ece4',
+            'paper-shade':  '#e6e0d4',
+            charcoal:       '#2c2825',
+            'charcoal-mid': '#4a4540',
+            'charcoal-dim': '#7a736b',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'Consolas', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    /* Paper / parchment background with SVG noise grain */
     body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
-      background-color: #f9f9f9;
-      color: #1a1a1a;
+      background-color: #f0ece4;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
     }
 
-    h1, h2 {
-      color: #333;
-    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #f0ece4; }
+    ::-webkit-scrollbar-thumb { background: #2c2825; }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
+    .nav-link {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 0.625rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #7a736b;
+      transition: none;
     }
-
-    h2 {
-      margin-top: 25px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      margin-bottom: 15px;
-    }
-
-    ul {
-      margin-left: 20px;
-      margin-bottom: 15px;
-    }
-
-    a {
-      color: #1a73e8;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
+    .nav-link:hover { color: #2c2825; }
   </style>
 </head>
-<body>
+<body class="font-sans text-charcoal antialiased">
 
-  <h1>Privacy Policy</h1>
+  <!-- ═══════════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════════ -->
+  <nav class="fixed top-0 inset-x-0 z-50 border-b border-charcoal" style="background-color: rgba(240,236,228,0.96); backdrop-filter: blur(4px);">
+    <div class="max-w-6xl mx-auto px-6 h-11 flex items-center justify-between">
+      <a href="/" class="font-mono text-[10px] font-semibold tracking-widest uppercase text-charcoal select-none">Boolean Bros LLC</a>
+      <a href="/" class="nav-link">[← Home]</a>
+    </div>
+  </nav>
 
-  <p>This Privacy Policy applies to the following mobile applications developed and published by NZL Studios:</p>
+  <!-- ═══════════════════════════════════════════════
+       CONTENT
+  ═══════════════════════════════════════════════ -->
+  <main class="max-w-3xl mx-auto px-6 pt-28 pb-20">
 
-  <ul>
-    <li>Cognitive Challenge</li>
-    <li>Signal Jammer</li>
-    <li>...</li>
-  </ul>
+    <div class="mb-10 border-b border-charcoal pb-8">
+      <span class="font-mono text-[9px] tracking-widest uppercase text-charcoal-dim">Legal</span>
+      <h1 class="text-3xl md:text-4xl font-black uppercase tracking-tight text-charcoal mt-1">Privacy Policy</h1>
+    </div>
 
-  <h2>Information Collection and Use</h2>
-  <p>We do not directly collect personally identifiable information from users. However, third-party services used in the apps may collect information automatically to provide advertising and analytics services.</p>
+    <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed mb-8">This Privacy Policy applies to the following mobile applications developed and published by Boolean Bros LLC:</p>
 
-  <h2>Advertising</h2>
-  <p>Our apps use Google AdMob to display advertisements. AdMob may collect and use certain data, including but not limited to:</p>
-  <ul>
-    <li>Device identifiers</li>
-    <li>IP address</li>
-    <li>App interaction data</li>
-  </ul>
-  <p>This data is used to provide personalized and non-personalized ads.</p>
+    <ul class="font-mono text-[11px] text-charcoal-dim leading-relaxed mb-8 space-y-1 pl-4 border-l border-charcoal">
+      <li>Cognitive Challenge</li>
+      <li>Signal Jammer</li>
+      <li>...</li>
+    </ul>
 
-  <h2>Third-Party Services</h2>
-  <p>We use third-party services that may collect information used to identify you. These services include:</p>
-  <ul>
-    <li>Google AdMob</li>
-  </ul>
-  <p>For more information, please review Google's Privacy Policy:</p>
-  <p><a href="https://policies.google.com/privacy" target="_blank">https://policies.google.com/privacy</a></p>
+    <div class="space-y-8">
 
-  <h2>Data Sharing</h2>
-  <p>We do not sell or share your personal information directly. However, third-party services such as AdMob may process and use data as described in their own privacy policies.</p>
+      <div>
+        <h2 class="text-sm font-bold text-charcoal uppercase tracking-wide mb-3">Information Collection and Use</h2>
+        <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed">We do not directly collect personally identifiable information from users. However, third-party services used in the apps may collect information automatically to provide advertising and analytics services.</p>
+      </div>
 
-  <h2>User Choices</h2>
-  <p>Users can opt out of personalized advertising by adjusting their device settings.</p>
+      <div>
+        <h2 class="text-sm font-bold text-charcoal uppercase tracking-wide mb-3">Advertising</h2>
+        <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed mb-3">Our apps use Google AdMob to display advertisements. AdMob may collect and use certain data, including but not limited to:</p>
+        <ul class="font-mono text-[11px] text-charcoal-dim leading-relaxed space-y-1 pl-4 border-l border-charcoal mb-3">
+          <li>Device identifiers</li>
+          <li>IP address</li>
+          <li>App interaction data</li>
+        </ul>
+        <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed">This data is used to provide personalized and non-personalized ads.</p>
+      </div>
 
-  <h2>Children’s Privacy</h2>
-  <p>Our apps are not directed to children under the age of 13. We do not knowingly collect personal information from children.</p>
+      <div>
+        <h2 class="text-sm font-bold text-charcoal uppercase tracking-wide mb-3">Third-Party Services</h2>
+        <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed mb-3">We use third-party services that may collect information used to identify you. These services include:</p>
+        <ul class="font-mono text-[11px] text-charcoal-dim leading-relaxed space-y-1 pl-4 border-l border-charcoal mb-3">
+          <li>Google AdMob</li>
+        </ul>
+        <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed mb-1">For more information, please review Google's Privacy Policy:</p>
+        <a href="https://policies.google.com/privacy" target="_blank" class="font-mono text-[11px] text-charcoal hover:text-charcoal-dim underline" style="transition:none;">https://policies.google.com/privacy</a>
+      </div>
 
-  <h2>Changes to This Privacy Policy</h2>
-  <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page.</p>
+      <div>
+        <h2 class="text-sm font-bold text-charcoal uppercase tracking-wide mb-3">Data Sharing</h2>
+        <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed">We do not sell or share your personal information directly. However, third-party services such as AdMob may process and use data as described in their own privacy policies.</p>
+      </div>
 
-  <h2>Contact Us</h2>
-  <p>If you have any questions or suggestions about this Privacy Policy, please contact us at:</p>
-  <p>nweber.software@gmail.com</p>
+      <div>
+        <h2 class="text-sm font-bold text-charcoal uppercase tracking-wide mb-3">User Choices</h2>
+        <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed">Users can opt out of personalized advertising by adjusting their device settings.</p>
+      </div>
+
+      <div>
+        <h2 class="text-sm font-bold text-charcoal uppercase tracking-wide mb-3">Children's Privacy</h2>
+        <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed">Our apps are not directed to children under the age of 13. We do not knowingly collect personal information from children.</p>
+      </div>
+
+      <div>
+        <h2 class="text-sm font-bold text-charcoal uppercase tracking-wide mb-3">Changes to This Privacy Policy</h2>
+        <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed">We may update this Privacy Policy from time to time. Any changes will be posted on this page.</p>
+      </div>
+
+      <div>
+        <h2 class="text-sm font-bold text-charcoal uppercase tracking-wide mb-3">Contact Us</h2>
+        <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed mb-1">If you have any questions or suggestions about this Privacy Policy, please contact us at:</p>
+        <a href="mailto:nweber.software@gmail.com" class="font-mono text-[11px] text-charcoal hover:text-charcoal-dim underline" style="transition:none;">nweber.software@gmail.com</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════ -->
+  <footer class="border-t border-charcoal">
+    <div class="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <span class="font-mono text-[9px] text-charcoal-dim tracking-widest uppercase">
+        &copy; 2025 Boolean Bros LLC. All rights reserved.
+      </span>
+      <nav class="flex gap-6">
+        <a href="/privacy_policy/" class="font-mono text-[9px] text-charcoal-dim hover:text-charcoal tracking-widest uppercase" style="transition:none;">Privacy Policy</a>
+        <a href="/app-ads.txt"     class="font-mono text-[9px] text-charcoal-dim hover:text-charcoal tracking-widest uppercase" style="transition:none;">App-Ads.txt</a>
+      </nav>
+    </div>
+  </footer>
