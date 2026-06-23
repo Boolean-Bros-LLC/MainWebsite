@@ -3,14 +3,271 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NZL Studios</title>
+  <title>Boolean Bros LLC — Mobile Apps &amp; Games</title>
+  <meta name="description" content="Boolean Bros LLC is an indie studio crafting focused mobile apps and games. Precision engineering meets clean design.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            accent:       '#39d353',
+            'bg-primary':   '#0d1117',
+            'bg-secondary': '#161b22',
+            'bg-tertiary':  '#21262d',
+            'border-subtle':'#30363d',
+            'text-primary': '#e6edf3',
+            'text-secondary':'#8b949e',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'Consolas', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background-color: #0d1117; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #0d1117; }
+    ::-webkit-scrollbar-thumb { background: #30363d; }
+    ::-webkit-scrollbar-thumb:hover { background: #39d353; }
+
+    .hero-dots {
+      background-image: radial-gradient(circle, #30363d 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+  </style>
 </head>
-<body>
-  <h1>Welcome to NZL Studios</h1>
-  <p>This is the home page for policy and advertising information.</p>
-  <ul>
-    <li><a href="/privacy_policy/">Privacy Policy</a></li>
-    <li><a href="/app-ads.txt">app-ads.txt</a></li>
-  </ul>
+<body class="font-sans bg-bg-primary text-text-primary antialiased">
+
+  <!-- ═══════════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════════ -->
+  <nav class="fixed top-0 inset-x-0 z-50 bg-bg-primary/90 backdrop-blur-sm border-b border-border-subtle">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="font-mono font-semibold text-sm tracking-wider select-none">
+        <span class="text-accent">BOOLEAN</span><span class="text-text-primary">BROS</span>
+      </a>
+      <!-- Links -->
+      <div class="flex items-center gap-8">
+        <a href="#apps"    class="font-mono text-xs text-text-secondary hover:text-accent transition-colors duration-75 tracking-widest uppercase">Apps</a>
+        <a href="#about"   class="font-mono text-xs text-text-secondary hover:text-accent transition-colors duration-75 tracking-widest uppercase">About</a>
+        <a href="#contact" class="font-mono text-xs text-text-secondary hover:text-accent transition-colors duration-75 tracking-widest uppercase">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════════ -->
+  <section class="relative min-h-screen flex items-center border-b border-border-subtle pt-14 hero-dots">
+    <!-- Subtle vignette over dot grid -->
+    <div class="absolute inset-0 bg-gradient-to-r from-bg-primary via-bg-primary/80 to-transparent pointer-events-none"></div>
+
+    <div class="relative max-w-6xl mx-auto px-6 py-28 w-full">
+      <div class="max-w-3xl">
+        <div class="font-mono text-accent text-xs tracking-widest uppercase mb-6 flex items-center gap-3">
+          <span class="inline-block w-8 h-px bg-accent"></span>
+          Boolean Bros LLC
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-extrabold leading-none tracking-tight text-text-primary mb-6">
+          Crafting focused<br>mobile experiences.
+        </h1>
+
+        <p class="text-text-secondary text-lg md:text-xl leading-relaxed mb-10 max-w-xl">
+          Engineering-first indie studio building precision apps and games for iOS and Android.
+          Clean mechanics. Clean code. Zero bloat.
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+          <a href="#apps"
+             class="font-mono text-sm bg-accent text-bg-primary px-6 py-3 font-semibold tracking-wider hover:bg-opacity-80 transition-colors duration-75 uppercase">
+            Explore Our Apps
+          </a>
+          <a href="#about"
+             class="font-mono text-sm border border-text-secondary text-text-primary px-6 py-3 font-semibold tracking-wider hover:border-accent hover:text-accent transition-colors duration-75 uppercase">
+            Learn More
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       APPS GRID
+  ═══════════════════════════════════════════════ -->
+  <section id="apps" class="border-b border-border-subtle">
+    <div class="max-w-6xl mx-auto px-6 py-24">
+      <!-- Section header -->
+      <div class="mb-12">
+        <div class="font-mono text-accent text-xs tracking-widest uppercase mb-3 flex items-center gap-3">
+          <span class="inline-block w-8 h-px bg-accent"></span>
+          Portfolio
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold text-text-primary">Our Apps &amp; Games</h2>
+      </div>
+
+      <!-- Grid — outer border-l + border-t; each card supplies border-r + border-b -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-l border-t border-border-subtle">
+
+        <!-- Card: Cognitive Challenge -->
+        <div class="border-r border-b border-border-subtle p-6 hover:bg-bg-secondary transition-colors duration-75 flex flex-col">
+          <!-- Mockup placeholder -->
+          <div class="w-20 aspect-[9/16] bg-bg-tertiary border border-border-subtle mb-5 flex items-center justify-center flex-shrink-0">
+            <span class="font-mono text-text-secondary text-[10px]">[IMG]</span>
+          </div>
+          <!-- Category badge -->
+          <span class="font-mono text-[10px] tracking-widest uppercase border border-accent text-accent px-2 py-0.5 inline-block self-start mb-3">[PUZZLE]</span>
+          <h3 class="text-base font-bold text-text-primary mb-2">Cognitive Challenge</h3>
+          <p class="text-text-secondary text-sm leading-relaxed mb-5 flex-1">
+            A precision brain-training puzzle game designed to sharpen focus and pattern recognition.
+          </p>
+          <div class="flex gap-3 flex-wrap">
+            <a href="#" class="font-mono text-[10px] border border-border-subtle text-text-secondary px-3 py-1.5 hover:border-accent hover:text-accent transition-colors duration-75 tracking-wider uppercase">App Store</a>
+            <a href="#" class="font-mono text-[10px] border border-border-subtle text-text-secondary px-3 py-1.5 hover:border-accent hover:text-accent transition-colors duration-75 tracking-wider uppercase">Google Play</a>
+          </div>
+        </div>
+
+        <!-- Card: Signal Jammer -->
+        <div class="border-r border-b border-border-subtle p-6 hover:bg-bg-secondary transition-colors duration-75 flex flex-col">
+          <div class="w-20 aspect-[9/16] bg-bg-tertiary border border-border-subtle mb-5 flex items-center justify-center flex-shrink-0">
+            <span class="font-mono text-text-secondary text-[10px]">[IMG]</span>
+          </div>
+          <span class="font-mono text-[10px] tracking-widest uppercase border border-accent text-accent px-2 py-0.5 inline-block self-start mb-3">[UTILITY]</span>
+          <h3 class="text-base font-bold text-text-primary mb-2">Signal Jammer</h3>
+          <p class="text-text-secondary text-sm leading-relaxed mb-5 flex-1">
+            A focused utility app built for distraction-free productivity. Block the noise, ship the work.
+          </p>
+          <div class="flex gap-3 flex-wrap">
+            <a href="#" class="font-mono text-[10px] border border-border-subtle text-text-secondary px-3 py-1.5 hover:border-accent hover:text-accent transition-colors duration-75 tracking-wider uppercase">App Store</a>
+            <a href="#" class="font-mono text-[10px] border border-border-subtle text-text-secondary px-3 py-1.5 hover:border-accent hover:text-accent transition-colors duration-75 tracking-wider uppercase">Google Play</a>
+          </div>
+        </div>
+
+        <!-- Card: Coming Soon -->
+        <div class="border-r border-b border-border-subtle p-6 hover:bg-bg-secondary transition-colors duration-75 flex flex-col">
+          <div class="w-20 aspect-[9/16] bg-bg-tertiary border border-dashed border-border-subtle mb-5 flex items-center justify-center flex-shrink-0 opacity-40">
+            <span class="font-mono text-text-secondary text-[10px]">[?]</span>
+          </div>
+          <span class="font-mono text-[10px] tracking-widest uppercase border border-dashed border-text-secondary text-text-secondary px-2 py-0.5 inline-block self-start mb-3 opacity-50">[COMING SOON]</span>
+          <h3 class="text-base font-bold text-text-primary mb-2 opacity-50">Next Release</h3>
+          <p class="text-text-secondary text-sm leading-relaxed mb-5 flex-1 opacity-50">
+            Something new is in development. Stay tuned for the next drop.
+          </p>
+          <div class="flex gap-3">
+            <span class="font-mono text-[10px] border border-border-subtle text-text-secondary/40 px-3 py-1.5 tracking-wider uppercase select-none">TBA</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       ABOUT / PHILOSOPHY
+  ═══════════════════════════════════════════════ -->
+  <section id="about" class="border-b border-border-subtle">
+    <div class="max-w-6xl mx-auto px-6 py-24">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+
+        <!-- Left: copy -->
+        <div>
+          <div class="font-mono text-accent text-xs tracking-widest uppercase mb-3 flex items-center gap-3">
+            <span class="inline-block w-8 h-px bg-accent"></span>
+            About
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold text-text-primary mb-6 leading-tight">
+            Built different.<br>By design.
+          </h2>
+          <p class="text-text-secondary leading-relaxed mb-4">
+            Boolean Bros LLC is an independent mobile studio run by developers who think in systems.
+            We build focused, polished apps and games — no feature bloat, no dark patterns, no compromises on performance.
+          </p>
+          <p class="text-text-secondary leading-relaxed">
+            Every release ships with clean architecture, precise mechanics, and a UI that respects the user's
+            time and attention. If it doesn't add value, it doesn't ship.
+          </p>
+        </div>
+
+        <!-- Right: philosophy card -->
+        <div class="border border-border-subtle">
+          <div class="border-b border-border-subtle px-5 py-4">
+            <span class="font-mono text-xs text-text-secondary tracking-widest uppercase">Studio Philosophy</span>
+          </div>
+          <div>
+            <div class="px-5 py-5 border-b border-border-subtle">
+              <div class="font-mono text-xs text-accent mb-2 tracking-wider">01 — PRECISION</div>
+              <p class="text-text-secondary text-sm leading-relaxed">
+                Every mechanic and interaction is deliberate. We engineer for feel, not just function.
+              </p>
+            </div>
+            <div class="px-5 py-5 border-b border-border-subtle">
+              <div class="font-mono text-xs text-accent mb-2 tracking-wider">02 — PERFORMANCE</div>
+              <p class="text-text-secondary text-sm leading-relaxed">
+                Optimized for every device. No unnecessary dependencies, no lazy rendering shortcuts.
+              </p>
+            </div>
+            <div class="px-5 py-5">
+              <div class="font-mono text-xs text-accent mb-2 tracking-wider">03 — POLISH</div>
+              <p class="text-text-secondary text-sm leading-relaxed">
+                The details matter. From frame timing to micro-interactions, every pixel is intentional.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       CONTACT
+  ═══════════════════════════════════════════════ -->
+  <section id="contact" class="border-b border-border-subtle">
+    <div class="max-w-6xl mx-auto px-6 py-24">
+      <div class="max-w-xl">
+        <div class="font-mono text-accent text-xs tracking-widest uppercase mb-3 flex items-center gap-3">
+          <span class="inline-block w-8 h-px bg-accent"></span>
+          Contact
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold text-text-primary mb-4">Get in touch.</h2>
+        <p class="text-text-secondary leading-relaxed mb-8">
+          Press inquiries, partnership proposals, or just want to talk mobile engineering —
+          we read every message.
+        </p>
+        <a href="mailto:nweber.software@gmail.com"
+           class="font-mono text-sm border border-accent text-accent px-6 py-3 inline-block tracking-wider uppercase hover:bg-accent hover:text-bg-primary transition-colors duration-75">
+          nweber.software@gmail.com
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════ -->
+  <footer class="bg-bg-secondary">
+    <div class="max-w-6xl mx-auto px-6 py-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <span class="font-mono text-text-secondary text-xs">&copy; 2025 Boolean Bros LLC. All rights reserved.</span>
+      <nav class="flex flex-wrap gap-6">
+        <a href="/privacy_policy/" class="font-mono text-xs text-text-secondary hover:text-accent transition-colors duration-75 tracking-wider uppercase">Privacy Policy</a>
+        <a href="/app-ads.txt"     class="font-mono text-xs text-text-secondary hover:text-accent transition-colors duration-75 tracking-wider uppercase">App-Ads.txt</a>
+      </nav>
+    </div>
+  </footer>
+
 </body>
 </html>
