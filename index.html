@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boolean Bros LLC — Mobile Apps &amp; Games</title>
+  <title>Boolean Bros LLC — Indie Games &amp; Mobile Apps</title>
   <meta name="description" content="Boolean Bros LLC is an indie studio crafting focused mobile apps and games. Precision engineering meets clean design.">
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -12,13 +12,11 @@
       theme: {
         extend: {
           colors: {
-            accent:       '#39d353',
-            'bg-primary':   '#0d1117',
-            'bg-secondary': '#161b22',
-            'bg-tertiary':  '#21262d',
-            'border-subtle':'#30363d',
-            'text-primary': '#e6edf3',
-            'text-secondary':'#8b949e',
+            paper:          '#f0ece4',
+            'paper-shade':  '#e6e0d4',
+            charcoal:       '#2c2825',
+            'charcoal-mid': '#4a4540',
+            'charcoal-dim': '#7a736b',
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -31,145 +29,248 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { background-color: #0d1117; }
 
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: #0d1117; }
-    ::-webkit-scrollbar-thumb { background: #30363d; }
-    ::-webkit-scrollbar-thumb:hover { background: #39d353; }
-
-    .hero-dots {
-      background-image: radial-gradient(circle, #30363d 1px, transparent 1px);
-      background-size: 28px 28px;
+    /* Paper / parchment background with SVG noise grain */
+    body {
+      background-color: #f0ece4;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
     }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #f0ece4; }
+    ::-webkit-scrollbar-thumb { background: #2c2825; }
+
+    /* ── Hover inversions: instantaneous, no easing ───────────────── */
+    .btn {
+      display: inline-block;
+      border: 1px solid #2c2825;
+      color: #2c2825;
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 0.625rem; /* 10px */
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.25rem;
+      transition: none;
+    }
+    .btn:hover { background-color: #2c2825; color: #f0ece4; }
+
+    .btn-lg {
+      font-size: 0.75rem;
+      padding: 0.75rem 2rem;
+    }
+
+    .nav-link {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 0.625rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #7a736b;
+      transition: none;
+    }
+    .nav-link:hover { color: #2c2825; }
+
+    input, textarea {
+      border-radius: 0 !important;
+      transition: none !important;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      background-color: #2c2825;
+      color: #f0ece4;
+    }
+    input::placeholder, textarea::placeholder { color: rgba(44,40,37,0.3); }
+    input:focus::placeholder, textarea:focus::placeholder { color: rgba(240,236,228,0.35); }
+
+    .card:hover { background-color: #e6e0d4; }
   </style>
 </head>
-<body class="font-sans bg-bg-primary text-text-primary antialiased">
+<body class="font-sans text-charcoal antialiased">
 
   <!-- ═══════════════════════════════════════════════
        NAVIGATION
   ═══════════════════════════════════════════════ -->
-  <nav class="fixed top-0 inset-x-0 z-50 bg-bg-primary/90 backdrop-blur-sm border-b border-border-subtle">
-    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
-      <!-- Logo -->
-      <a href="#" class="font-mono font-semibold text-sm tracking-wider select-none">
-        <span class="text-accent">BOOLEAN</span><span class="text-text-primary">BROS</span>
-      </a>
-      <!-- Links -->
-      <div class="flex items-center gap-8">
-        <a href="#apps"    class="font-mono text-xs text-text-secondary hover:text-accent transition-colors duration-75 tracking-widest uppercase">Apps</a>
-        <a href="#about"   class="font-mono text-xs text-text-secondary hover:text-accent transition-colors duration-75 tracking-widest uppercase">About</a>
-        <a href="#contact" class="font-mono text-xs text-text-secondary hover:text-accent transition-colors duration-75 tracking-widest uppercase">Contact</a>
+  <nav class="fixed top-0 inset-x-0 z-50 border-b border-charcoal" style="background-color: rgba(240,236,228,0.96); backdrop-filter: blur(4px);">
+    <div class="max-w-6xl mx-auto px-6 h-11 flex items-center justify-between">
+      <a href="#" class="font-mono text-[10px] font-semibold tracking-widest uppercase text-charcoal select-none">Boolean Bros LLC</a>
+      <div class="hidden sm:flex items-center gap-7">
+        <a href="#games"   class="nav-link">[GAMES]</a>
+        <a href="#apps"    class="nav-link">[APPS]</a>
+        <a href="#about"   class="nav-link">[ABOUT]</a>
+        <a href="#contact" class="nav-link">[CONTACT]</a>
+      </div>
+      <!-- Mobile: abbreviated links -->
+      <div class="flex sm:hidden items-center gap-4">
+        <a href="#games"   class="nav-link">[G]</a>
+        <a href="#apps"    class="nav-link">[A]</a>
+        <a href="#about"   class="nav-link">[?]</a>
+        <a href="#contact" class="nav-link">[✉]</a>
       </div>
     </div>
   </nav>
 
   <!-- ═══════════════════════════════════════════════
-       HERO
+       HERO — Diamond logo + branding
   ═══════════════════════════════════════════════ -->
-  <section class="relative min-h-screen flex items-center border-b border-border-subtle pt-14 hero-dots">
-    <!-- Subtle vignette over dot grid -->
-    <div class="absolute inset-0 bg-gradient-to-r from-bg-primary via-bg-primary/80 to-transparent pointer-events-none"></div>
+  <section class="min-h-screen flex flex-col items-center justify-center border-b border-charcoal pt-11">
+    <div class="flex flex-col items-center text-center px-6 py-20">
 
-    <div class="relative max-w-6xl mx-auto px-6 py-28 w-full">
-      <div class="max-w-3xl">
-        <div class="font-mono text-accent text-xs tracking-widest uppercase mb-6 flex items-center gap-3">
-          <span class="inline-block w-8 h-px bg-accent"></span>
-          Boolean Bros LLC
-        </div>
+      <!-- Geometric diamond SVG (faithful wireframe of brand logo) -->
+      <svg class="w-44 h-44 md:w-60 md:h-60 mb-8" viewBox="0 0 200 200" fill="none"
+           xmlns="http://www.w3.org/2000/svg" stroke="#2c2825"
+           stroke-linejoin="round" stroke-linecap="round">
+        <!-- Outer diamond shape: table top → right crown → apex → left crown -->
+        <polygon points="68,17 132,17 185,88 100,185 15,88" stroke-width="2.6" fill="none"/>
+        <!-- Girdle (horizontal mid-line) -->
+        <line x1="15" y1="88" x2="185" y2="88" stroke-width="2"/>
+        <!-- Crown internal facet lines -->
+        <line x1="100" y1="17" x2="100"  y2="88"  stroke-width="1.4"/>
+        <line x1="68"  y1="17" x2="100"  y2="88"  stroke-width="1.4"/>
+        <line x1="132" y1="17" x2="100"  y2="88"  stroke-width="1.4"/>
+        <line x1="15"  y1="88" x2="100"  y2="17"  stroke-width="1.4"/>
+        <line x1="185" y1="88" x2="100"  y2="17"  stroke-width="1.4"/>
+        <line x1="68"  y1="17" x2="185"  y2="88"  stroke-width="1.4"/>
+        <line x1="132" y1="17" x2="15"   y2="88"  stroke-width="1.4"/>
+        <!-- Pavilion internal facet lines -->
+        <line x1="100" y1="88" x2="100"  y2="185" stroke-width="1.4"/>
+        <line x1="56"  y1="88" x2="100"  y2="185" stroke-width="1.4"/>
+        <line x1="144" y1="88" x2="100"  y2="185" stroke-width="1.4"/>
+      </svg>
 
-        <h1 class="text-5xl md:text-7xl font-extrabold leading-none tracking-tight text-text-primary mb-6">
-          Crafting focused<br>mobile experiences.
-        </h1>
+      <!-- Primary brand lockup -->
+      <h1 class="font-sans uppercase leading-none tracking-tight text-charcoal mb-3">
+        <span class="block text-4xl sm:text-5xl md:text-6xl font-black">BOOLEAN BROS
+          <span class="font-light">LLC</span>
+        </span>
+      </h1>
+      <p class="font-sans text-xs sm:text-sm tracking-[0.35em] text-charcoal-dim uppercase">
+        INDIE GAMES&nbsp;•&nbsp;MOBILE APPS
+      </p>
 
-        <p class="text-text-secondary text-lg md:text-xl leading-relaxed mb-10 max-w-xl">
-          Engineering-first indie studio building precision apps and games for iOS and Android.
-          Clean mechanics. Clean code. Zero bloat.
-        </p>
-
-        <div class="flex flex-wrap gap-4">
-          <a href="#apps"
-             class="font-mono text-sm bg-accent text-bg-primary px-6 py-3 font-semibold tracking-wider hover:bg-opacity-80 transition-colors duration-75 uppercase">
-            Explore Our Apps
-          </a>
-          <a href="#about"
-             class="font-mono text-sm border border-text-secondary text-text-primary px-6 py-3 font-semibold tracking-wider hover:border-accent hover:text-accent transition-colors duration-75 uppercase">
-            Learn More
-          </a>
-        </div>
+      <!-- Scroll cue -->
+      <div class="mt-16 flex flex-col items-center gap-2">
+        <span class="font-mono text-[9px] tracking-widest text-charcoal-dim uppercase">Scroll</span>
+        <div class="w-px h-10 bg-charcoal-dim"></div>
       </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════
-       APPS GRID
+       FEATURED CREATIONS — GAMES
   ═══════════════════════════════════════════════ -->
-  <section id="apps" class="border-b border-border-subtle">
-    <div class="max-w-6xl mx-auto px-6 py-24">
-      <!-- Section header -->
-      <div class="mb-12">
-        <div class="font-mono text-accent text-xs tracking-widest uppercase mb-3 flex items-center gap-3">
-          <span class="inline-block w-8 h-px bg-accent"></span>
-          Portfolio
-        </div>
-        <h2 class="text-3xl md:text-4xl font-bold text-text-primary">Our Apps &amp; Games</h2>
+  <section id="games" class="border-b border-charcoal">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+
+      <div class="mb-10">
+        <span class="font-mono text-[9px] tracking-widest uppercase text-charcoal-dim">[SECTION 01]</span>
+        <h2 class="text-2xl md:text-3xl font-bold text-charcoal mt-1">Featured Creations</h2>
+        <p class="font-mono text-[10px] tracking-widest text-charcoal-dim mt-1 uppercase">— Games</p>
       </div>
 
-      <!-- Grid — outer border-l + border-t; each card supplies border-r + border-b -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-l border-t border-border-subtle">
+      <!-- 3-wide bordered grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-l border-t border-charcoal">
 
-        <!-- Card: Cognitive Challenge -->
-        <div class="border-r border-b border-border-subtle p-6 hover:bg-bg-secondary transition-colors duration-75 flex flex-col">
-          <!-- Mockup placeholder -->
-          <div class="w-20 aspect-[9/16] bg-bg-tertiary border border-border-subtle mb-5 flex items-center justify-center flex-shrink-0">
-            <span class="font-mono text-text-secondary text-[10px]">[IMG]</span>
+        <!-- Game card 1 -->
+        <div class="card border-r border-b border-charcoal p-6 flex flex-col">
+          <div class="w-full aspect-video border border-charcoal mb-5 flex items-center justify-center bg-paper-shade flex-shrink-0">
+            <span class="font-mono text-[9px] text-charcoal-dim tracking-widest">[SCREENSHOT]</span>
           </div>
-          <!-- Category badge -->
-          <span class="font-mono text-[10px] tracking-widest uppercase border border-accent text-accent px-2 py-0.5 inline-block self-start mb-3">[PUZZLE]</span>
-          <h3 class="text-base font-bold text-text-primary mb-2">Cognitive Challenge</h3>
-          <p class="text-text-secondary text-sm leading-relaxed mb-5 flex-1">
+          <span class="btn self-start mb-3 cursor-default" style="padding:0.2rem 0.5rem;font-size:0.6rem;">[PUZZLE]</span>
+          <h3 class="text-sm font-bold text-charcoal mb-2 uppercase tracking-wide">Cognitive Challenge</h3>
+          <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed mb-5 flex-1">
             A precision brain-training puzzle game designed to sharpen focus and pattern recognition.
           </p>
-          <div class="flex gap-3 flex-wrap">
-            <a href="#" class="font-mono text-[10px] border border-border-subtle text-text-secondary px-3 py-1.5 hover:border-accent hover:text-accent transition-colors duration-75 tracking-wider uppercase">App Store</a>
-            <a href="#" class="font-mono text-[10px] border border-border-subtle text-text-secondary px-3 py-1.5 hover:border-accent hover:text-accent transition-colors duration-75 tracking-wider uppercase">Google Play</a>
-          </div>
+          <a href="#" class="btn self-start">Learn More</a>
         </div>
 
-        <!-- Card: Signal Jammer -->
-        <div class="border-r border-b border-border-subtle p-6 hover:bg-bg-secondary transition-colors duration-75 flex flex-col">
-          <div class="w-20 aspect-[9/16] bg-bg-tertiary border border-border-subtle mb-5 flex items-center justify-center flex-shrink-0">
-            <span class="font-mono text-text-secondary text-[10px]">[IMG]</span>
+        <!-- Game card 2 -->
+        <div class="card border-r border-b border-charcoal p-6 flex flex-col">
+          <div class="w-full aspect-video border border-charcoal mb-5 flex items-center justify-center bg-paper-shade flex-shrink-0">
+            <span class="font-mono text-[9px] text-charcoal-dim tracking-widest">[SCREENSHOT]</span>
           </div>
-          <span class="font-mono text-[10px] tracking-widest uppercase border border-accent text-accent px-2 py-0.5 inline-block self-start mb-3">[UTILITY]</span>
-          <h3 class="text-base font-bold text-text-primary mb-2">Signal Jammer</h3>
-          <p class="text-text-secondary text-sm leading-relaxed mb-5 flex-1">
+          <span class="btn self-start mb-3 cursor-default" style="padding:0.2rem 0.5rem;font-size:0.6rem;">[STRATEGY]</span>
+          <h3 class="text-sm font-bold text-charcoal mb-2 uppercase tracking-wide">Logic Grid</h3>
+          <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed mb-5 flex-1">
+            A strategic grid-based game demanding calculated moves and deep systems thinking.
+          </p>
+          <a href="#" class="btn self-start">Learn More</a>
+        </div>
+
+        <!-- Game card 3 — coming soon -->
+        <div class="border-r border-b border-charcoal p-6 flex flex-col opacity-40">
+          <div class="w-full aspect-video border border-dashed border-charcoal mb-5 flex items-center justify-center flex-shrink-0">
+            <span class="font-mono text-[9px] text-charcoal-dim tracking-widest">[TBA]</span>
+          </div>
+          <span class="font-mono text-[9px] tracking-widest uppercase border border-dashed border-charcoal text-charcoal px-2 py-0.5 self-start mb-3">[COMING SOON]</span>
+          <h3 class="text-sm font-bold text-charcoal mb-2 uppercase tracking-wide">Next Release</h3>
+          <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed mb-5 flex-1">
+            Something new is in development. Stay tuned.
+          </p>
+          <span class="font-mono text-[9px] tracking-widest uppercase border border-charcoal text-charcoal px-3 py-1.5 self-start select-none">TBA</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       FEATURED CREATIONS — APPS
+  ═══════════════════════════════════════════════ -->
+  <section id="apps" class="border-b border-charcoal">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+
+      <div class="mb-10">
+        <span class="font-mono text-[9px] tracking-widest uppercase text-charcoal-dim">[SECTION 02]</span>
+        <h2 class="text-2xl md:text-3xl font-bold text-charcoal mt-1">Featured Creations</h2>
+        <p class="font-mono text-[10px] tracking-widest text-charcoal-dim mt-1 uppercase">— Mobile Apps</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-l border-t border-charcoal">
+
+        <!-- App card 1 -->
+        <div class="card border-r border-b border-charcoal p-6 flex flex-col">
+          <div class="w-20 aspect-[9/16] border border-charcoal mb-5 flex items-center justify-center bg-paper-shade flex-shrink-0">
+            <span class="font-mono text-[9px] text-charcoal-dim">[IMG]</span>
+          </div>
+          <span class="btn self-start mb-3 cursor-default" style="padding:0.2rem 0.5rem;font-size:0.6rem;">[UTILITY]</span>
+          <h3 class="text-sm font-bold text-charcoal mb-2 uppercase tracking-wide">Signal Jammer</h3>
+          <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed mb-5 flex-1">
             A focused utility app built for distraction-free productivity. Block the noise, ship the work.
           </p>
-          <div class="flex gap-3 flex-wrap">
-            <a href="#" class="font-mono text-[10px] border border-border-subtle text-text-secondary px-3 py-1.5 hover:border-accent hover:text-accent transition-colors duration-75 tracking-wider uppercase">App Store</a>
-            <a href="#" class="font-mono text-[10px] border border-border-subtle text-text-secondary px-3 py-1.5 hover:border-accent hover:text-accent transition-colors duration-75 tracking-wider uppercase">Google Play</a>
+          <div class="flex gap-2 flex-wrap">
+            <a href="#" class="btn">App Store</a>
+            <a href="#" class="btn">Google Play</a>
           </div>
         </div>
 
-        <!-- Card: Coming Soon -->
-        <div class="border-r border-b border-border-subtle p-6 hover:bg-bg-secondary transition-colors duration-75 flex flex-col">
-          <div class="w-20 aspect-[9/16] bg-bg-tertiary border border-dashed border-border-subtle mb-5 flex items-center justify-center flex-shrink-0 opacity-40">
-            <span class="font-mono text-text-secondary text-[10px]">[?]</span>
+        <!-- App card 2 — in dev -->
+        <div class="border-r border-b border-charcoal p-6 flex flex-col opacity-45">
+          <div class="w-20 aspect-[9/16] border border-dashed border-charcoal mb-5 flex items-center justify-center flex-shrink-0">
+            <span class="font-mono text-[9px] text-charcoal-dim">[?]</span>
           </div>
-          <span class="font-mono text-[10px] tracking-widest uppercase border border-dashed border-text-secondary text-text-secondary px-2 py-0.5 inline-block self-start mb-3 opacity-50">[COMING SOON]</span>
-          <h3 class="text-base font-bold text-text-primary mb-2 opacity-50">Next Release</h3>
-          <p class="text-text-secondary text-sm leading-relaxed mb-5 flex-1 opacity-50">
-            Something new is in development. Stay tuned for the next drop.
+          <span class="font-mono text-[9px] tracking-widest uppercase border border-dashed border-charcoal text-charcoal px-2 py-0.5 self-start mb-3">[IN DEV]</span>
+          <h3 class="text-sm font-bold text-charcoal mb-2 uppercase tracking-wide">Project X</h3>
+          <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed mb-5 flex-1">
+            A new mobile tool is in active development. Announcement coming soon.
           </p>
-          <div class="flex gap-3">
-            <span class="font-mono text-[10px] border border-border-subtle text-text-secondary/40 px-3 py-1.5 tracking-wider uppercase select-none">TBA</span>
+          <span class="font-mono text-[9px] tracking-widest uppercase border border-charcoal text-charcoal px-3 py-1.5 self-start select-none">TBA</span>
+        </div>
+
+        <!-- App card 3 — queued -->
+        <div class="border-r border-b border-charcoal p-6 flex flex-col opacity-25">
+          <div class="w-20 aspect-[9/16] border border-dashed border-charcoal mb-5 flex items-center justify-center flex-shrink-0">
+            <span class="font-mono text-[9px] text-charcoal-dim">[?]</span>
           </div>
+          <span class="font-mono text-[9px] tracking-widest uppercase border border-dashed border-charcoal text-charcoal px-2 py-0.5 self-start mb-3">[QUEUED]</span>
+          <h3 class="text-sm font-bold text-charcoal mb-2 uppercase tracking-wide">Project Y</h3>
+          <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed mb-5 flex-1">
+            On the roadmap. Details to be announced.
+          </p>
+          <span class="font-mono text-[9px] tracking-widest uppercase border border-charcoal text-charcoal px-3 py-1.5 self-start select-none">TBA</span>
         </div>
 
       </div>
@@ -177,55 +278,51 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════
-       ABOUT / PHILOSOPHY
+       ABOUT THE BROS
   ═══════════════════════════════════════════════ -->
-  <section id="about" class="border-b border-border-subtle">
-    <div class="max-w-6xl mx-auto px-6 py-24">
+  <section id="about" class="border-b border-charcoal">
+    <div class="max-w-6xl mx-auto px-6 py-20">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
 
-        <!-- Left: copy -->
+        <!-- Left: editorial copy -->
         <div>
-          <div class="font-mono text-accent text-xs tracking-widest uppercase mb-3 flex items-center gap-3">
-            <span class="inline-block w-8 h-px bg-accent"></span>
-            About
-          </div>
-          <h2 class="text-3xl md:text-4xl font-bold text-text-primary mb-6 leading-tight">
-            Built different.<br>By design.
+          <span class="font-mono text-[9px] tracking-widest uppercase text-charcoal-dim">[SECTION 03]</span>
+          <h2 class="text-2xl md:text-3xl font-bold text-charcoal mt-1 mb-6 leading-snug">
+            About the Bros.
           </h2>
-          <p class="text-text-secondary leading-relaxed mb-4">
+          <p class="text-charcoal-mid text-sm leading-relaxed mb-4">
             Boolean Bros LLC is an independent mobile studio run by developers who think in systems.
-            We build focused, polished apps and games — no feature bloat, no dark patterns, no compromises on performance.
+            We build focused, polished apps and games — no feature bloat, no dark patterns, no
+            compromises on performance.
           </p>
-          <p class="text-text-secondary leading-relaxed">
-            Every release ships with clean architecture, precise mechanics, and a UI that respects the user's
-            time and attention. If it doesn't add value, it doesn't ship.
+          <p class="text-charcoal-mid text-sm leading-relaxed">
+            Every release ships with clean architecture, precise mechanics, and a UI that respects
+            the user's time and attention. If it doesn't add value, it doesn't ship.
           </p>
         </div>
 
-        <!-- Right: philosophy card -->
-        <div class="border border-border-subtle">
-          <div class="border-b border-border-subtle px-5 py-4">
-            <span class="font-mono text-xs text-text-secondary tracking-widest uppercase">Studio Philosophy</span>
+        <!-- Right: philosophy panel -->
+        <div class="border border-charcoal">
+          <div class="border-b border-charcoal px-5 py-3">
+            <span class="font-mono text-[9px] tracking-widest uppercase text-charcoal-dim">Studio Philosophy</span>
           </div>
-          <div>
-            <div class="px-5 py-5 border-b border-border-subtle">
-              <div class="font-mono text-xs text-accent mb-2 tracking-wider">01 — PRECISION</div>
-              <p class="text-text-secondary text-sm leading-relaxed">
-                Every mechanic and interaction is deliberate. We engineer for feel, not just function.
-              </p>
-            </div>
-            <div class="px-5 py-5 border-b border-border-subtle">
-              <div class="font-mono text-xs text-accent mb-2 tracking-wider">02 — PERFORMANCE</div>
-              <p class="text-text-secondary text-sm leading-relaxed">
-                Optimized for every device. No unnecessary dependencies, no lazy rendering shortcuts.
-              </p>
-            </div>
-            <div class="px-5 py-5">
-              <div class="font-mono text-xs text-accent mb-2 tracking-wider">03 — POLISH</div>
-              <p class="text-text-secondary text-sm leading-relaxed">
-                The details matter. From frame timing to micro-interactions, every pixel is intentional.
-              </p>
-            </div>
+          <div class="px-5 py-4 border-b border-charcoal">
+            <div class="font-mono text-[10px] font-semibold text-charcoal tracking-widest mb-2">01 — PRECISION</div>
+            <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed">
+              Every mechanic and interaction is deliberate. We engineer for feel, not just function.
+            </p>
+          </div>
+          <div class="px-5 py-4 border-b border-charcoal">
+            <div class="font-mono text-[10px] font-semibold text-charcoal tracking-widest mb-2">02 — PERFORMANCE</div>
+            <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed">
+              Optimized for every device. No unnecessary dependencies, no lazy rendering shortcuts.
+            </p>
+          </div>
+          <div class="px-5 py-4">
+            <div class="font-mono text-[10px] font-semibold text-charcoal tracking-widest mb-2">03 — POLISH</div>
+            <p class="font-mono text-[11px] text-charcoal-dim leading-relaxed">
+              The details matter. From frame timing to micro-interactions, every pixel is intentional.
+            </p>
           </div>
         </div>
 
@@ -234,24 +331,60 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════
-       CONTACT
+       CONNECT
   ═══════════════════════════════════════════════ -->
-  <section id="contact" class="border-b border-border-subtle">
-    <div class="max-w-6xl mx-auto px-6 py-24">
+  <section id="contact" class="border-b border-charcoal">
+    <div class="max-w-6xl mx-auto px-6 py-20">
       <div class="max-w-xl">
-        <div class="font-mono text-accent text-xs tracking-widest uppercase mb-3 flex items-center gap-3">
-          <span class="inline-block w-8 h-px bg-accent"></span>
-          Contact
-        </div>
-        <h2 class="text-3xl md:text-4xl font-bold text-text-primary mb-4">Get in touch.</h2>
-        <p class="text-text-secondary leading-relaxed mb-8">
+        <span class="font-mono text-[9px] tracking-widest uppercase text-charcoal-dim">[SECTION 04]</span>
+        <h2 class="text-2xl md:text-3xl font-bold text-charcoal mt-1 mb-4">Connect.</h2>
+        <p class="text-charcoal-mid text-sm leading-relaxed mb-8">
           Press inquiries, partnership proposals, or just want to talk mobile engineering —
           we read every message.
         </p>
-        <a href="mailto:nweber.software@gmail.com"
-           class="font-mono text-sm border border-accent text-accent px-6 py-3 inline-block tracking-wider uppercase hover:bg-accent hover:text-bg-primary transition-colors duration-75">
-          nweber.software@gmail.com
-        </a>
+
+        <form id="contact-form" class="flex flex-col gap-4" onsubmit="submitContactForm(event);">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="font-mono text-[9px] tracking-widest uppercase text-charcoal-dim block mb-1">Name</label>
+              <input id="contact-name" type="text" placeholder="Your name"
+                class="w-full border border-charcoal bg-transparent px-4 py-3 font-mono text-xs text-charcoal">
+            </div>
+            <div>
+              <label class="font-mono text-[9px] tracking-widest uppercase text-charcoal-dim block mb-1">Email</label>
+              <input id="contact-email" type="email" placeholder="you@example.com"
+                class="w-full border border-charcoal bg-transparent px-4 py-3 font-mono text-xs text-charcoal">
+            </div>
+          </div>
+          <div>
+            <label class="font-mono text-[9px] tracking-widest uppercase text-charcoal-dim block mb-1">Message</label>
+            <textarea id="contact-msg" rows="5" placeholder="Your message..."
+              class="w-full border border-charcoal bg-transparent px-4 py-3 font-mono text-xs text-charcoal resize-none"></textarea>
+          </div>
+          <div class="flex flex-wrap items-center gap-5 pt-1">
+            <button type="submit" class="btn btn-lg">Send Message</button>
+            <a href="mailto:nweber.software@gmail.com"
+               class="font-mono text-[10px] tracking-widest text-charcoal-dim hover:text-charcoal uppercase"
+               style="transition:none;">
+              or email directly ↗
+            </a>
+          </div>
+        </form>
+        <script>
+          function submitContactForm(e) {
+            e.preventDefault();
+            var name  = document.getElementById('contact-name').value;
+            var email = document.getElementById('contact-email').value;
+            var msg   = document.getElementById('contact-msg').value;
+            var subject = encodeURIComponent('Message from ' + (name || 'your site'));
+            var body    = encodeURIComponent(
+              (name  ? 'Name: '  + name  + '\n' : '') +
+              (email ? 'Email: ' + email + '\n' : '') +
+              (msg   ? '\n'      + msg          : '')
+            );
+            window.open('mailto:nweber.software@gmail.com?subject=' + subject + '&body=' + body);
+          }
+        </script>
       </div>
     </div>
   </section>
@@ -259,12 +392,14 @@
   <!-- ═══════════════════════════════════════════════
        FOOTER
   ═══════════════════════════════════════════════ -->
-  <footer class="bg-bg-secondary">
-    <div class="max-w-6xl mx-auto px-6 py-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <span class="font-mono text-text-secondary text-xs">&copy; 2025 Boolean Bros LLC. All rights reserved.</span>
-      <nav class="flex flex-wrap gap-6">
-        <a href="/privacy_policy/" class="font-mono text-xs text-text-secondary hover:text-accent transition-colors duration-75 tracking-wider uppercase">Privacy Policy</a>
-        <a href="/app-ads.txt"     class="font-mono text-xs text-text-secondary hover:text-accent transition-colors duration-75 tracking-wider uppercase">App-Ads.txt</a>
+  <footer>
+    <div class="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <span class="font-mono text-[9px] text-charcoal-dim tracking-widest uppercase">
+        &copy; 2025 Boolean Bros LLC. All rights reserved.
+      </span>
+      <nav class="flex gap-6">
+        <a href="/privacy_policy/" class="font-mono text-[9px] text-charcoal-dim hover:text-charcoal tracking-widest uppercase" style="transition:none;">Privacy Policy</a>
+        <a href="/app-ads.txt"     class="font-mono text-[9px] text-charcoal-dim hover:text-charcoal tracking-widest uppercase" style="transition:none;">App-Ads.txt</a>
       </nav>
     </div>
   </footer>
