@@ -7,7 +7,7 @@
    ═══════════════════════════════════════════════════════════════ */
 
 
-/* ── Self-hosted fonts (latin subset, variable) ─────────────────
+/* ── Self-hosted fonts (latin subset, variable) ───────────────────
    Served from our own domain: no third-party request, no extra DNS/TLS
    handshake before text can paint. */
 @font-face {
@@ -27,6 +27,12 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+
+/* Keep the footer at the bottom on short pages (app detail pages are shorter
+   than the viewport on large screens). */
+body { min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1 0 auto; }
+footer { flex-shrink: 0; }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -96,3 +102,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   letter-spacing: 0.14em; text-transform: uppercase;
 }
 .skip-link:focus { left: 1rem; top: 0.6rem; }
+
+/* ── Sticky footer ──────────────────────────────────────────────
+   App detail pages are shorter than a tall viewport; without this the
+   footer floats mid-screen and the page looks unfinished. */
+body { min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1 0 auto; }
+footer { flex-shrink: 0; }
