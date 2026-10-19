@@ -21,7 +21,7 @@
   "@graph": [
     {
       "@type": "WebApplication",
-      "name": "Image Shrinker — 20 KB preset",
+      "name": "Compress Image to 20 KB Online",
       "url": "https://booleanbros.com/shrink/20kb/",
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
@@ -263,7 +263,7 @@ footer a:hover{color:var(--charcoal);}
         <strong>Drop photos here — or click to choose</strong>
         <span class="hint">JPEG · PNG · WebP &nbsp;/&nbsp; stays on your device</span>
       </div>
-      <input id="fileInput" type="file" accept="image/*" multiple>
+      <input id="fileInput" type="file" accept="image/*,.heic,.heif" multiple>
 
       <div class="list" id="list" aria-live="polite"></div>
 
@@ -279,6 +279,13 @@ footer a:hover{color:var(--charcoal);}
       <a href="/shrink/50kb/">50 KB</a>
       <a href="/shrink/">100 KB</a>
       <a href="/shrink/200kb/">200 KB</a>
+    </div>
+
+    <div class="sizes" id="useNav">
+      <span class="mono">Use cases</span>
+      <a href="/shrink/whatsapp/">WhatsApp</a>
+      <a href="/shrink/email/">Email</a>
+      <a href="/shrink/heic/">HEIC → JPG</a>
     </div>
 
     <div class="cta">
@@ -501,7 +508,11 @@ footer a:hover{color:var(--charcoal);}
   });
 
   $('clearBtn').addEventListener('click', function () {
-    queue.forEach(function (i) { if (i.outUrl) URL.revokeObjectURL(i.outUrl); URL.revokeObjectURL(i.url); });
+    queue.forEach(function (i) {
+      if (i.outUrl) URL.revokeObjectURL(i.outUrl);
+      if (i.thumbUrl) URL.revokeObjectURL(i.thumbUrl);
+      URL.revokeObjectURL(i.url);
+    });
     queue = []; list.innerHTML = ''; updateFoot();
   });
 
@@ -596,6 +607,24 @@ footer a:hover{color:var(--charcoal);}
     return type === 'image/png' ? 'png' : type === 'image/webp' ? 'webp' : 'jpg';
   }
 
+  // ── HEIC / HEIF ────────────────────────────────────────────
+  // Browsers other than Safari can't decode HEIC. The decoder (libheif compiled to
+  // WebAssembly via heic-to, LGPL-3.0) is vendored locally and loaded on demand only.
+  function isHeic(file) {
+    return /\.hei[cf]$/i.test(file.name) || /hei[cf]/i.test(file.type || '');
+  }
+
+  function ensureHeicLib() {
+    if (window.HeicTo) return Promise.resolve(window.HeicTo);
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = '/shrink/vendor/heic-to.js?v=1.6.6';
+      s.onload = function () { window.HeicTo ? resolve(window.HeicTo) : reject(new Error('heic-lib')); };
+      s.onerror = function () { reject(new Error('heic-lib')); };
+      document.head.appendChild(s);
+    });
+  }
+
   function outName(name, type) {
     var base = name.replace(/\.[^.]+$/, '');
     return base + '-shrunk.' + extFor(type);
@@ -614,13 +643,33 @@ footer a:hover{color:var(--charcoal);}
     meta.innerHTML = 'processing…';
     bar.style.width = '25%';
 
+    var srcFile = item.source || item.file;
+
+    if (!item.source && isHeic(item.file)) {
+      meta.innerHTML = 'decoding HEIC…';
+      try {
+        var HeicTo = await ensureHeicLib();
+        var converted = await HeicTo({ blob: item.file, type: 'image/jpeg', quality: 0.92 });
+        item.source = new File([converted], item.file.name.replace(/\.hei[cf]$/i, '.jpg'), { type: 'image/jpeg' });
+        if (item.thumbUrl) URL.revokeObjectURL(item.thumbUrl);
+        item.thumbUrl = URL.createObjectURL(item.source);
+        row.querySelector('img').src = item.thumbUrl;
+        srcFile = item.source;
+      } catch (err) {
+        meta.innerHTML = '<span class="warn">could not decode this HEIC file</span>';
+        bar.style.width = '0';
+        return;
+      }
+      if (mine !== item.token) return;
+    }
+
     var bitmap;
     try {
-      bitmap = await createImageBitmap(item.file, { imageOrientation: 'from-image' });
+      bitmap = await createImageBitmap(srcFile, { imageOrientation: 'from-image' });
     } catch (e1) {
-      try { bitmap = await createImageBitmap(item.file); }
+      try { bitmap = await createImageBitmap(srcFile); }
       catch (e2) {
-        meta.innerHTML = '<span class="warn">HEIC or unsupported format — export as JPEG, or use the app</span>';
+        meta.innerHTML = '<span class="warn">unsupported format — try JPEG, PNG or WebP</span>';
         bar.style.width = '0';
         return;
       }
@@ -635,31 +684,38 @@ footer a:hover{color:var(--charcoal);}
       var out = res.blob;
       item.outUrl = URL.createObjectURL(out);
       btn.href = item.outUrl;
-      btn.download = outName(item.file.name, state.format);
+      btn.download = outName(srcFile.name, state.format);
       btn.removeAttribute('disabled');
       bar.style.width = '100%';
 
-      var grew = out.size >= item.file.size;
+      var isConvert = !!item.source;              // HEIC → JPEG path
+      var base = srcFile.size;                    // compare against what we decoded
+      var before = item.file.size;                // what the user actually handed us
 
-      if (grew) {
-        // Never hand back a bigger file than the user gave us.
+      if (out.size >= base && !isConvert) {
+        // Never hand back a bigger file than the user gave us (non-HEIC only).
         btn.href = item.url;
-        btn.download = item.file.name;
+        btn.download = srcFile.name;
         meta.innerHTML =
-          '<span class="ok">' + fmtBytes(item.file.size) + '</span>' +
+          '<span class="ok">' + fmtBytes(before) + '</span>' +
           ' · <span class="warn">original is already smaller — keep it</span>';
         $('statusLine').textContent = 'ready';
         return;
       }
 
-      var saved = Math.round((1 - out.size / item.file.size) * 100);
+      var pct = Math.round((1 - out.size / before) * 100);
+      var delta = pct > 0 ? pct + '% smaller' : (pct === 0 ? 'same size' : Math.abs(pct) + '% larger');
       var note = res.missed
         ? '<span class="warn">could not reach ' + state.targetKB + ' KB at this size</span>'
         : '';
+      if (isConvert && out.size > before) {
+        note = '<span class="warn">HEIC is more efficient than JPEG — the .jpg is bigger, but it opens everywhere</span>';
+      }
 
       meta.innerHTML =
-        '<span class="ok">' + fmtBytes(item.file.size) + ' → ' + fmtBytes(out.size) + '</span>' +
-        ' · ' + saved + '% smaller' +
+        '<span class="ok">' + fmtBytes(before) + (isConvert ? ' HEIC' : '') + ' → ' +
+        fmtBytes(out.size) + ' ' + extFor(state.format).toUpperCase() + '</span>' +
+        ' · ' + delta +
         (note ? ' · ' + note : '');
       $('statusLine').textContent = 'done';
       setTimeout(function () { if ($('statusLine').textContent === 'done') $('statusLine').textContent = 'ready'; }, 1200);

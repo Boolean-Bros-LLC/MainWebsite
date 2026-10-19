@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compress Photos for WhatsApp — Free, On-Device, No Upload</title>
+<meta name="description" content="Make photos small enough to send on WhatsApp without handing over a 6 MB original. Free in-browser compressor — pick a size, convert, send. Nothing uploaded.">
+<link rel="canonical" href="https://booleanbros.com/shrink/whatsapp/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://booleanbros.com/shrink/whatsapp/">
+<meta property="og:title" content="Compress Photos for WhatsApp">
+<meta property="og:description" content="Make photos small enough to send on WhatsApp without handing over a 6 MB original. Free in-browser compressor — pick a size, convert, send. Nothing uploaded.">
+<meta property="og:site_name" content="Boolean Bros LLC">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232c2825'/%3E%3Cpath d='M8 22 L16 8 L24 22 Z' fill='%23f0ece4'/%3E%3C/svg%3E">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Compress Photos for WhatsApp",
+      "url": "https://booleanbros.com/shrink/whatsapp/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "description": "Compress and resize photos to an exact target file size entirely in the browser. No upload, no account.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Compress to an exact target size in KB",
+        "Batch processing",
+        "On-device — nothing uploaded",
+        "Strips EXIF metadata including GPS"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are my photos uploaded to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Every photo is decoded, resized and re-encoded by your own browser. Nothing is sent anywhere. You can confirm it by disconnecting from the internet after the page loads — the tool still works."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I compress an image to exactly 100 KB?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Choose the 100 KB preset, drop your image in, and the tool searches for the highest JPEG quality that fits under 100 KB. If no quality setting fits, it reduces the pixel dimensions and tries again until it lands under the target."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does compressing remove EXIF and GPS data?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Re-encoding through a canvas writes a fresh file with no EXIF block, so capture date, camera model and GPS coordinates are dropped. Your photo's orientation is applied to the pixels first, so it still looks upright."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What file types are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "JPEG, PNG and WebP. HEIC files from iPhones are not decodable in most browsers — export them as JPEG first, or use the Image Shrinker app, which handles them on-device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a file size or daily limit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No limit on this page. It is free and unlimited because there is no server to pay for. The mobile app has a free daily batch limit and an optional one-time Pro upgrade."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+:root{
+  --paper:#f0ece4; --paper-shade:#e6e0d4; --charcoal:#2c2825;
+  --charcoal-mid:#4a4540; --charcoal-dim:#7a736b;
+  --mono:ui-monospace,SFMono-Regular,"JetBrains Mono",Consolas,monospace;
+  --sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; font-family:var(--sans); color:var(--charcoal); background-color:var(--paper);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px;}
+.mono{font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;font-size:10px;color:var(--charcoal-dim);}
+a{color:inherit;}
+nav{border-bottom:1px solid var(--charcoal);background:rgba(240,236,228,.96);backdrop-filter:blur(4px);position:sticky;top:0;z-index:50;}
+nav .inner{max-width:860px;margin:0 auto;padding:0 24px;height:44px;display:flex;align-items:center;justify-content:space-between;}
+nav .brand{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;}
+nav a.link{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--charcoal-dim);text-decoration:none;}
+nav a.link:hover{color:var(--charcoal);}
+
+header.hero{padding:52px 0 34px;border-bottom:1px solid var(--charcoal);}
+h1{font-size:clamp(30px,5.2vw,46px);line-height:1.04;letter-spacing:-.02em;margin:10px 0 14px;text-transform:uppercase;font-weight:800;}
+.lede{font-size:16px;line-height:1.6;color:var(--charcoal-mid);max-width:56ch;margin:0 0 18px;}
+.badges{display:flex;gap:8px;flex-wrap:wrap;}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--charcoal);padding:5px 9px;}
+
+main{padding:34px 0 0;}
+.tool{border:1px solid var(--charcoal);background:var(--paper);}
+.tool-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--charcoal);padding:10px 14px;}
+.dot{display:inline-block;width:7px;height:7px;background:var(--charcoal);margin-right:6px;vertical-align:middle;}
+
+.controls{display:grid;grid-template-columns:1fr;border-bottom:1px solid var(--charcoal);}
+@media(min-width:720px){.controls{grid-template-columns:1.45fr 1fr .85fr;}}
+.control{display:flex;flex-direction:column;padding:14px;border-bottom:1px solid var(--charcoal);}
+.control .chips{margin-top:auto;}
+@media(min-width:720px){.control{border-bottom:none;border-right:1px solid var(--charcoal);}
+.control:last-child{border-right:none;}}
+.control:last-child{border-bottom:none;}
+.control .mono{display:block;margin-bottom:9px;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--charcoal-dim);background:transparent;color:var(--charcoal);padding:6px 9px;cursor:pointer;transition:none;border-radius:0;appearance:none;}
+.chip:hover{background:var(--paper-shade);}
+.chip[aria-pressed="true"]{background:var(--charcoal);color:var(--paper);border-color:var(--charcoal);}
+.chip:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--charcoal);outline-offset:2px;}
+#customKB{width:72px;font-family:var(--mono);font-size:11px;border:1px solid var(--charcoal-dim);background:transparent;padding:6px 7px;color:var(--charcoal);border-radius:0;}
+#customKB::placeholder{color:rgba(44,40,37,.42);text-transform:none;letter-spacing:.04em;}
+#customKB:focus{outline:none;background:var(--charcoal);color:var(--paper);}
+
+#drop{border:1px dashed var(--charcoal-dim);margin:14px;padding:38px 20px;text-align:center;cursor:pointer;}
+#drop:hover,#drop.over{background:var(--paper-shade);border-color:var(--charcoal);}
+#drop strong{display:block;font-size:15px;margin-bottom:6px;}
+#drop span.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--charcoal-dim);}
+#fileInput{display:none;}
+
+.list{border-top:1px solid var(--charcoal);}
+.row{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;padding:13px 14px;border-bottom:1px solid rgba(44,40,37,.25);}
+.row:last-child{border-bottom:none;}
+.row img{width:44px;height:44px;object-fit:cover;border:1px solid var(--charcoal);background:var(--paper-shade);}
+.name{font-size:13px;font-weight:600;margin:0 0 3px;word-break:break-all;}
+.meta{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--charcoal-dim);line-height:1.5;}
+.meta .ok{color:var(--charcoal);font-weight:600;}
+.meta .warn{color:#8a2b16;}
+.dl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--charcoal);padding:7px 11px;text-decoration:none;white-space:nowrap;cursor:pointer;background:transparent;color:var(--charcoal);border-radius:0;appearance:none;}
+.dl:hover{background:var(--charcoal);color:var(--paper);}
+.dl[disabled]{opacity:.4;cursor:default;}
+.dl[disabled]:hover{background:transparent;color:var(--charcoal);}
+.bar{height:2px;background:rgba(44,40,37,.18);margin-top:6px;overflow:hidden;}
+.bar i{display:block;height:100%;background:var(--charcoal);width:0;}
+
+.tool-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 14px;border-top:1px solid var(--charcoal);flex-wrap:wrap;}
+.tool-foot .mono{color:var(--charcoal-dim);}
+.clear{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:none;border:none;color:var(--charcoal-dim);cursor:pointer;padding:0;text-decoration:underline;}
+.clear:hover{color:var(--charcoal);}
+
+.sizes{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:22px 0 0;}
+.sizes .mono{margin-right:2px;}
+.sizes a{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--charcoal-dim);padding:6px 10px;text-decoration:none;color:var(--charcoal);}
+.sizes a:hover{background:var(--paper-shade);}
+.sizes a[aria-current]{background:var(--charcoal);color:var(--paper);border-color:var(--charcoal);}
+
+.cta{margin:28px 0 0;border:1px solid var(--charcoal);padding:22px;display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+.cta p{margin:6px 0 0;font-size:13px;color:var(--charcoal-mid);max-width:44ch;line-height:1.55;}
+.btn{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--charcoal);color:var(--charcoal);padding:10px 18px;text-decoration:none;transition:none;border-radius:0;}
+.btn:hover{background:var(--charcoal);color:var(--paper);}
+
+section.copy{padding:44px 0 0;}
+section.copy h2{font-size:20px;text-transform:uppercase;letter-spacing:.01em;margin:0 0 12px;}
+section.copy p{font-size:14px;line-height:1.7;color:var(--charcoal-mid);margin:0 0 12px;}
+section.copy ul{font-size:14px;line-height:1.7;color:var(--charcoal-mid);padding-left:18px;margin:0 0 12px;}
+section.copy li{margin-bottom:6px;}
+details{border-top:1px solid rgba(44,40,37,.3);padding:14px 0;}
+details:last-of-type{border-bottom:1px solid rgba(44,40,37,.3);}
+summary{font-size:14px;font-weight:600;cursor:pointer;list-style:none;}
+summary::-webkit-details-marker{display:none;}
+summary::before{content:"+ ";font-family:var(--mono);}
+details[open] summary::before{content:"− ";}
+details p{margin:10px 0 0;font-size:13.5px;line-height:1.65;color:var(--charcoal-mid);}
+
+footer{margin-top:52px;border-top:1px solid var(--charcoal);}
+footer .inner{max-width:860px;margin:0 auto;padding:20px 24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+footer a{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--charcoal-dim);text-decoration:none;}
+footer a:hover{color:var(--charcoal);}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a class="brand" href="/">Boolean Bros LLC</a>
+    <div style="display:flex;gap:18px;">
+      <a class="link" href="/">← Studio</a>
+      <a class="link" href="#faq">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="mono">[Tool 01] Free · No account</span>
+    <h1>Compress a photo<br>for WhatsApp</h1>
+    <p class="lede">WhatsApp re-encodes every photo you send, so the file that arrives is already smaller and softer than the one you started with. Shrink it yourself first and you decide what it looks like.</p>
+    <div class="badges">
+      <span class="badge">100% on-device</span>
+      <span class="badge">Batch</span>
+      <span class="badge">EXIF &amp; GPS stripped</span>
+      <span class="badge">Unlimited</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="tool">
+      <div class="tool-head">
+        <span class="mono"><span class="dot"></span> compressor</span>
+        <span class="mono" id="statusLine" role="status" aria-live="polite">ready</span>
+      </div>
+
+      <div class="controls">
+        <div class="control">
+          <span class="mono">Target size</span>
+          <div class="chips" id="sizeChips">
+            <button class="chip" data-kb="20">20 KB</button>
+            <button class="chip" data-kb="50">50 KB</button>
+            <button class="chip" data-kb="100">100 KB</button>
+            <button class="chip" data-kb="200">200 KB</button>
+            <button class="chip" data-kb="500" aria-pressed="true">500 KB</button>
+            <button class="chip" data-kb="1024">1 MB</button>
+            <button class="chip" data-kb="2048">2 MB</button>
+            <input id="customKB" type="number" min="10" step="10" placeholder="custom" aria-label="Custom target size in kilobytes">
+          </div>
+        </div>
+        <div class="control">
+          <span class="mono">Max dimension</span>
+          <div class="chips" id="dimChips">
+            <button class="chip" data-dim="0" aria-pressed="true">Original</button>
+            <button class="chip" data-dim="2048">2048 px</button>
+            <button class="chip" data-dim="1280">1280 px</button>
+            <button class="chip" data-dim="800">800 px</button>
+          </div>
+        </div>
+        <div class="control">
+          <span class="mono">Output</span>
+          <div class="chips" id="fmtChips">
+            <button class="chip" data-fmt="image/jpeg" aria-pressed="true">JPEG</button>
+            <button class="chip" data-fmt="image/webp">WebP</button>
+            <button class="chip" data-fmt="image/png">PNG</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="drop" role="button" tabindex="0" aria-label="Choose images to compress">
+        <strong>Drop photos here — or click to choose</strong>
+        <span class="hint">JPEG · PNG · WebP &nbsp;/&nbsp; stays on your device</span>
+      </div>
+      <input id="fileInput" type="file" accept="image/*,.heic,.heif" multiple>
+
+      <div class="list" id="list" aria-live="polite"></div>
+
+      <div class="tool-foot">
+        <span class="mono" id="footNote">No files processed yet</span>
+        <button class="clear" id="clearBtn" type="button">Clear all</button>
+      </div>
+    </div>
+
+    <div class="sizes" id="sizeNav">
+      <span class="mono">Other targets</span>
+      <a href="/shrink/20kb/">20 KB</a>
+      <a href="/shrink/50kb/">50 KB</a>
+      <a href="/shrink/">100 KB</a>
+      <a href="/shrink/200kb/">200 KB</a>
+    </div>
+
+    <div class="sizes" id="useNav">
+      <span class="mono">Use cases</span>
+      <a href="/shrink/whatsapp/" aria-current="page">WhatsApp</a>
+      <a href="/shrink/email/">Email</a>
+      <a href="/shrink/heic/">HEIC → JPG</a>
+    </div>
+
+    <div class="cta">
+      <div>
+        <span class="mono">[Also an app]</span>
+        <p>Need to shrink HEIC photos, batch hundreds at once, or work offline on your phone?
+           Image Shrinker does the same job natively — and never uploads anything either.</p>
+      </div>
+      <a class="btn" href="https://play.google.com/store/apps/details?id=com.booleanbros.imageshrinker&amp;referrer=utm_source%3Dshrink_web%26utm_medium%3Dweb_tool">Google Play ↗</a>
+    </div>
+
+    <section class="copy">
+      <h2>What WhatsApp does to your photos</h2>
+      <p>When you send a photo as a photo, WhatsApp re-encodes it and sends that copy — the original
+        never leaves your phone in its original form. What arrives is smaller, softer, and out of your
+        control. Sending the same file as a <strong>document</strong> keeps the original bytes intact,
+        but then you are transferring however many megabytes the camera produced.</p>
+      <p>Compressing first is the middle path: you pick the size, so the photo reaches the other end
+        looking the way you intended, and it goes out fast even on a weak connection.</p>
+
+      <h2>Which size to pick</h2>
+      <ul>
+        <li><strong>200 KB</strong> — chat, memes, quick shares. Fine on a phone screen.</li>
+        <li><strong>500 KB</strong> — the default here. Sharp on any phone, still small enough to send
+          instantly over mobile data.</li>
+        <li><strong>1 MB</strong> — photos that will be forwarded, printed, or looked at on a laptop.</li>
+        <li><strong>Group chats</strong> — go smaller. One large photo lands on everyone's phone and
+          their data plan.</li>
+      </ul>
+
+      <h2>Before you hit send</h2>
+      <p>Re-encoding strips EXIF, which means GPS coordinates, capture time and camera details are not
+        in the file you forward. Worth knowing when a photo is going to a group rather than one person.</p>
+      <p>If you need the original resolution preserved, send as a document — but compress it to your
+        target size first, and the download still stays quick.</p>
+    </section>
+
+    <section class="copy" id="faq">
+      <h2>Questions</h2>
+
+      <details open>
+        <summary>Are my photos uploaded anywhere?</summary>
+        <p>No. There is no backend. The page contains all the code it needs, and your browser does the
+          decoding and encoding locally. Disconnect from the internet after the page loads and it keeps
+          working — that is the easiest way to verify it.</p>
+      </details>
+
+      <details>
+        <summary>How do I get a photo under 100 KB for a form upload?</summary>
+        <p>Select the 100 KB preset, drop the file in, and download the result. Most government, visa and
+          job-portal forms accept a JPEG under 100 KB — if the form also caps dimensions, set max dimension
+          to 800 px or 1280 px as well.</p>
+      </details>
+
+      <details>
+        <summary>Why is the output JPEG when I uploaded a PNG?</summary>
+        <p>PNG is lossless, so a photograph stays enormous unless you crop it. Choosing JPEG or WebP lets
+          the tool actually hit your target size. Switch the output to PNG if you need lossless output and
+          transparency — the tool will then reduce dimensions instead of quality, and may report that the
+          target cannot be reached.</p>
+      </details>
+
+      <details>
+        <summary>Does it work with HEIC photos from an iPhone?</summary>
+        <p>Usually no — most browsers cannot decode HEIC. Export to JPEG first (iOS: Share → Save to Files →
+          keep as JPEG, or change Camera → Formats → Most Compatible), or use the Image Shrinker app, which
+          handles HEIC directly on-device.</p>
+      </details>
+
+      <details>
+        <summary>Is there a limit on how many images I can compress?</summary>
+        <p>No limit, and no daily cap. There is no server doing the work, so there is nothing to meter.
+          The mobile app has a free daily batch limit plus a one-time Pro upgrade that removes ads.</p>
+      </details>
+
+      <details>
+        <summary>What about really large images?</summary>
+        <p>Images are capped at 4096 px on the long edge before processing so a 50-megapixel file does not
+          exhaust browser memory. For a target size like 100 KB that ceiling makes no practical difference.</p>
+      </details>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="inner">
+    <a href="/">© Boolean Bros LLC</a>
+    <div style="display:flex;gap:18px;">
+      <a href="/privacy_policy/">Privacy</a>
+      <a href="/app-ads.txt">App-Ads.txt</a>
+      <a href="mailto:nweber.software@gmail.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var MAX_EDGE = 4096;          // hard ceiling to protect browser memory
+  var MIN_EDGE = 120;           // stop shrinking below this
+  var state = { targetKB: 500, maxDim: 0, format: 'image/jpeg' };
+  var queue = [];
+  var seq = 0;
+
+  // Deep links: /shrink/?kb=200&w=1280&fmt=webp
+  (function applyParams() {
+    var p = new URLSearchParams(location.search);
+    var kb = parseInt(p.get('kb'), 10);
+    if (kb >= 10 && kb <= 20480) state.targetKB = kb;
+    var w = parseInt(p.get('w'), 10);
+    if (w >= 0) state.maxDim = w;
+    var f = p.get('fmt');
+    if (f === 'jpeg' || f === 'jpg') state.format = 'image/jpeg';
+    else if (f === 'webp') state.format = 'image/webp';
+    else if (f === 'png') state.format = 'image/png';
+  })();
+
+  var $ = function (id) { return document.getElementById(id); };
+  var list = $('list'), drop = $('drop'), input = $('fileInput');
+  var sizeChips = $('sizeChips'), dimChips = $('dimChips'), fmtChips = $('fmtChips');
+
+  function fmtBytes(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1024 * 1024) return (b / 1024).toFixed(b < 10240 ? 1 : 0) + ' KB';
+    return (b / 1048576).toFixed(2) + ' MB';
+  }
+
+  function setPressed(group, btn) {
+    Array.prototype.forEach.call(group.querySelectorAll('.chip'), function (c) {
+      c.setAttribute('aria-pressed', String(c === btn));
+    });
+  }
+
+  sizeChips.addEventListener('click', function (e) {
+    var b = e.target.closest('.chip'); if (!b) return;
+    setPressed(sizeChips, b);
+    state.targetKB = Number(b.dataset.kb);
+    $('customKB').value = '';
+    updateFoot();
+    reprocess();
+  });
+
+  $('customKB').addEventListener('input', function () {
+    var v = Math.max(10, Math.min(20480, Number(this.value) || 0));
+    if (!this.value) return;
+    Array.prototype.forEach.call(sizeChips.querySelectorAll('.chip'), function (c) {
+      c.setAttribute('aria-pressed', 'false');
+    });
+    state.targetKB = v;
+    updateFoot();
+    debounceReprocess();
+  });
+
+  dimChips.addEventListener('click', function (e) {
+    var b = e.target.closest('.chip'); if (!b) return;
+    setPressed(dimChips, b);
+    state.maxDim = Number(b.dataset.dim);
+    reprocess();
+  });
+
+  fmtChips.addEventListener('click', function (e) {
+    var b = e.target.closest('.chip'); if (!b) return;
+    setPressed(fmtChips, b);
+    state.format = b.dataset.fmt;
+    reprocess();
+  });
+
+  // Reflect URL params (or defaults) in the controls before the first file lands.
+  (function syncUI() {
+    var k = sizeChips.querySelector('.chip[data-kb="' + state.targetKB + '"]');
+    if (k) { setPressed(sizeChips, k); $('customKB').value = ''; }
+    else {
+      Array.prototype.forEach.call(sizeChips.querySelectorAll('.chip'), function (c) {
+        c.setAttribute('aria-pressed', 'false');
+      });
+      $('customKB').value = state.targetKB;
+    }
+    var d = dimChips.querySelector('.chip[data-dim="' + state.maxDim + '"]');
+    if (d) setPressed(dimChips, d);
+    var f = fmtChips.querySelector('.chip[data-fmt="' + state.format + '"]');
+    if (f) setPressed(fmtChips, f);
+    updateFoot();
+  })();
+
+  var reprocessTimer = null;
+  function debounceReprocess() {
+    clearTimeout(reprocessTimer);
+    reprocessTimer = setTimeout(reprocess, 400);
+  }
+  function reprocess() {
+    queue.forEach(function (item) { if (item.file) run(item); });
+  }
+
+  // ── file intake ──────────────────────────────────────────────
+  function addFiles(files) {
+    Array.prototype.forEach.call(files, function (file) {
+      if (!/^image\//.test(file.type) && !/\.(jpe?g|png|webp|heic|heif)$/i.test(file.name)) return;
+      var item = { id: 'f' + (seq++), file: file, url: URL.createObjectURL(file) };
+      queue.push(item);
+      renderRow(item);
+      run(item);
+    });
+    updateFoot();
+  }
+
+  drop.addEventListener('click', function () { input.click(); });
+  drop.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); }
+  });
+  input.addEventListener('change', function () { addFiles(this.files); this.value = ''; });
+
+  ['dragenter', 'dragover'].forEach(function (t) {
+    drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.add('over'); });
+  });
+  ['dragleave', 'drop'].forEach(function (t) {
+    drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.remove('over'); });
+  });
+  drop.addEventListener('drop', function (e) {
+    if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
+  });
+
+  $('clearBtn').addEventListener('click', function () {
+    queue.forEach(function (i) {
+      if (i.outUrl) URL.revokeObjectURL(i.outUrl);
+      if (i.thumbUrl) URL.revokeObjectURL(i.thumbUrl);
+      URL.revokeObjectURL(i.url);
+    });
+    queue = []; list.innerHTML = ''; updateFoot();
+  });
+
+  function updateFoot() {
+    var n = queue.length;
+    $('footNote').textContent = n === 0
+      ? 'No files processed yet'
+      : n + (n === 1 ? ' file' : ' files') + ' · target ' + state.targetKB + ' KB';
+  }
+
+  // ── row UI ───────────────────────────────────────────────────
+  function renderRow(item) {
+    var row = document.createElement('div');
+    row.className = 'row';
+    row.id = 'row-' + item.id;
+    row.innerHTML =
+      '<img alt="" src="' + item.url + '">' +
+      '<div>' +
+        '<p class="name"></p>' +
+        '<div class="meta"><span class="sizes">reading…</span></div>' +
+        '<div class="bar"><i></i></div>' +
+      '</div>' +
+      '<a class="dl" href="#" download disabled>Download</a>';
+    row.querySelector('.name').textContent = item.file.name;
+    list.appendChild(row);
+    item.row = row;
+  }
+
+  // ── encoding core ────────────────────────────────────────────
+  function draw(bitmap, scale) {
+    var w = Math.max(1, Math.round(bitmap.width * scale));
+    var h = Math.max(1, Math.round(bitmap.height * scale));
+    var c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    var ctx = c.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    if (state.format === 'image/jpeg') { ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h); }
+    ctx.drawImage(bitmap, 0, 0, w, h);
+    return c;
+  }
+
+  function toBlob(canvas, type, quality) {
+    return new Promise(function (resolve, reject) {
+      canvas.toBlob(function (b) {
+        if (b) resolve(b); else reject(new Error('encode-failed'));
+      }, type, quality);
+    });
+  }
+
+  function baseScale(bitmap) {
+    var edge = Math.max(bitmap.width, bitmap.height);
+    var cap = MAX_EDGE;
+    if (state.maxDim) cap = Math.min(cap, state.maxDim);
+    return edge > cap ? cap / edge : 1;
+  }
+
+  async function compress(bitmap, targetBytes) {
+    var scale = baseScale(bitmap);
+    var type = state.format;
+    var last = null;
+
+    for (var attempt = 0; attempt < 9; attempt++) {
+      var canvas = draw(bitmap, scale);
+
+      if (type === 'image/png') {
+        last = await toBlob(canvas, type, undefined);
+        if (last.size <= targetBytes) return { blob: last, scale: scale, q: 1 };
+      } else {
+        // If the full-quality encode already fits, take it — don't leave budget unused.
+        var full = await toBlob(canvas, type, 1);
+        last = full;
+        if (full.size <= targetBytes) return { blob: full, scale: scale, q: 1 };
+
+        var lo = 0.30, hi = 0.99, best = null;
+        for (var i = 0; i < 7; i++) {
+          var q = (lo + hi) / 2;
+          var blob = await toBlob(canvas, type, q);
+          if (blob.size <= targetBytes) { best = { blob: blob, q: q }; lo = q; last = blob; }
+          else { hi = q; last = blob; }
+        }
+        if (best) return { blob: best.blob, scale: scale, q: best.q };
+      }
+
+      if (Math.min(bitmap.width, bitmap.height) * scale <= MIN_EDGE) break;
+      scale *= 0.82;
+    }
+    return { blob: last, scale: scale, q: 0.30, missed: true };
+  }
+
+  function extFor(type) {
+    return type === 'image/png' ? 'png' : type === 'image/webp' ? 'webp' : 'jpg';
+  }
+
+  // ── HEIC / HEIF ────────────────────────────────────────────
+  // Browsers other than Safari can't decode HEIC. The decoder (libheif compiled to
+  // WebAssembly via heic-to, LGPL-3.0) is vendored locally and loaded on demand only.
+  function isHeic(file) {
+    return /\.hei[cf]$/i.test(file.name) || /hei[cf]/i.test(file.type || '');
+  }
+
+  function ensureHeicLib() {
+    if (window.HeicTo) return Promise.resolve(window.HeicTo);
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = '/shrink/vendor/heic-to.js?v=1.6.6';
+      s.onload = function () { window.HeicTo ? resolve(window.HeicTo) : reject(new Error('heic-lib')); };
+      s.onerror = function () { reject(new Error('heic-lib')); };
+      document.head.appendChild(s);
+    });
+  }
+
+  function outName(name, type) {
+    var base = name.replace(/\.[^.]+$/, '');
+    return base + '-shrunk.' + extFor(type);
+  }
+
+  async function run(item) {
+    var row = item.row;
+    var meta = row.querySelector('.meta');
+    var bar = row.querySelector('.bar i');
+    var btn = row.querySelector('.dl');
+    var token = (item.token = (item.token || 0) + 1);
+    var mine = token;
+
+    if (item.outUrl) { URL.revokeObjectURL(item.outUrl); item.outUrl = null; }
+    btn.setAttribute('disabled', '');
+    meta.innerHTML = 'processing…';
+    bar.style.width = '25%';
+
+    var srcFile = item.source || item.file;
+
+    if (!item.source && isHeic(item.file)) {
+      meta.innerHTML = 'decoding HEIC…';
+      try {
+        var HeicTo = await ensureHeicLib();
+        var converted = await HeicTo({ blob: item.file, type: 'image/jpeg', quality: 0.92 });
+        item.source = new File([converted], item.file.name.replace(/\.hei[cf]$/i, '.jpg'), { type: 'image/jpeg' });
+        if (item.thumbUrl) URL.revokeObjectURL(item.thumbUrl);
+        item.thumbUrl = URL.createObjectURL(item.source);
+        row.querySelector('img').src = item.thumbUrl;
+        srcFile = item.source;
+      } catch (err) {
+        meta.innerHTML = '<span class="warn">could not decode this HEIC file</span>';
+        bar.style.width = '0';
+        return;
+      }
+      if (mine !== item.token) return;
+    }
+
+    var bitmap;
+    try {
+      bitmap = await createImageBitmap(srcFile, { imageOrientation: 'from-image' });
+    } catch (e1) {
+      try { bitmap = await createImageBitmap(srcFile); }
+      catch (e2) {
+        meta.innerHTML = '<span class="warn">unsupported format — try JPEG, PNG or WebP</span>';
+        bar.style.width = '0';
+        return;
+      }
+    }
+
+    try {
+      var target = state.targetKB * 1024;
+      var res = await compress(bitmap, target);
+      if (mine !== item.token) { if (bitmap.close) bitmap.close(); return; }
+
+      if (bitmap.close) bitmap.close();
+      var out = res.blob;
+      item.outUrl = URL.createObjectURL(out);
+      btn.href = item.outUrl;
+      btn.download = outName(srcFile.name, state.format);
+      btn.removeAttribute('disabled');
+      bar.style.width = '100%';
+
+      var isConvert = !!item.source;              // HEIC → JPEG path
+      var base = srcFile.size;                    // compare against what we decoded
+      var before = item.file.size;                // what the user actually handed us
+
+      if (out.size >= base && !isConvert) {
+        // Never hand back a bigger file than the user gave us (non-HEIC only).
+        btn.href = item.url;
+        btn.download = srcFile.name;
+        meta.innerHTML =
+          '<span class="ok">' + fmtBytes(before) + '</span>' +
+          ' · <span class="warn">original is already smaller — keep it</span>';
+        $('statusLine').textContent = 'ready';
+        return;
+      }
+
+      var pct = Math.round((1 - out.size / before) * 100);
+      var delta = pct > 0 ? pct + '% smaller' : (pct === 0 ? 'same size' : Math.abs(pct) + '% larger');
+      var note = res.missed
+        ? '<span class="warn">could not reach ' + state.targetKB + ' KB at this size</span>'
+        : '';
+      if (isConvert && out.size > before) {
+        note = '<span class="warn">HEIC is more efficient than JPEG — the .jpg is bigger, but it opens everywhere</span>';
+      }
+
+      meta.innerHTML =
+        '<span class="ok">' + fmtBytes(before) + (isConvert ? ' HEIC' : '') + ' → ' +
+        fmtBytes(out.size) + ' ' + extFor(state.format).toUpperCase() + '</span>' +
+        ' · ' + delta +
+        (note ? ' · ' + note : '');
+      $('statusLine').textContent = 'done';
+      setTimeout(function () { if ($('statusLine').textContent === 'done') $('statusLine').textContent = 'ready'; }, 1200);
+    } catch (err) {
+      meta.innerHTML = '<span class="warn">could not process this file</span>';
+      bar.style.width = '0';
+    }
+  }
+})();
+</script>
+</body>
+</html>

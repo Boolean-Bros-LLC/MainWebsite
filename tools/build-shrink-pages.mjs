@@ -121,6 +121,117 @@ const PAGES = [
     </section>
 `,
   },
+  {
+    slug: 'whatsapp',
+    kb: 500,
+    label: 'WhatsApp',
+    title: 'Compress Photos for WhatsApp — Free, On-Device, No Upload',
+    description:
+      'Make photos small enough to send on WhatsApp without handing over a 6 MB original. Free in-browser compressor — pick a size, convert, send. Nothing uploaded.',
+    h1: 'Compress a photo<br>for WhatsApp',
+    lede: 'WhatsApp re-encodes every photo you send, so the file that arrives is already smaller and softer than the one you started with. Shrink it yourself first and you decide what it looks like.',
+    content: `    <section class="copy">
+      <h2>What WhatsApp does to your photos</h2>
+      <p>When you send a photo as a photo, WhatsApp re-encodes it and sends that copy — the original
+        never leaves your phone in its original form. What arrives is smaller, softer, and out of your
+        control. Sending the same file as a <strong>document</strong> keeps the original bytes intact,
+        but then you are transferring however many megabytes the camera produced.</p>
+      <p>Compressing first is the middle path: you pick the size, so the photo reaches the other end
+        looking the way you intended, and it goes out fast even on a weak connection.</p>
+
+      <h2>Which size to pick</h2>
+      <ul>
+        <li><strong>200 KB</strong> — chat, memes, quick shares. Fine on a phone screen.</li>
+        <li><strong>500 KB</strong> — the default here. Sharp on any phone, still small enough to send
+          instantly over mobile data.</li>
+        <li><strong>1 MB</strong> — photos that will be forwarded, printed, or looked at on a laptop.</li>
+        <li><strong>Group chats</strong> — go smaller. One large photo lands on everyone's phone and
+          their data plan.</li>
+      </ul>
+
+      <h2>Before you hit send</h2>
+      <p>Re-encoding strips EXIF, which means GPS coordinates, capture time and camera details are not
+        in the file you forward. Worth knowing when a photo is going to a group rather than one person.</p>
+      <p>If you need the original resolution preserved, send as a document — but compress it to your
+        target size first, and the download still stays quick.</p>
+    </section>
+`,
+  },
+  {
+    slug: 'email',
+    kb: 200,
+    label: 'Email',
+    title: 'Compress Photos for Email — Free, In Your Browser',
+    description:
+      'Shrink photos before you attach them. Gmail caps messages at 25 MB and Outlook at 20 MB — get a phone photo down to 200 KB in seconds, entirely on your device.',
+    h1: 'Compress photos<br>for email',
+    lede: 'Photos straight off a phone are 3–6 MB each. Four of them can blow past an attachment limit. Compress once and send twenty.',
+    content: `    <section class="copy">
+      <h2>The limits you are actually up against</h2>
+      <ul>
+        <li><strong>Gmail</strong> — 25 MB per message. That counts the encoded message, so attachments
+          should stay well under it; roughly 20 MB is the practical ceiling.</li>
+        <li><strong>Outlook / Microsoft 365</strong> — 20 MB by default, and administrators can lower it.</li>
+        <li><strong>Corporate and university mail</strong> — frequently 10 MB, sometimes 5 MB.</li>
+        <li><strong>One modern phone photo</strong> — 3–6 MB at 12 megapixels.</li>
+      </ul>
+      <p>So a reply-all with four holiday photos is already over the line at most companies, and the
+        bounce message arrives after you have stopped paying attention.</p>
+
+      <h2>What 200 KB looks like</h2>
+      <p>On a laptop or phone screen, a 200 KB photo is indistinguishable from the 5 MB original for
+        almost any subject. It is not a print file — if someone is going to print it at A4, send 1 MB
+        instead. For "here are the photos from Saturday", 200 KB is more than enough.</p>
+
+      <h2>Two things worth doing</h2>
+      <p>First, batch it: drop the whole set in and the tool processes them one after another, so you
+        only pay attention once. Second, notice that re-encoding removes EXIF — recipients get the
+        picture without your GPS coordinates, capture time and camera serial number attached.</p>
+      <p>For sets that are genuinely large, no amount of compression beats a shared folder link.
+        Compression is for the attachments you actually need to attach.</p>
+    </section>
+`,
+  },
+  {
+    slug: 'heic',
+    kb: 1024,
+    label: 'HEIC → JPG',
+    toolLabel: 'heic → jpg converter',
+    title: 'HEIC to JPG Converter — Free, Private, In Your Browser',
+    description:
+      'Convert iPhone HEIC photos to JPG in your browser. No upload, no account, no watermark. The decoder runs locally, so your photos never leave your device.',
+    h1: 'Convert HEIC<br>to JPG',
+    lede: 'iPhones save photos as HEIC and most browsers cannot open them. This page decodes them on your device and hands back a normal JPG — nothing uploaded, nothing stored.',
+    content: `    <section class="copy">
+      <h2>Why HEIC files will not open</h2>
+      <p>HEIC is a container for HEVC-compressed images — the same codec family as H.265 video. It
+        stores the same picture in roughly half the bytes of JPEG, which is why Apple adopted it. The
+        catch is licensing and support: Safari on Apple platforms can decode it, Chrome and Firefox
+        generally cannot, and Windows needs an extension purchased from the Store.</p>
+      <p>So the file is fine. The browser just has no codec for it.</p>
+
+      <h2>How the conversion works here</h2>
+      <p>This page downloads a HEIC decoder — the libheif library compiled to WebAssembly, about three
+        megabytes — the first time you actually give it a HEIC file. It runs inside your browser, on
+        your machine. Your photo is decoded locally, re-encoded as JPEG, and then compressed to your
+        target size if it is over.</p>
+      <p>The download happens once and is cached; on every later visit, conversion is instant. If you
+        never touch a HEIC file, you never download the decoder.</p>
+
+      <h2>What you get</h2>
+      <ul>
+        <li>A standard <strong>.jpg</strong> that opens anywhere — no watermark, no account, no queue.</li>
+        <li>Metadata gone: re-encoding drops EXIF, so GPS location and camera details are not carried
+          over.</li>
+        <li>Batch friendly: drop a folder's worth of HEIC files and convert them in one pass.</li>
+        <li>Default target is 1 MB, which keeps a 12-megapixel photo at full resolution in almost
+          every case. Lower it if you need a smaller file.</li>
+      </ul>
+      <p>If a file fails to decode, it is either corrupt or uses a profile the decoder does not know.
+        Re-exporting it on the phone usually fixes it.</p>
+    </section>
+`,
+  },
 ];
 
 const master = readFileSync(MASTER, 'utf8');
@@ -159,11 +270,18 @@ function build(page) {
 
   // JSON-LD: point the WebApplication node at this page.
   html = html.replace('"url": "https://booleanbros.com/shrink/"', `"url": "${url}"`);
-  html = html.replace('"name": "Image Shrinker — Web"', `"name": "Image Shrinker — ${page.label} preset"`);
+  html = html.replace('"name": "Image Shrinker — Web"', `"name": ${JSON.stringify(page.title.split(' — ')[0])}`);
 
   // Visible copy.
   html = replaceOnce(html, /<h1>Compress an image<br>to 100 KB<\/h1>/, `<h1>${page.h1}</h1>`, 'h1');
-  html = replaceOnce(
+  if (page.toolLabel) {
+    html = replaceOnce(
+      html,
+      '<span class="dot"></span> compressor',
+      `<span class="dot"></span> ${page.toolLabel}`,
+      'tool label'
+    );
+  }  html = replaceOnce(
     html,
     /<p class="lede">[\s\S]*?<\/p>/,
     `<p class="lede">${page.lede}</p>`,
@@ -186,16 +304,15 @@ function build(page) {
   );
   html = replaceOnce(
     html,
-    `<button class="chip" data-kb="${page.kb}">${page.label}</button>`,
-    `<button class="chip" data-kb="${page.kb}" aria-pressed="true">${page.label}</button>`,
+    new RegExp(`<button class="chip" data-kb="${page.kb}">([^<]*)</button>`),
+    `<button class="chip" data-kb="${page.kb}" aria-pressed="true">$1</button>`,
     'chip pressed target'
   );
 
-  // Mark the current page in the size nav (strip the master's marker first).
+  // Mark the current page in whichever nav it belongs to (strip the master's marker first).
   html = html.split(' aria-current="page"').join('');
-  const navTarget =
-    page.slug === '20kb' ? '/shrink/20kb/' : page.slug === '50kb' ? '/shrink/50kb/' : '/shrink/200kb/';
-  html = replaceOnce(html, `<a href="${navTarget}">${page.label}</a>`, `<a href="${navTarget}" aria-current="page">${page.label}</a>`, 'size nav');
+  const selfPath = `/shrink/${page.slug}/`;
+  html = replaceOnce(html, `<a href="${selfPath}">`, `<a href="${selfPath}" aria-current="page">`, 'nav current');
 
   return html;
 }
