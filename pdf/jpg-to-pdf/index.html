@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JPG to PDF — Combine Photos into One PDF, In Your Browser</title>
+<meta name="description" content="Turn photos into a single PDF, in your browser. Reorder pages, pick A4 or Letter, and nothing is uploaded — the file is built on your device.">
+<link rel="canonical" href="https://booleanbros.com/pdf/jpg-to-pdf/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://booleanbros.com/pdf/jpg-to-pdf/">
+<meta property="og:title" content="JPG to PDF — in your browser, no upload">
+<meta property="og:description" content="Combine photos into one PDF. Reorder, choose A4 or Letter, download. Nothing leaves your device.">
+<meta property="og:site_name" content="Boolean Bros LLC">
+<meta property="og:image" content="https://booleanbros.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f0ece4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232c2825'/%3E%3Cpath d='M8 22 L16 8 L24 22 Z' fill='%23f0ece4'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "JPG to PDF — Web",
+      "url": "https://booleanbros.com/pdf/jpg-to-pdf/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "description": "Combine photos into a single PDF entirely in the browser. No upload, no account.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are my images uploaded?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The PDF is assembled in your browser from the image bytes you select. There is no server involved, so nothing can be uploaded." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the image quality reduced?",
+          "acceptedAnswer": { "@type": "Answer", "text": "If you add a JPEG, its original compressed bytes are embedded in the PDF without re-encoding. PNG and HEIC files are converted to JPEG once at high quality." }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is my PDF larger than the photos?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The PDF stores the images as they are, plus a small amount of structure. It does not re-compress them, which is why the output is close to the sum of the inputs rather than smaller." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I change the page order?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the up and down arrows on each row before you convert; the PDF uses the order shown in the list." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+:root{--paper:#f0ece4;--paper-shade:#e6e0d4;--charcoal:#2c2825;--charcoal-mid:#4a4540;--charcoal-dim:#655e56;
+  --mono:ui-monospace,SFMono-Regular,"JetBrains Mono",Consolas,monospace;
+  --sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;font-family:var(--sans);color:var(--charcoal);background-color:var(--paper);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  -webkit-font-smoothing:antialiased;}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px;}
+.mono{font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;font-size:10px;color:var(--charcoal-dim);}
+a{color:inherit;}
+nav{border-bottom:1px solid var(--charcoal);background:rgba(240,236,228,.96);backdrop-filter:blur(4px);position:sticky;top:0;z-index:50;}
+nav .inner{max-width:880px;margin:0 auto;padding:0 24px;height:44px;display:flex;align-items:center;justify-content:space-between;}
+nav .brand{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;}
+nav a.link{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--charcoal-dim);text-decoration:none;}
+nav a.link:hover{color:var(--charcoal);text-decoration:underline;text-underline-offset:3px;}
+header.hero{padding:52px 0 32px;border-bottom:1px solid var(--charcoal);}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.04;letter-spacing:-.02em;margin:10px 0 14px;text-transform:uppercase;font-weight:800;}
+.lede{font-size:16px;line-height:1.6;color:var(--charcoal-mid);max-width:58ch;margin:0 0 18px;}
+.badges{display:flex;gap:8px;flex-wrap:wrap;}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--charcoal);padding:5px 9px;}
+main{padding:32px 0 0;}
+.tool{border:1px solid var(--charcoal);background:var(--paper);}
+.tool-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--charcoal);padding:10px 14px;}
+.dot{display:inline-block;width:7px;height:7px;background:var(--charcoal);margin-right:6px;vertical-align:middle;}
+.controls{display:grid;grid-template-columns:1fr;border-bottom:1px solid var(--charcoal);}
+@media(min-width:760px){.controls{grid-template-columns:1.3fr 1fr 1fr;}}
+.control{padding:14px;border-bottom:1px solid var(--charcoal);}
+@media(min-width:760px){.control{border-bottom:none;border-right:1px solid var(--charcoal);}.control:last-child{border-right:none;}}
+.control:last-child{border-bottom:none;}
+.control .mono{display:block;margin-bottom:9px;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;}
+.chip{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--charcoal-dim);background:transparent;color:var(--charcoal);padding:6px 9px;cursor:pointer;border-radius:0;appearance:none;}
+.chip:hover{background:var(--paper-shade);}
+.chip[aria-pressed="true"]{background:var(--charcoal);color:var(--paper);border-color:var(--charcoal);}
+#drop{border:1px dashed var(--charcoal-dim);margin:14px;padding:34px 20px;text-align:center;cursor:pointer;}
+#drop:hover,#drop.over{background:var(--paper-shade);border-color:var(--charcoal);}
+#drop strong{display:block;font-size:15px;margin-bottom:6px;}
+#drop span.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--charcoal-dim);}
+#fileInput{display:none;}
+.list{border-top:1px solid var(--charcoal);}
+.row{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;padding:11px 14px;border-bottom:1px solid rgba(44,40,37,.25);}
+.row:last-child{border-bottom:none;}
+.row img{width:44px;height:44px;object-fit:cover;border:1px solid var(--charcoal);background:var(--paper-shade);}
+.name{font-size:13px;font-weight:600;margin:0 0 3px;word-break:break-all;}
+.meta{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--charcoal-dim);line-height:1.5;}
+.meta .warn{color:#8a2b16;}
+.acts{display:flex;gap:4px;}
+.mini{font-family:var(--mono);font-size:11px;line-height:1;border:1px solid var(--charcoal-dim);background:transparent;color:var(--charcoal);width:26px;height:26px;cursor:pointer;border-radius:0;}
+.mini:hover{background:var(--paper-shade);}
+.mini[disabled]{opacity:.3;cursor:default;}
+.tool-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-top:1px solid var(--charcoal);flex-wrap:wrap;}
+.clear{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:none;border:none;color:var(--charcoal-dim);cursor:pointer;padding:0;text-decoration:underline;}
+#go{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--charcoal);background:var(--charcoal);color:var(--paper);padding:11px 22px;cursor:pointer;border-radius:0;}
+#go:hover{background:var(--paper);color:var(--charcoal);}
+#go[disabled]{opacity:.35;cursor:default;}
+#result{margin:16px 0 0;border:1px solid var(--charcoal);padding:16px;display:none;}
+#result.on{display:block;}
+#result .big{font-size:15px;font-weight:600;margin:0 0 4px;}
+#result .meta{color:var(--charcoal-mid);}
+.dl{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--charcoal);background:var(--charcoal);color:var(--paper);padding:11px 18px;text-decoration:none;}
+.dl:hover{background:var(--paper);color:var(--charcoal);}
+.sizes{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:22px 0 0;}
+.sizes a{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--charcoal-dim);padding:6px 10px;text-decoration:none;color:var(--charcoal);}
+.sizes a:hover{background:var(--paper-shade);}
+.cta{margin:26px 0 0;border:1px solid var(--charcoal);padding:20px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+.cta p{margin:6px 0 0;font-size:13px;color:var(--charcoal-mid);max-width:46ch;line-height:1.55;}
+.btn{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--charcoal);color:var(--charcoal);padding:10px 18px;text-decoration:none;border-radius:0;}
+.btn:hover{background:var(--charcoal);color:var(--paper);}
+section.copy{padding:40px 0 0;}
+section.copy h2{font-size:19px;text-transform:uppercase;margin:0 0 12px;}
+section.copy p{font-size:14px;line-height:1.7;color:var(--charcoal-mid);margin:0 0 12px;}
+section.copy ul{font-size:14px;line-height:1.7;color:var(--charcoal-mid);padding-left:18px;margin:0 0 12px;}
+details{border-top:1px solid rgba(44,40,37,.3);padding:14px 0;}
+details:last-of-type{border-bottom:1px solid rgba(44,40,37,.3);}
+summary{font-size:14px;font-weight:600;cursor:pointer;list-style:none;}
+summary::-webkit-details-marker{display:none;}
+summary::before{content:"+ ";font-family:var(--mono);}
+details[open] summary::before{content:"− ";}
+details p{margin:10px 0 0;font-size:13.5px;line-height:1.65;color:var(--charcoal-mid);}
+footer{margin-top:48px;border-top:1px solid var(--charcoal);}
+footer .inner{max-width:880px;margin:0 auto;padding:20px 24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+footer a{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--charcoal-dim);text-decoration:none;}
+footer a:hover{color:var(--charcoal);}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--charcoal);outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a class="brand" href="/">Boolean Bros LLC</a>
+    <div style="display:flex;gap:18px;">
+      <a class="link" href="/#apps">Apps</a>
+      <a class="link" href="/notes/">Notes</a>
+      <a class="link" href="/#tools">Tools</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="mono">[Tool 03] Free · No account</span>
+    <h1>Photos<br>into one PDF</h1>
+    <p class="lede">Add your images, put them in order, download a PDF. The file is assembled inside
+      your browser — the photos are never uploaded, because there is no server to upload them to.</p>
+    <div class="badges">
+      <span class="badge">100% on-device</span>
+      <span class="badge">Original JPEG bytes</span>
+      <span class="badge">Reorder pages</span>
+      <span class="badge">A4 or Letter</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="tool">
+      <div class="tool-head">
+        <span class="mono"><span class="dot"></span> jpg → pdf</span>
+        <span class="mono" id="statusLine" role="status" aria-live="polite">ready</span>
+      </div>
+
+      <div class="controls">
+        <div class="control">
+          <span class="mono">Page size</span>
+          <div class="chips" id="pageChips">
+            <button class="chip" data-page="a4" aria-pressed="true">A4</button>
+            <button class="chip" data-page="letter">Letter</button>
+            <button class="chip" data-page="fit">Fit to image</button>
+          </div>
+        </div>
+        <div class="control">
+          <span class="mono">Orientation</span>
+          <div class="chips" id="orientChips">
+            <button class="chip" data-orient="auto" aria-pressed="true">Auto</button>
+            <button class="chip" data-orient="portrait">Portrait</button>
+            <button class="chip" data-orient="landscape">Landscape</button>
+          </div>
+        </div>
+        <div class="control">
+          <span class="mono">Margin</span>
+          <div class="chips" id="marginChips">
+            <button class="chip" data-margin="0" aria-pressed="true">None</button>
+            <button class="chip" data-margin="18">Small</button>
+            <button class="chip" data-margin="36">Wide</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="drop" role="button" tabindex="0" aria-label="Drop images here — or click to choose">
+        <strong>Drop images here — or click to choose</strong>
+        <span class="hint">JPEG · PNG · HEIC &nbsp;/&nbsp; stays on your device</span>
+      </div>
+      <input id="fileInput" type="file" accept="image/*,.heic,.heif" multiple>
+
+      <div class="list" id="list" aria-live="polite"></div>
+
+      <div class="tool-foot">
+        <span class="mono" id="footNote">No images added yet</span>
+        <div style="display:flex;gap:14px;align-items:center;">
+          <button class="clear" id="clearBtn" type="button">Clear all</button>
+          <button id="go" type="button" disabled>Make PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="result">
+      <p class="big" id="resTitle"></p>
+      <div class="meta" id="resMeta"></div>
+      <a class="dl" id="resLink" href="#" download>Download PDF</a>
+    </div>
+
+    <div class="sizes">
+      <span class="mono">More PDF tools</span>
+      <a href="/pdf/" >All PDF tools →</a>
+    </div>
+
+    <section class="copy">
+      <h2>What it does with your images</h2>
+      <p>A JPEG is embedded exactly as it is: the PDF stores the original compressed bytes with a
+        <code>DCTDecode</code> filter, so the image is not re-compressed and no quality is lost in
+        conversion. PNG and HEIC files are decoded and re-encoded as JPEG once, at high quality,
+        because PDF does not support every PNG variant cleanly.</p>
+      <p>Every page is either the paper size you picked — with the photo scaled to fit inside the margin
+        and centred — or the photo's own dimensions when you choose <em>Fit to image</em>.</p>
+
+      <h2>Practical notes</h2>
+      <ul>
+        <li>The PDF is roughly the sum of your images plus a few kilobytes of structure. It will not be
+          smaller than the photos.</li>
+        <li>Re-encoding PNG and HEIC strips their metadata, so GPS data does not travel into the PDF.</li>
+        <li>Phone photos are large; ten 12-megapixel images make a 40–60 MB PDF. Use the compressor
+          first if you need to email it.</li>
+      </ul>
+    </section>
+
+    <section class="copy" id="faq">
+      <h2>Questions</h2>
+
+      <details open>
+        <summary>Are my images uploaded anywhere?</summary>
+        <p>No. The PDF is assembled in your browser from the bytes you selected. There is no upload
+          endpoint on this site — disconnect from the internet after the page loads and the converter
+          still works.</p>
+      </details>
+
+      <details>
+        <summary>Is the image quality reduced?</summary>
+        <p>Not for JPEGs — the original compressed data is embedded untouched. PNG and HEIC are
+          converted to JPEG at high quality, so there is one generation of re-encoding.</p>
+      </details>
+
+      <details>
+        <summary>Why is the PDF so large?</summary>
+        <p>Because it contains the photos at full size. A PDF made from ten phone photos is a large
+          file by nature. Shrink them first if the destination has a size limit.</p>
+      </details>
+
+      <details>
+        <summary>Can I reorder or remove pages?</summary>
+        <p>Yes — use the arrows and the × on each row. The PDF follows the order shown in the list.</p>
+      </details>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="inner">
+    <a href="/">© Boolean Bros LLC</a>
+    <div style="display:flex;gap:18px;flex-wrap:wrap;">
+      <a href="/shrink/">Compressor</a>
+      <a href="/resize/">Resizer</a>
+      <a href="/notes/">Notes</a>
+      <a href="/privacy_policy/">Privacy</a>
+      <a href="mailto:info@booleanbros.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var A4 = [595.28, 841.89], LETTER = [612, 792];
+  var state = { page: 'a4', orient: 'auto', margin: 0 };
+  var items = [];
+  var seq = 0;
+  var lastPdf = null;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var list = $('list'), drop = $('drop'), input = $('fileInput'), go = $('go');
+
+  function setPressed(group, el) {
+    Array.prototype.forEach.call(group.querySelectorAll('.chip'), function (c) {
+      c.setAttribute('aria-pressed', String(c === el));
+    });
+  }
+  $('pageChips').addEventListener('click', function (e) { var b = e.target.closest('.chip'); if (!b) return; setPressed(this, b); state.page = b.dataset.page; });
+  $('orientChips').addEventListener('click', function (e) { var b = e.target.closest('.chip'); if (!b) return; setPressed(this, b); state.orient = b.dataset.orient; });
+  $('marginChips').addEventListener('click', function (e) { var b = e.target.closest('.chip'); if (!b) return; setPressed(this, b); state.margin = Number(b.dataset.margin); });
+
+  function fmtBytes(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1048576) return (b / 1024).toFixed(b < 10240 ? 1 : 0) + ' KB';
+    return (b / 1048576).toFixed(2) + ' MB';
+  }
+
+  function updateFoot() {
+    $('footNote').textContent = items.length
+      ? items.length + (items.length === 1 ? ' image' : ' images') + ' · ' + fmtBytes(items.reduce(function (a, i) { return a + (i.bytes ? i.bytes.length : 0); }, 0))
+      : 'No images added yet';
+    go.disabled = items.length === 0;
+  }
+
+  // ── intake ───────────────────────────────────────────────────
+  function addFiles(files) {
+    Array.prototype.forEach.call(files, function (file) {
+      if (!/^image\//.test(file.type) && !/\.(jpe?g|png|webp|heic|heif)$/i.test(file.name)) return;
+      var item = { id: 'i' + (seq++), file: file, url: URL.createObjectURL(file), bytes: null, w: 0, h: 0, ready: false };
+      items.push(item);
+      renderRow(item);
+      prepare(item);
+    });
+    updateFoot();
+  }
+
+  drop.addEventListener('click', function () { input.click(); });
+  drop.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); }
+  });
+  input.addEventListener('change', function () { addFiles(this.files); this.value = ''; });
+  ['dragenter', 'dragover'].forEach(function (t) {
+    drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.add('over'); });
+  });
+  ['dragleave', 'drop'].forEach(function (t) {
+    drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.remove('over'); });
+  });
+  drop.addEventListener('drop', function (e) {
+    if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
+  });
+
+  $('clearBtn').addEventListener('click', function () {
+    items.forEach(function (i) { if (i.thumbUrl) URL.revokeObjectURL(i.thumbUrl); URL.revokeObjectURL(i.url); });
+    items = []; list.innerHTML = ''; $('result').classList.remove('on'); updateFoot();
+  });
+
+  function renderRow(item) {
+    var row = document.createElement('div');
+    row.className = 'row'; row.id = 'row-' + item.id;
+    row.innerHTML =
+      '<img alt="" src="' + item.url + '">' +
+      '<div><p class="name"></p><div class="meta">reading…</div></div>' +
+      '<div class="acts">' +
+        '<button class="mini" data-act="up" aria-label="Move up">↑</button>' +
+        '<button class="mini" data-act="down" aria-label="Move down">↓</button>' +
+        '<button class="mini" data-act="del" aria-label="Remove">&times;</button>' +
+      '</div>';
+    row.querySelector('.name').textContent = item.file.name;
+    row.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-act]'); if (!b) return;
+      var idx = items.indexOf(item);
+      if (b.dataset.act === 'up' && idx > 0) { items.splice(idx, 1); items.splice(idx - 1, 0, item); }
+      else if (b.dataset.act === 'down' && idx < items.length - 1) { items.splice(idx, 1); items.splice(idx + 1, 0, item); }
+      else if (b.dataset.act === 'del') { items.splice(idx, 1); row.remove(); URL.revokeObjectURL(item.url); }
+      reorder();
+    });
+    list.appendChild(row);
+    item.row = row;
+  }
+
+  function reorder() {
+    items.forEach(function (i) { list.appendChild(i.row); });
+    var rows = list.querySelectorAll('.row');
+    rows.forEach(function (r, idx) {
+      r.querySelector('[data-act="up"]').disabled = idx === 0;
+      r.querySelector('[data-act="down"]').disabled = idx === rows.length - 1;
+    });
+    updateFoot();
+  }
+
+  // ── HEIC ─────────────────────────────────────────────────────
+  function isHeic(file) { return /\.hei[cf]$/i.test(file.name) || /hei[cf]/i.test(file.type || ''); }
+  function ensureHeicLib() {
+    if (window.HeicTo) return Promise.resolve(window.HeicTo);
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = '/shrink/vendor/heic-to.js?v=1.6.6';
+      s.onload = function () { window.HeicTo ? resolve(window.HeicTo) : reject(new Error('heic-lib')); };
+      s.onerror = function () { reject(new Error('heic-lib')); };
+      document.head.appendChild(s);
+    });
+  }
+
+  function toJpegBytes(bitmap) {
+    var c = document.createElement('canvas');
+    c.width = bitmap.width; c.height = bitmap.height;
+    var ctx = c.getContext('2d');
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, c.width, c.height);
+    ctx.drawImage(bitmap, 0, 0);
+    return new Promise(function (resolve, reject) {
+      c.toBlob(function (b) {
+        if (!b) return reject(new Error('encode-failed'));
+        b.arrayBuffer().then(function (buf) { resolve({ bytes: new Uint8Array(buf), w: c.width, h: c.height }); });
+      }, 'image/jpeg', 0.92);
+    });
+  }
+
+  async function prepare(item) {
+    var meta = item.row.querySelector('.meta');
+    var src = item.file;
+
+    try {
+      if (isHeic(item.file)) {
+        meta.textContent = 'decoding HEIC…';
+        var HeicTo = await ensureHeicLib();
+        var jpg = await HeicTo({ blob: item.file, type: 'image/jpeg', quality: 0.92 });
+        item.thumbUrl = URL.createObjectURL(jpg);
+        item.row.querySelector('img').src = item.thumbUrl;
+        var bmp0 = await createImageBitmap(jpg);
+        var out0 = await toJpegBytes(bmp0);
+        item.bytes = out0.bytes; item.w = out0.w; item.h = out0.h; item.ready = true;
+        meta.innerHTML = out0.w + '×' + out0.h + ' · ' + fmtBytes(out0.bytes.length) + ' · converted';
+        updateFoot();
+        return;
+      }
+
+      var buf = await item.file.arrayBuffer();
+      var bmp = await createImageBitmap(src, { imageOrientation: 'from-image' });
+
+      if (/^image\/jpe?g$/i.test(item.file.type) || /\.jpe?g$/i.test(item.file.name)) {
+        item.bytes = new Uint8Array(buf); item.w = bmp.width; item.h = bmp.height; item.ready = true;
+        meta.innerHTML = bmp.width + '×' + bmp.height + ' · ' + fmtBytes(buf.byteLength) + ' · embedded as-is';
+      } else {
+        var out = await toJpegBytes(bmp);
+        item.bytes = out.bytes; item.w = out.w; item.h = out.h; item.ready = true;
+        meta.innerHTML = out.w + '×' + out.h + ' · ' + fmtBytes(out.bytes.length) + ' · converted to JPEG';
+      }
+      if (bmp.close) bmp.close();
+      updateFoot();
+    } catch (err) {
+      meta.innerHTML = '<span class="warn">could not read this image</span>';
+    }
+  }
+
+  // ── minimal PDF writer (JPEG / DCTDecode) ────────────────────
+  function buildPdf(pages, opts) {
+    var enc = new TextEncoder();
+    var chunks = [], offset = 0, offsets = {};
+    function push(data) {
+      var bytes = typeof data === 'string' ? enc.encode(data) : data;
+      chunks.push(bytes); offset += bytes.length;
+    }
+    function obj(n, head, binary, tail) {
+      offsets[n] = offset;
+      push(n + ' 0 obj\n' + head);
+      if (binary) push(binary);
+      push(tail);
+    }
+
+    var total = 3 + pages.length * 3;
+    var kids = pages.map(function (_, i) { return (3 + i * 3) + ' 0 R'; }).join(' ');
+
+    push('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n');
+    obj(1, '<< /Type /Catalog /Pages 2 0 R >>\n', null, 'endobj\n');
+    obj(2, '<< /Type /Pages /Kids [' + kids + '] /Count ' + pages.length + ' >>\n', null, 'endobj\n');
+
+    pages.forEach(function (p, i) {
+      var pageId = 3 + i * 3, contentId = pageId + 1, imgId = pageId + 2;
+
+      var paper = opts.page === 'letter' ? LETTER : A4;
+      var pw = paper[0], ph = paper[1];
+      if (opts.page === 'fit') { pw = p.w; ph = p.h; }
+      else {
+        var landscape = opts.orient === 'landscape' || (opts.orient === 'auto' && p.w > p.h);
+        if (landscape && ph > pw) { var t = pw; pw = ph; ph = t; }
+        if (!landscape && pw > ph) { var t2 = pw; pw = ph; ph = t2; }
+      }
+
+      var m = opts.page === 'fit' ? 0 : opts.margin;
+      var availW = Math.max(1, pw - m * 2), availH = Math.max(1, ph - m * 2);
+      var scale = Math.min(availW / p.w, availH / p.h);
+      var dw = p.w * scale, dh = p.h * scale;
+      var dx = (pw - dw) / 2, dy = (ph - dh) / 2;
+
+      var content = 'q\n' + dw.toFixed(3) + ' 0 0 ' + dh.toFixed(3) + ' ' + dx.toFixed(3) + ' ' + dy.toFixed(3) + ' cm\n/Im0 Do\nQ\n';
+      var contentBytes = enc.encode(content);
+
+      obj(pageId, '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ' + pw.toFixed(2) + ' ' + ph.toFixed(2) +
+        '] /Resources << /XObject << /Im0 ' + imgId + ' 0 R >> >> /Contents ' + contentId + ' 0 R >>\n', null, 'endobj\n');
+      obj(contentId, '<< /Length ' + contentBytes.length + ' >>\nstream\n', contentBytes, 'endstream\nendobj\n');
+      obj(imgId, '<< /Type /XObject /Subtype /Image /Width ' + p.w + ' /Height ' + p.h +
+        ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + p.bytes.length + ' >>\nstream\n',
+        p.bytes, '\nendstream\nendobj\n');
+    });
+
+    var xrefAt = offset;
+    var xref = 'xref\n0 ' + (total + 1) + '\n0000000000 65535 f \n';
+    for (var n = 1; n <= total; n++) {
+      xref += String(offsets[n]).padStart(10, '0') + ' 00000 n \n';
+    }
+    push(xref);
+    push('trailer\n<< /Size ' + (total + 1) + ' /Root 1 0 R >>\nstartxref\n' + xrefAt + '\n%%EOF\n');
+
+    var totalLen = chunks.reduce(function (a, c) { return a + c.length; }, 0);
+    var out = new Uint8Array(totalLen);
+    var at = 0;
+    chunks.forEach(function (c) { out.set(c, at); at += c.length; });
+    return out;
+  }
+
+  go.addEventListener('click', function () {
+    var ready = items.filter(function (i) { return i.ready; });
+    if (!ready.length) return;
+    $('statusLine').textContent = 'building…';
+    try {
+      var bytes = buildPdf(ready, state);
+      var blob = new Blob([bytes], { type: 'application/pdf' });
+      var url = URL.createObjectURL(blob);
+      if (lastPdf) URL.revokeObjectURL(lastPdf);
+      lastPdf = url;
+
+      $('resTitle').textContent = ready.length + (ready.length === 1 ? ' page' : ' pages') + ' · ' + fmtBytes(blob.size);
+      $('resMeta').textContent = (state.page === 'fit' ? 'Fit to image' : (state.page === 'a4' ? 'A4' : 'Letter')) +
+        ' · ' + (state.margin ? state.margin + 'pt margin' : 'no margin') + ' · built in your browser';
+      var a = $('resLink');
+      a.href = url;
+      a.download = 'photos-' + ready.length + '-pages.pdf';
+      $('result').classList.add('on');
+      $('statusLine').textContent = 'done';
+      setTimeout(function () { if ($('statusLine').textContent === 'done') $('statusLine').textContent = 'ready'; }, 1500);
+    } catch (err) {
+      $('statusLine').textContent = 'error';
+      $('resTitle').textContent = 'Could not build the PDF';
+      $('resMeta').textContent = String(err && err.message || err);
+      $('result').classList.add('on');
+    }
+  });
+
+  reorder();
+  updateFoot();
+})();
+</script>
+</body>
+</html>
