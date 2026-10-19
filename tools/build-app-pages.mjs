@@ -39,7 +39,7 @@ const APPS = [
     name: 'Neon Circuit',
     tag: 'Puzzle',
     tagline: 'A grid puzzle about routing power.',
-    platform: 'iOS',
+    platform: 'iOS · Android',
     image: 'neon-circuit.jpg',
     alt: 'Neon Circuit — grid gameplay',
     about: [
@@ -54,6 +54,7 @@ const APPS = [
     ],
     links: [
       { label: 'App Store', href: 'https://apps.apple.com/us/app/neon-circuit/id6761695293', icon: 'appstore' },
+      { label: 'Google Play', href: 'https://play.google.com/store/apps/details?id=com.nzl.signaljammer', icon: 'googleplay' },
     ],
   },
   {
