@@ -161,6 +161,12 @@ main{padding:34px 0 0;}
 .clear{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:none;border:none;color:var(--charcoal-dim);cursor:pointer;padding:0;text-decoration:underline;}
 .clear:hover{color:var(--charcoal);}
 
+.sizes{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:22px 0 0;}
+.sizes .mono{margin-right:2px;}
+.sizes a{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--charcoal-dim);padding:6px 10px;text-decoration:none;color:var(--charcoal);}
+.sizes a:hover{background:var(--paper-shade);}
+.sizes a[aria-current]{background:var(--charcoal);color:var(--paper);border-color:var(--charcoal);}
+
 .cta{margin:28px 0 0;border:1px solid var(--charcoal);padding:22px;display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;}
 .cta p{margin:6px 0 0;font-size:13px;color:var(--charcoal-mid);max-width:44ch;line-height:1.55;}
 .btn{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--charcoal);color:var(--charcoal);padding:10px 18px;text-decoration:none;transition:none;border-radius:0;}
@@ -225,6 +231,7 @@ footer a:hover{color:var(--charcoal);}
         <div class="control">
           <span class="mono">Target size</span>
           <div class="chips" id="sizeChips">
+            <button class="chip" data-kb="20">20 KB</button>
             <button class="chip" data-kb="50">50 KB</button>
             <button class="chip" data-kb="100" aria-pressed="true">100 KB</button>
             <button class="chip" data-kb="200">200 KB</button>
@@ -265,6 +272,14 @@ footer a:hover{color:var(--charcoal);}
         <span class="mono" id="footNote">No files processed yet</span>
         <button class="clear" id="clearBtn" type="button">Clear all</button>
       </div>
+    </div>
+
+    <div class="sizes" id="sizeNav">
+      <span class="mono">Other targets</span>
+      <a href="/shrink/20kb/">20 KB</a>
+      <a href="/shrink/50kb/">50 KB</a>
+      <a href="/shrink/" aria-current="page">100 KB</a>
+      <a href="/shrink/200kb/">200 KB</a>
     </div>
 
     <div class="cta">
@@ -355,6 +370,19 @@ footer a:hover{color:var(--charcoal);}
   var queue = [];
   var seq = 0;
 
+  // Deep links: /shrink/?kb=200&w=1280&fmt=webp
+  (function applyParams() {
+    var p = new URLSearchParams(location.search);
+    var kb = parseInt(p.get('kb'), 10);
+    if (kb >= 10 && kb <= 20480) state.targetKB = kb;
+    var w = parseInt(p.get('w'), 10);
+    if (w >= 0) state.maxDim = w;
+    var f = p.get('fmt');
+    if (f === 'jpeg' || f === 'jpg') state.format = 'image/jpeg';
+    else if (f === 'webp') state.format = 'image/webp';
+    else if (f === 'png') state.format = 'image/png';
+  })();
+
   var $ = function (id) { return document.getElementById(id); };
   var list = $('list'), drop = $('drop'), input = $('fileInput');
   var sizeChips = $('sizeChips'), dimChips = $('dimChips'), fmtChips = $('fmtChips');
@@ -404,6 +432,23 @@ footer a:hover{color:var(--charcoal);}
     state.format = b.dataset.fmt;
     reprocess();
   });
+
+  // Reflect URL params (or defaults) in the controls before the first file lands.
+  (function syncUI() {
+    var k = sizeChips.querySelector('.chip[data-kb="' + state.targetKB + '"]');
+    if (k) { setPressed(sizeChips, k); $('customKB').value = ''; }
+    else {
+      Array.prototype.forEach.call(sizeChips.querySelectorAll('.chip'), function (c) {
+        c.setAttribute('aria-pressed', 'false');
+      });
+      $('customKB').value = state.targetKB;
+    }
+    var d = dimChips.querySelector('.chip[data-dim="' + state.maxDim + '"]');
+    if (d) setPressed(dimChips, d);
+    var f = fmtChips.querySelector('.chip[data-fmt="' + state.format + '"]');
+    if (f) setPressed(fmtChips, f);
+    updateFoot();
+  })();
 
   var reprocessTimer = null;
   function debounceReprocess() {
