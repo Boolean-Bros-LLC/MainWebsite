@@ -18,110 +18,12 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            paper:          '#f0ece4',
-            'paper-shade':  '#e6e0d4',
-            charcoal:       '#2c2825',
-            'charcoal-mid': '#4a4540',
-            'charcoal-dim': '#655e56',
-          },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'Consolas', 'monospace'],
-          }
-        }
-      }
-    }
-  </script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site.css">
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    /* Paper / parchment background with SVG noise grain */
-    body {
-      background-color: #f0ece4;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
-    }
-
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: #f0ece4; }
-    ::-webkit-scrollbar-thumb { background: #2c2825; }
-
-    /* Anchors must clear the fixed nav */
-    section[id] { scroll-margin-top: 56px; }
-
-    /* ── Hover inversions: instantaneous, no easing ───────────────── */
-    .btn {
-      display: inline-block;
-      border: 1px solid #2c2825;
-      color: #2c2825;
-      font-family: 'JetBrains Mono', Consolas, monospace;
-      font-size: 0.625rem; /* 10px */
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.5rem 1.25rem;
-      transition: none;
-    }
-    .btn:hover { background-color: #2c2825; color: #f0ece4; }
-
-    .btn-lg {
-      font-size: 0.75rem;
-      padding: 0.75rem 2rem;
-    }
-    .btn-solid {
-      background-color: #2c2825;
-      color: #f0ece4;
-    }
-    .btn-solid:hover { background-color: #f0ece4; color: #2c2825; }
-
-    .nav-link {
-      font-family: 'JetBrains Mono', Consolas, monospace;
-      font-size: 0.625rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #655e56;
-      transition: none;
-    }
-    .nav-link:hover { color: #2c2825; text-decoration: underline; text-underline-offset: 3px; }
-
-    input, textarea {
-      border-radius: 0 !important;
-      transition: none !important;
-    }
-    input:focus, textarea:focus {
-      outline: none;
-      background-color: #2c2825;
-      color: #f0ece4;
-    }
-    input::placeholder, textarea::placeholder { color: rgba(44,40,37,0.3); }
-    input:focus::placeholder, textarea:focus::placeholder { color: rgba(240,236,228,0.35); }
-
-    .card:hover { background-color: #e6e0d4; }
-
-    /* Keyboard focus is visible everywhere, and nowhere else */
-    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
-      outline: 2px solid #2c2825;
-      outline-offset: 3px;
-    }
-
-    .skip-link {
-      position: absolute; left: -9999px; top: 0; z-index: 100;
-      background: #2c2825; color: #f0ece4; padding: 0.6rem 1rem;
-      font-family: 'JetBrains Mono', monospace; font-size: 10px;
-      letter-spacing: 0.14em; text-transform: uppercase;
-    }
-    .skip-link:focus { left: 1rem; top: 0.6rem; }
-  </style>
+    <meta name="theme-color" content="#f0ece4">
 </head>
 <body class="font-sans text-charcoal antialiased">
 
