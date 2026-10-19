@@ -158,6 +158,7 @@ function page(app, all) {
   <link rel="canonical" href="${url}">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232c2825'/%3E%3Cpath d='M8 22 L16 8 L24 22 Z' fill='%23f0ece4'/%3E%3C/svg%3E">
   <meta name="theme-color" content="#f0ece4">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Boolean Bros LLC">
   <meta property="og:url" content="${url}">
@@ -245,7 +246,7 @@ ${app.features.map((f) => `              <li>— ${esc(f)}</li>`).join('\n')}
 
         <div class="md:col-span-4 md:self-center max-w-[360px] w-full mx-auto">
           <div class="border border-charcoal overflow-hidden bg-paper-shade">
-            <img src="/assets/apps/${app.image}" alt="${esc(app.alt)}" class="w-full h-auto block" width="720" height="1280">
+            <picture class="block"><source type="image/webp" srcset="/assets/apps/${app.image.replace(/\.jpg$/, '.webp')}"><img src="/assets/apps/${app.image}" alt="${esc(app.alt)}" class="w-full h-auto block" width="720" height="1280"></picture>
           </div>
           <p class="font-mono text-[9px] tracking-widest uppercase text-charcoal-dim mt-3 text-center">Actual app screen</p>
         </div>

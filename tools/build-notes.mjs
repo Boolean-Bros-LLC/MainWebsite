@@ -59,13 +59,17 @@ const NOTES = [
   },
 ];
 
+NOTES.forEach((n) => {
+  n.slug = n.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60);
+});
+
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 const entries = NOTES.map((n) => {
   const links = n.links
     .map((l) => `<a href="${l.href}" class="underline decoration-1 underline-offset-4 hover:no-underline">${esc(l.label)}</a>`)
     .join(' <span class="text-charcoal-dim">·</span> ');
-  return `        <article class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pt-8 pb-8 border-b border-charcoal/25">
+  return `        <article id="${n.slug}" class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pt-8 pb-8 border-b border-charcoal/25">
           <div class="sm:col-span-3 font-mono text-[10px] tracking-widest uppercase text-charcoal-dim pt-1">${n.date}</div>
           <div class="sm:col-span-9">
             <h2 class="text-base font-bold uppercase tracking-wide mb-2">${esc(n.title)}</h2>
@@ -92,6 +96,7 @@ const html = `<!DOCTYPE html>
   <meta property="og:title" content="Notes — what we shipped | Boolean Bros LLC">
   <meta property="og:description" content="A shipping log: what went live, what broke, and what we changed.">
   <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="alternate" type="application/rss+xml" title="Boolean Bros — Notes" href="/notes/feed.xml">
   <link rel="stylesheet" href="/assets/site.css">
   <script type="application/ld+json">
   {
@@ -162,4 +167,23 @@ ${entries}
 
 mkdirSync(join(ROOT, 'notes'), { recursive: true });
 writeFileSync(join(ROOT, 'notes', 'index.html'), html);
-console.log(`wrote notes/index.html (${NOTES.length} entries)`);
+const feed = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Boolean Bros — Notes</title>
+    <link>https://booleanbros.com/notes/</link>
+    <description>A shipping log from an independent mobile studio.</description>
+    <language>en</language>
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+${NOTES.map((n) => `    <item>
+      <title>${esc(n.title)}</title>
+      <link>https://booleanbros.com/notes/#${n.slug}</link>
+      <guid>https://booleanbros.com/notes/#${n.slug}</guid>
+      <pubDate>${new Date(n.date + "T12:00:00Z").toUTCString()}</pubDate>
+      <description>${esc(n.body[0])}</description>
+    </item>`).join("\n")}
+  </channel>
+</rss>
+`;
+writeFileSync(join(ROOT, "notes", "feed.xml"), feed);
+console.log(`wrote notes/index.html (${NOTES.length} entries) + feed.xml`);
