@@ -337,6 +337,39 @@
           </div>
         </div>
       </div>
+
+      <div class="border border-charcoal border-t-0 p-6 md:p-8">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          <div class="md:col-span-7">
+            <h3 class="text-lg md:text-xl font-bold uppercase tracking-wide">Image Resizer — Web</h3>
+            <p class="text-charcoal-mid text-sm leading-relaxed mt-3 max-w-xl">
+              Resize to an exact width and height — 600×600 for a listing, 1080×1080 for a post,
+              2×2 inch at 300 DPI for an ID form. Same rule as the compressor: the pixels never
+              leave your browser.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-5">
+              <span class="btn cursor-default" style="padding:0.2rem 0.55rem;font-size:0.6rem;">Exact W × H</span>
+              <span class="btn cursor-default" style="padding:0.2rem 0.55rem;font-size:0.6rem;">Fit or fill</span>
+              <span class="btn cursor-default" style="padding:0.2rem 0.55rem;font-size:0.6rem;">Batch</span>
+              <span class="btn cursor-default" style="padding:0.2rem 0.55rem;font-size:0.6rem;">HEIC input</span>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-6">
+              <a href="/resize/" class="btn btn-lg btn-solid">Open the resizer</a>
+              <a href="/resize/2x2-inch/" class="btn btn-lg">2×2 inch photo</a>
+            </div>
+          </div>
+          <div class="md:col-span-5 h-full border border-charcoal bg-paper-shade px-5 py-4 flex flex-col">
+            <div class="font-mono text-[9px] tracking-widest uppercase text-charcoal-dim mb-3">Common targets</div>
+            <ul class="font-mono text-[11px] text-charcoal-mid leading-relaxed space-y-2">
+              <li>— 600×600 — avatars, listings</li>
+              <li>— 1080×1080 — Instagram square</li>
+              <li>— 2×2 in @ 300 DPI — 600×600</li>
+              <li>— Any width and height you type</li>
+            </ul>
+            <div class="mt-auto pt-5 font-mono text-[9px] tracking-widest uppercase text-charcoal-dim">Runs in your browser</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -488,6 +521,7 @@
             <li><a href="/shrink/" class="inline-block py-1 hover:underline">Image compressor</a></li>
             <li><a href="/shrink/heic/" class="inline-block py-1 hover:underline">HEIC → JPG</a></li>
             <li><a href="/shrink/20kb/" class="inline-block py-1 hover:underline">Compress to 20 KB</a></li>
+            <li><a href="/resize/" class="inline-block py-1 hover:underline">Image resizer</a></li>
             <li><a href="/shrink/" class="inline-block py-1 hover:underline">Compress to 100 KB</a></li>
           </ul>
         </div>
