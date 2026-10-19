@@ -131,8 +131,8 @@ function build(page) {
   html = replaceOnce(html, /<h1>Resize to<br>exact pixels<\/h1>/, `<h1>${page.h1}</h1>`, 'h1');
   html = replaceOnce(html, /<p class="lede">[\s\S]*?<\/p>/, `<p class="lede">${page.lede}</p>`, 'lede');
   html = replaceOnce(html, /    <section class="copy">[\s\S]*?<\/section>\n/, page.content, 'content');
-  html = replaceOnce(html, "var state = { w: 0, h: 0, lock: true, fit: 'fit', fmt: 'image/jpeg' };",
-    `var state = { w: ${page.w}, h: ${page.h}, lock: true, fit: '${page.fit}', fmt: 'image/jpeg' };`, 'state');
+  html = replaceOnce(html, "var state = { w: 0, h: 0, lock: true, fit: 'fit', fmt: 'image/jpeg', ratio: null };",
+    `var state = { w: ${page.w}, h: ${page.h}, lock: true, fit: '${page.fit}', fmt: 'image/jpeg', ratio: ${page.w} / ${page.h} };`, 'state');
 
   // size nav: mark the current page
   html = html.split(' aria-current="page"').join('');

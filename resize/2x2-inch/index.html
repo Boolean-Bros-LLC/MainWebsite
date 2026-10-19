@@ -326,7 +326,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
   'use strict';
 
   var MAX_EDGE = 8000;
-  var state = { w: 600, h: 600, lock: true, fit: 'fill', fmt: 'image/jpeg' };
+  var state = { w: 600, h: 600, lock: true, fit: 'fill', fmt: 'image/jpeg', ratio: 600 / 600 };
   var queue = [];
   var seq = 0;
 
@@ -374,8 +374,33 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
     reprocess();
   }
 
-  wIn.addEventListener('input', readDims);
-  hIn.addEventListener('input', readDims);
+  function onDimInput(changed) {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-preset]'), function (x) {
+      x.setAttribute('aria-pressed', 'false');
+    });
+    var v = parseInt(changed === 'w' ? wIn.value : hIn.value, 10);
+    if (changed === 'w') state.w = (v >= 8 && v <= MAX_EDGE) ? v : 0;
+    else state.h = (v >= 8 && v <= MAX_EDGE) ? v : 0;
+
+    if (state.lock) {
+      var r = state.ratio;
+      if (!r && state.w && state.h) r = state.ratio = state.w / state.h;
+      if (r) {
+        if (changed === 'w' && state.w) {
+          state.h = Math.max(8, Math.min(MAX_EDGE, Math.round(state.w / r)));
+          hIn.value = state.h;
+        } else if (changed === 'h' && state.h) {
+          state.w = Math.max(8, Math.min(MAX_EDGE, Math.round(state.h * r)));
+          wIn.value = state.w;
+        }
+      }
+    }
+    updateFoot();
+    reprocess();
+  }
+
+  wIn.addEventListener('input', function () { onDimInput('w'); });
+  hIn.addEventListener('input', function () { onDimInput('h'); });
 
   $('lockBtn').addEventListener('click', function () {
     state.lock = !state.lock;
@@ -385,11 +410,12 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
   document.querySelectorAll('[data-preset]').forEach(function (b) {
     b.addEventListener('click', function () {
       var p = b.dataset.preset;
-      if (p === '0') { wIn.value = ''; hIn.value = ''; state.w = 0; state.h = 0; }
+      if (p === '0') { wIn.value = ''; hIn.value = ''; state.w = 0; state.h = 0; state.ratio = null; }
       else {
         var parts = p.split('x');
         wIn.value = parts[0]; hIn.value = parts[1];
         state.w = Number(parts[0]); state.h = Number(parts[1]);
+        state.ratio = state.w / state.h;
       }
       Array.prototype.forEach.call(document.querySelectorAll('[data-preset]'), function (x) {
         x.setAttribute('aria-pressed', String(x === b));
@@ -558,6 +584,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 
     try {
       var srcW = bitmap.width, srcH = bitmap.height;
+      if (!state.ratio) state.ratio = srcW / srcH;
       var tw = state.w || srcW;
       var th = state.h || srcH;
       var canvas = draw(bitmap, tw, th);
