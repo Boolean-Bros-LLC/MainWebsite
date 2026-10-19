@@ -72,7 +72,7 @@
             <h2 class="text-base font-bold uppercase tracking-wide mb-2">Byte-Sized Tycoon 1.1: fewer ads, by policy</h2>
             <p class="text-charcoal-mid text-sm leading-relaxed mb-3">App Review rejected 1.1 for showing "multiple consecutive ads". The cause was structural: four different reset actions each fired an interstitial with no coordination, so two resets in quick succession produced two full-screen ads.</p>
             <p class="text-charcoal-mid text-sm leading-relaxed mb-3">Every interstitial now passes through one policy — no ads in the first 90 seconds, at least three minutes apart, never within two minutes of a rewarded video, at most three per session, and never on a player's first prestige.</p>
-            <div class="font-mono text-[11px] mt-1"><a href="/apps/byte-sized-tycoon/" class="underline decoration-1 underline-offset-4 hover:no-underline">Byte-Sized Tycoon</a></div>
+            <div class="font-mono text-[11px] mt-1"><a href="/apps/byte-sized-tycoon/" class="underline decoration-1 underline-offset-4 hover:no-underline">Byte-Sized Tycoon</a> <span class="text-charcoal-dim">·</span> <a href="https://booleanbuild.com/posts/ad-frequency-review.html" class="underline decoration-1 underline-offset-4 hover:no-underline">How we fixed it ↗</a></div>
           </div>
         </article>
         <article id="surviving-the-ios-27-launch-requirement" class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pt-8 pb-8 border-b border-charcoal/25">
@@ -81,7 +81,7 @@
             <h2 class="text-base font-bold uppercase tracking-wide mb-2">Surviving the iOS 27 launch requirement</h2>
             <p class="text-charcoal-mid text-sm leading-relaxed mb-3">A build compiled with the iOS 27 SDK crashes on launch without a scene manifest — EXC_BREAKPOINT inside UIKitCore, before any of our code runs. The fix is UIScene adoption: a scene delegate that owns the window and boots React Native.</p>
             <p class="text-charcoal-mid text-sm leading-relaxed mb-3">We wrote it as an Expo config plugin so a prebuild cannot quietly undo it. The same class of bug had already cost us one rejection.</p>
-            <div class="font-mono text-[11px] mt-1"><a href="/apps/byte-sized-tycoon/" class="underline decoration-1 underline-offset-4 hover:no-underline">Byte-Sized Tycoon</a></div>
+            <div class="font-mono text-[11px] mt-1"><a href="/apps/byte-sized-tycoon/" class="underline decoration-1 underline-offset-4 hover:no-underline">Byte-Sized Tycoon</a> <span class="text-charcoal-dim">·</span> <a href="https://booleanbuild.com/posts/ios-27-uiscene-crash.html" class="underline decoration-1 underline-offset-4 hover:no-underline">The full write-up ↗</a></div>
           </div>
         </article>
         <article id="image-shrinker-is-live-on-google-play" class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pt-8 pb-8 border-b border-charcoal/25">

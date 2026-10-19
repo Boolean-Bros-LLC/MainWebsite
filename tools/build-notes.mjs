@@ -29,7 +29,10 @@ const NOTES = [
       'App Review rejected 1.1 for showing "multiple consecutive ads". The cause was structural: four different reset actions each fired an interstitial with no coordination, so two resets in quick succession produced two full-screen ads.',
       'Every interstitial now passes through one policy — no ads in the first 90 seconds, at least three minutes apart, never within two minutes of a rewarded video, at most three per session, and never on a player\'s first prestige.',
     ],
-    links: [{ label: 'Byte-Sized Tycoon', href: '/apps/byte-sized-tycoon/' }],
+    links: [
+      { label: 'Byte-Sized Tycoon', href: '/apps/byte-sized-tycoon/' },
+      { label: 'How we fixed it ↗', href: 'https://booleanbuild.com/posts/ad-frequency-review.html' },
+    ],
   },
   {
     date: '2026-10-18',
@@ -38,7 +41,10 @@ const NOTES = [
       'A build compiled with the iOS 27 SDK crashes on launch without a scene manifest — EXC_BREAKPOINT inside UIKitCore, before any of our code runs. The fix is UIScene adoption: a scene delegate that owns the window and boots React Native.',
       'We wrote it as an Expo config plugin so a prebuild cannot quietly undo it. The same class of bug had already cost us one rejection.',
     ],
-    links: [{ label: 'Byte-Sized Tycoon', href: '/apps/byte-sized-tycoon/' }],
+    links: [
+      { label: 'Byte-Sized Tycoon', href: '/apps/byte-sized-tycoon/' },
+      { label: 'The full write-up ↗', href: 'https://booleanbuild.com/posts/ios-27-uiscene-crash.html' },
+    ],
   },
   {
     date: '2026-10-16',
