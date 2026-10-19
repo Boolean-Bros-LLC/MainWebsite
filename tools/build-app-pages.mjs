@@ -194,6 +194,7 @@ function page(app, all) {
       <div class="flex items-center gap-7">
         <a href="/#apps" class="nav-link">[APPS]</a>
         <a href="/shrink/" class="nav-link">[FREE TOOL]</a>
+        <a href="/notes/" class="nav-link">[NOTES]</a>
         <a href="/#contact" class="nav-link">[CONTACT]</a>
       </div>
     </div>
