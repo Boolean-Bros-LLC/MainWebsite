@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PNG to JPG Converter — Free, Private, In Your Browser</title>
+<meta name="description" content="Convert PNG to JPG in your browser. Flatten transparency to white, keep the resolution, batch convert, no upload and no account. Files never leave your device.">
+<link rel="canonical" href="https://booleanbros.com/convert/png-to-jpg/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://booleanbros.com/convert/png-to-jpg/">
+<meta property="og:title" content="PNG to JPG Converter — Free &amp; On-Device">
+<meta property="og:description" content="Drop your PNGs, get JPGs at the same resolution. Transparency becomes white. Nothing is uploaded.">
+<meta property="og:site_name" content="Boolean Bros LLC">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232c2825'/%3E%3Cpath d='M8 22 L16 8 L24 22 Z' fill='%23f0ece4'/%3E%3C/svg%3E">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "PNG to JPG Converter",
+      "url": "https://booleanbros.com/convert/png-to-jpg/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "description": "Convert PNG images to JPG in the browser at the original resolution, flattening transparency onto a solid colour. No upload, no account.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Convert PNG to JPG without shrinking",
+        "Transparency flattened to white (or a colour you pick)",
+        "Batch conversion",
+        "On-device — nothing uploaded"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are my images uploaded to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Your browser decodes each PNG and re-encodes it as JPEG. Nothing is transmitted. You can disconnect from the internet after the page loads and the converter still works."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens to transparent areas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "JPEG has no transparency, so transparent pixels are filled with the background colour you choose — white by default. This is why logos with transparent backgrounds can show a white box after conversion."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does converting PNG to JPG reduce the resolution?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The pixel dimensions are preserved unless you set a maximum dimension. JPEG is lossy, so detail is slightly softened, but the width and height stay the same."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is my JPG not smaller than the PNG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PNG compresses flat colours and line art very efficiently, so screenshots and simple graphics can already be tiny. Lower the quality slider or use the compressor at /shrink/ when file size matters more than fidelity."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+:root{
+  --paper:#f0ece4; --paper-shade:#e6e0d4; --charcoal:#2c2825;
+  --charcoal-mid:#4a4540; --charcoal-dim:#655e56;
+  --mono:ui-monospace,SFMono-Regular,"JetBrains Mono",Consolas,monospace;
+  --sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; font-family:var(--sans); color:var(--charcoal); background-color:var(--paper);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px;}
+.mono{font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;font-size:10px;color:var(--charcoal-dim);}
+a{color:inherit;}
+nav{border-bottom:1px solid var(--charcoal);background:rgba(240,236,228,.96);backdrop-filter:blur(4px);position:sticky;top:0;z-index:50;}
+nav .inner{max-width:860px;margin:0 auto;padding:0 24px;height:44px;display:flex;align-items:center;justify-content:space-between;}
+nav .brand{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;}
+nav a.link{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--charcoal-dim);text-decoration:none;margin-left:16px;}
+nav a.link:hover{color:var(--charcoal);}
+header.hero{padding:52px 0 34px;border-bottom:1px solid var(--charcoal);}
+h1{font-size:clamp(30px,5.2vw,46px);line-height:1.04;letter-spacing:-.02em;margin:10px 0 14px;text-transform:uppercase;font-weight:800;}
+.lede{font-size:16px;line-height:1.6;color:var(--charcoal-mid);max-width:56ch;margin:0 0 18px;}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin:0;padding:0;list-style:none;}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--charcoal);padding:5px 9px;}
+main{padding:34px 0 0;}
+.tool{border:1px solid var(--charcoal);background:var(--paper);}
+.tool-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--charcoal);padding:10px 14px;}
+.dot{display:inline-block;width:7px;height:7px;background:var(--charcoal);margin-right:6px;vertical-align:middle;}
+.controls{display:grid;grid-template-columns:1fr;border-bottom:1px solid var(--charcoal);}
+@media(min-width:720px){.controls{grid-template-columns:1.4fr 1fr 1fr;}}
+.control{display:flex;flex-direction:column;padding:14px;border-bottom:1px solid var(--charcoal);}
+@media(min-width:720px){.control{border-bottom:none;border-right:1px solid var(--charcoal);}.control:last-child{border-right:none;}}
+label.mono{display:block;margin-bottom:8px;}
+input[type=range]{width:100%;accent-color:var(--charcoal);}
+select,input[type=number]{font-family:var(--mono);font-size:11px;padding:7px 8px;border:1px solid var(--charcoal);background:var(--paper);color:var(--charcoal);width:100%;}
+.row{display:flex;gap:8px;align-items:center;}
+.drop{margin:16px;border:1px dashed var(--charcoal);padding:32px 18px;text-align:center;cursor:pointer;transition:background .15s;}
+.drop:hover,.drop.over{background:var(--paper-shade);}
+.drop strong{display:block;font-size:15px;margin-bottom:6px;}
+.drop span{font-size:12px;color:var(--charcoal-dim);}
+.list{margin:0;padding:0;list-style:none;border-top:1px solid var(--charcoal);}
+.item{display:flex;gap:12px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--charcoal);font-size:13px;}
+.item .name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.item .meta{font-family:var(--mono);font-size:10px;color:var(--charcoal-dim);white-space:nowrap;}
+.item a{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--charcoal);}
+button{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;background:var(--charcoal);color:var(--paper);border:1px solid var(--charcoal);padding:10px 14px;cursor:pointer;}
+button.ghost{background:transparent;color:var(--charcoal);}
+button:disabled{opacity:.45;cursor:not-allowed;}
+.actions{display:flex;gap:8px;flex-wrap:wrap;padding:0 14px 14px;}
+section{border-top:1px solid var(--charcoal);padding:34px 0;}
+h2{font-size:20px;text-transform:uppercase;letter-spacing:-.01em;margin:0 0 14px;font-weight:800;}
+h3{font-size:14px;margin:22px 0 6px;font-weight:700;}
+p,li{font-size:14px;line-height:1.65;color:var(--charcoal-mid);}
+p{margin:0 0 12px;}
+ul{padding-left:18px;margin:0 0 12px;}
+code{font-family:var(--mono);font-size:12px;background:var(--paper-shade);padding:1px 4px;}
+footer{border-top:1px solid var(--charcoal);padding:22px 0 44px;}
+footer .mono{display:block;margin-bottom:10px;}
+footer a{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin-right:14px;border-bottom:1px solid var(--charcoal);}
+.err{color:#7a1f1f;font-family:var(--mono);font-size:11px;padding:0 14px 12px;}
+</style>
+</head>
+<body>
+
+<nav><div class="inner">
+  <a class="brand" href="/">Boolean Bros</a>
+  <span>
+    <a class="link" href="/shrink/">Compress</a>
+    <a class="link" href="/resize/">Resize</a>
+    <a class="link" href="/pdf/jpg-to-pdf/">PDF</a>
+  </span>
+</div></nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="mono">Free tool · runs on your device</div>
+    <h1>Convert PNG to JPG</h1>
+    <p class="lede">Drop PNG files, get JPGs at the same pixel dimensions. Transparent areas are filled with the colour you pick — white by default. Nothing is uploaded, and there is no daily limit.</p>
+    <ul class="badges">
+      <li class="badge">No upload</li>
+      <li class="badge">No account</li>
+      <li class="badge">Batch</li>
+      <li class="badge">Keeps resolution</li>
+    </ul>
+  </header>
+
+  <main>
+    <div class="tool">
+      <div class="tool-head">
+        <span class="mono"><span class="dot"></span>PNG → JPG</span>
+        <span class="mono" id="status">idle</span>
+      </div>
+
+      <div class="controls">
+        <div class="control">
+          <label class="mono" for="quality">JPEG quality · <span id="qVal">92</span></label>
+          <input id="quality" type="range" min="50" max="100" value="92" step="1">
+          <div class="mono" style="margin-top:8px;">Higher keeps more detail and makes bigger files.</div>
+        </div>
+        <div class="control">
+          <label class="mono" for="bg">Background for transparency</label>
+          <select id="bg">
+            <option value="#ffffff" selected>White</option>
+            <option value="#000000">Black</option>
+            <option value="#f0ece4">Paper</option>
+            <option value="#e6e0d4">Paper shade</option>
+          </select>
+          <div class="row" style="margin-top:8px;">
+            <input id="bgCustom" type="color" value="#ffffff" aria-label="Custom background colour" style="width:38px;height:30px;padding:0;border:1px solid var(--charcoal);background:var(--paper);">
+            <span class="mono">custom</span>
+          </div>
+        </div>
+        <div class="control">
+          <label class="mono" for="maxDim">Max dimension (px, optional)</label>
+          <input id="maxDim" type="number" min="16" max="10000" placeholder="leave blank to keep">
+          <div class="mono" style="margin-top:8px;">Blank keeps the original size.</div>
+        </div>
+      </div>
+
+      <div class="drop" id="drop" role="button" tabindex="0" aria-label="Choose PNG files">
+        <strong>Drop PNG files here</strong>
+        <span>or click to choose · .png only · processed in your browser</span>
+        <input id="fileInput" type="file" accept="image/png,.png" multiple hidden>
+      </div>
+
+      <div class="err" id="err" role="status" aria-live="polite"></div>
+      <ul class="list" id="list" hidden></ul>
+      <div class="actions" id="actions" hidden>
+        <button id="downloadAll">Download all</button>
+        <button class="ghost" id="clear">Clear</button>
+      </div>
+    </div>
+
+    <section>
+      <h2>What this does</h2>
+      <p>Every PNG you drop is decoded by your browser, drawn onto a canvas at its original pixel dimensions, filled onto the background colour you choose, and re-encoded as a baseline JPEG. The file you download is a normal <code>.jpg</code> that opens anywhere — email clients, Word, government portals, print shops that refuse PNG.</p>
+      <p>This is a converter, not a compressor. If you need a specific file size, use <a href="/shrink/">the image compressor</a>, which searches for the highest quality that fits under your target.</p>
+
+      <h3>Why transparency needs a colour</h3>
+      <p>JPEG has no alpha channel. A logo with a transparent background has to be flattened onto something, so this tool fills those pixels with a solid colour. White is right for documents and forms; pick black or a custom colour if the image will sit on a dark background.</p>
+
+      <h3>Why the JPG is sometimes bigger</h3>
+      <p>PNG is excellent at flat colour — screenshots, diagrams and UI mockups compress beautifully. A photographic PNG will usually shrink when converted to JPEG; a screenshot of solid colours often will not. Lower the quality slider, or set a max dimension if the image is larger than you need.</p>
+
+      <h3>When to use something else</h3>
+      <ul>
+        <li><a href="/shrink/">Compress to an exact size</a> — 100 KB, 200 KB, 500 KB targets for upload forms.</li>
+        <li><a href="/shrink/heic/">HEIC to JPG</a> — iPhone photos that arrive as <code>.heic</code>.</li>
+        <li><a href="/resize/">Resize to exact dimensions</a> — profile pictures, 2×2 inch photos, 1080×1080.</li>
+        <li><a href="/pdf/jpg-to-pdf/">JPG to PDF</a> — combine images into one document.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Questions</h2>
+      <h3>Are my images uploaded?</h3>
+      <p>No. There is no server involved. Load the page, disconnect from the internet, and the converter still works — that is the test.</p>
+      <h3>Does it keep the resolution?</h3>
+      <p>Yes, width and height are preserved unless you set a maximum dimension. JPEG is lossy, so fine detail softens slightly, but the pixel dimensions do not change.</p>
+      <h3>Can I convert many files at once?</h3>
+      <p>Yes. Drop as many as you like and use “Download all”. Big batches take a moment because everything runs on your machine, not a server.</p>
+      <h3>Does it strip metadata?</h3>
+      <p>Yes. Re-encoding through a canvas drops EXIF, including GPS coordinates. That is usually what you want before posting an image publicly.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span class="mono">© Boolean Bros LLC · tools that run on your device</span>
+    <a href="/">Home</a>
+    <a href="/shrink/">Compress</a>
+    <a href="/resize/">Resize</a>
+    <a href="/privacy_policy/">Privacy</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var drop = document.getElementById('drop');
+  var input = document.getElementById('fileInput');
+  var list = document.getElementById('list');
+  var actions = document.getElementById('actions');
+  var statusEl = document.getElementById('status');
+  var errEl = document.getElementById('err');
+  var quality = document.getElementById('quality');
+  var qVal = document.getElementById('qVal');
+  var bgSel = document.getElementById('bg');
+  var bgCustom = document.getElementById('bgCustom');
+  var maxDim = document.getElementById('maxDim');
+  var results = [];
+
+  quality.addEventListener('input', function(){ qVal.textContent = quality.value; });
+  bgSel.addEventListener('change', function(){ bgCustom.value = bgSel.value; });
+  bgCustom.addEventListener('input', function(){ bgSel.value = ''; });
+
+  function bgColour(){
+    return bgCustom.value || bgSel.value || '#ffffff';
+  }
+
+  function setStatus(t){ statusEl.textContent = t; }
+  function fail(msg){ errEl.textContent = msg || ''; }
+
+  function pickFiles(){ input.click(); }
+  drop.addEventListener('click', pickFiles);
+  drop.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pickFiles(); } });
+  input.addEventListener('change', function(){ handle(Array.prototype.slice.call(input.files || [])); input.value=''; });
+
+  ['dragenter','dragover'].forEach(function(ev){
+    drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.add('over'); });
+  });
+  ['dragleave','drop'].forEach(function(ev){
+    drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.remove('over'); });
+  });
+  drop.addEventListener('drop', function(e){
+    var files = e.dataTransfer && e.dataTransfer.files ? Array.prototype.slice.call(e.dataTransfer.files) : [];
+    handle(files);
+  });
+
+  function isPng(file){
+    return file.type === 'image/png' || /\.png$/i.test(file.name);
+  }
+
+  function fmt(bytes){
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024*1024) return Math.round(bytes/1024) + ' KB';
+    return (bytes/1024/1024).toFixed(1) + ' MB';
+  }
+
+  function loadImage(file){
+    return new Promise(function(resolve, reject){
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function(){ URL.revokeObjectURL(url); resolve(img); };
+      img.onerror = function(){ URL.revokeObjectURL(url); reject(new Error('decode')); };
+      img.src = url;
+    });
+  }
+
+  function convert(file){
+    return loadImage(file).then(function(img){
+      var w = img.naturalWidth, h = img.naturalHeight;
+      var cap = parseInt(maxDim.value, 10);
+      if (cap && Math.max(w, h) > cap){
+        var scale = cap / Math.max(w, h);
+        w = Math.max(1, Math.round(w * scale));
+        h = Math.max(1, Math.round(h * scale));
+      }
+      var canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      var ctx = canvas.getContext('2d');
+      ctx.fillStyle = bgColour();
+      ctx.fillRect(0, 0, w, h);
+      ctx.drawImage(img, 0, 0, w, h);
+      return new Promise(function(resolve, reject){
+        canvas.toBlob(function(blob){
+          if (!blob) return reject(new Error('encode'));
+          resolve({ blob: blob, w: w, h: h });
+        }, 'image/jpeg', parseInt(quality.value, 10) / 100);
+      });
+    });
+  }
+
+  function addRow(name, out, originalSize){
+    var li = document.createElement('li');
+    li.className = 'item';
+    var url = URL.createObjectURL(out.blob);
+    var safe = name.replace(/\.png$/i, '') + '.jpg';
+    var delta = out.blob.size - originalSize;
+    var sign = delta <= 0 ? '−' : '+';
+    li.innerHTML = '<span class="name"></span><span class="meta"></span><a download>save</a>';
+    li.querySelector('.name').textContent = safe;
+    li.querySelector('.meta').textContent =
+      out.w + '×' + out.h + ' · ' + fmt(originalSize) + ' → ' + fmt(out.blob.size) + ' (' + sign + fmt(Math.abs(delta)) + ')';
+    var link = li.querySelector('a');
+    link.href = url;
+    link.setAttribute('download', safe);
+    list.appendChild(li);
+    list.hidden = false;
+    actions.hidden = false;
+    results.push({ name: safe, url: url });
+  }
+
+  function handle(files){
+    fail('');
+    if (!files.length) return;
+    var pngs = files.filter(isPng);
+    var skipped = files.length - pngs.length;
+    if (!pngs.length){
+      fail('Those files are not PNGs. This tool converts PNG → JPG only.');
+      return;
+    }
+    if (skipped) fail(skipped + ' file(s) skipped — not PNG.');
+    setStatus('0/' + pngs.length);
+    var done = 0;
+
+    pngs.reduce(function(chain, file){
+      return chain.then(function(){
+        return convert(file).then(function(out){
+          addRow(file.name, out, file.size);
+        }).catch(function(){
+          fail('Could not convert ' + file.name + ' — the file may be corrupt.');
+        }).then(function(){
+          done++;
+          setStatus(done + '/' + pngs.length);
+        });
+      });
+    }, Promise.resolve()).then(function(){
+      setStatus('done');
+    });
+  }
+
+  document.getElementById('downloadAll').addEventListener('click', function(){
+    results.forEach(function(r, i){
+      setTimeout(function(){
+        var a = document.createElement('a');
+        a.href = r.url;
+        a.download = r.name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }, i * 150);
+    });
+  });
+
+  document.getElementById('clear').addEventListener('click', function(){
+    results.forEach(function(r){ URL.revokeObjectURL(r.url); });
+    results = [];
+    list.innerHTML = '';
+    list.hidden = true;
+    actions.hidden = true;
+    setStatus('idle');
+    fail('');
+  });
+})();
+</script>
+</body>
+</html>
