@@ -145,7 +145,7 @@ details[open] summary::before{content:"− ";}
 details p{margin:10px 0 0;font-size:13.5px;line-height:1.65;color:var(--charcoal-mid);}
 footer{margin-top:48px;border-top:1px solid var(--charcoal);}
 footer .inner{max-width:880px;margin:0 auto;padding:20px 24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
-footer a{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--charcoal-dim);text-decoration:none;}
+footer a{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--charcoal-dim);text-decoration:none;display:inline-block;min-height:24px;line-height:24px;}
 footer a:hover{color:var(--charcoal);}
 a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--charcoal);outline-offset:2px;}
 </style>
@@ -219,7 +219,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
         </div>
       </div>
 
-      <div id="drop" role="button" tabindex="0" aria-label="Drop photos here — or click to choose">
+      <div id="drop" role="button" tabindex="0">
         <strong>Drop photos here — or click to choose</strong>
         <span class="hint">JPEG · PNG · WebP · HEIC &nbsp;/&nbsp; stays on your device</span>
       </div>
