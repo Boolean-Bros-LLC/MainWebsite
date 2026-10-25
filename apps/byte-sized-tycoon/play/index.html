@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Byte-Sized Tycoon</title>
+    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
+    <style id="expo-reset">
+      /* These styles make the body full-height */
+      html,
+      body {
+        height: 100%;
+      }
+      /* These styles disable body scrolling if you are using <ScrollView> */
+      body {
+        overflow: hidden;
+      }
+      /* These styles make the root element full-height */
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+      }
+    </style>
+    <meta name="robots" content="noindex, follow">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192.png">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <style id="demo-shell">
+html, body { background-color: #0a0d0b; }
+#root { display: flex; justify-content: center; }
+#root > div {
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 0 0 1px #17211b, 0 0 48px rgba(0, 0, 0, 0.65);
+}
+@media (max-width: 520px) {
+  #root > div { max-width: none; box-shadow: none; }
+}
+</style>
+</head>
+
+  <body>
+    <!-- Use static rendering with Expo Router to support running without JavaScript. -->
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <!-- The root element for your Expo app. -->
+    <div id="root"></div>
+  <script src="./_expo/static/js/web/entry-f48b5230f466c06d69e1b767b0ac0752.js" defer></script>
+</body>
+</html>

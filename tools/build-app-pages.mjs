@@ -83,6 +83,7 @@ const APPS = [
     links: [
       { label: 'App Store', href: 'https://apps.apple.com/us/app/byte-sized-tycoon/id6792836682', icon: 'appstore' },
       { label: 'Google Play', href: 'https://play.google.com/store/apps/details?id=com.booleanbros.bytesizedtycoon', icon: 'googleplay' },
+      { label: 'Play in your browser', href: '/apps/byte-sized-tycoon/play/' },
     ],
   },
   {

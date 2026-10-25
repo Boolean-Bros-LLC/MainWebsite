@@ -10,6 +10,7 @@
  * listings disappear and repositories get renamed.
  */
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
+import { relative, sep, posix } from 'node:path';
 import { join, dirname, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -39,7 +40,13 @@ for (const page of pages) {
     if (!url || url.startsWith('#') || url.startsWith('data:') || url.startsWith('mailto:') || url.startsWith('blob:')) continue;
     if (url.startsWith('http')) external.add(url.split('#')[0]);
     else if (url.startsWith('/')) internal.add(url.split('#')[0].split('?')[0]);
-    else internal.add('/' + url.split('#')[0].split('?')[0]);
+    else {
+      // Relative links resolve against the page's own directory, not the site root.
+      // Treating them as root-relative flagged every "./favicon.png" in a nested page.
+      const clean = url.split('#')[0].split('?')[0];
+      const pageDir = '/' + relative(ROOT, dirname(page)).split(sep).join('/');
+      internal.add(posix.normalize(posix.join(pageDir, clean)));
+    }
   }
 }
 
