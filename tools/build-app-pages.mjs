@@ -25,7 +25,8 @@ const APPS = [
     ],
     features: [
       'Daily challenge with a single shared test',
-      'Practice modes for focused sessions',
+      'Practice modes plus an endless run — three mistakes ends it',
+      'One rewarded revive when an endless run ends',
       'Session stats and streaks',
       'No sign-up, no account',
     ],
@@ -65,15 +66,19 @@ const APPS = [
     platform: 'iOS · Android',
     image: 'byte-sized-tycoon.jpg',
     alt: 'Byte-Sized Tycoon — terminal-style idle game',
+    metaDesc:
+      'Byte-Sized Tycoon: from one miner to an orbital data center. Idle progression with real offline earnings, two prestige layers, 20 achievements and an auto-buy daemon.',
     about: [
       'Byte-Sized Tycoon starts with a single miner and a number that goes up. Reinvest the bytes, buy bigger hardware, and climb from Basic Miner through Data Rig, Server Rack, Mainframe Core, AI Training Cluster and Quantum Array to an Orbital Data Center.',
-      'Prestige resets the run in exchange for permanent multipliers, and the machines keep earning while the app is closed — offline progress is real, not a notification trick.',
+      'Prestige resets the run in exchange for Quantum Bits, which multiply everything you rebuild — and once you have banked a few, an Auto-Buy Daemon keeps the upgrades flowing whether the app is open or not.',
+      'Intrusions break up the grind: hostile processes crawl across the screen and you squish them before the timer runs out. Clear the breach and collect a bounty; ignore it and you lose a chunk of your balance.',
     ],
     features: [
-      'Idle progression with genuine offline earnings',
-      'Seven tiers of hardware to upgrade through',
-      'Prestige for permanent multipliers',
-      'Free to play, ad-supported',
+      'Idle progression with genuine offline earnings, even while the app is closed',
+      'Nine hardware tiers from Basic Miner to Orbital Data Center, with a doubled-output milestone every 25 levels',
+      'Two reset layers: breakthroughs for permanent boosts, prestige for Quantum Bits that multiply everything',
+      '20 achievements, a lifetime stats page, and an Auto-Buy Daemon that keeps upgrading for you',
+      'Free to play, no banner ads — watch a rewarded ad only when you want a boost',
     ],
     links: [
       { label: 'App Store', href: 'https://apps.apple.com/us/app/byte-sized-tycoon/id6792836682', icon: 'appstore' },
@@ -154,7 +159,7 @@ function page(app, all) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${esc(app.name)} — ${esc(app.tagline)} | Boolean Bros LLC</title>
-  <meta name="description" content="${esc(app.name)}: ${esc(app.tagline)} ${esc(app.features[0])}.">
+  <meta name="description" content="${esc(app.metaDesc || `${app.name}: ${app.tagline} ${app.features[0]}.`)}">
   <link rel="canonical" href="${url}">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232c2825'/%3E%3Cpath d='M8 22 L16 8 L24 22 Z' fill='%23f0ece4'/%3E%3C/svg%3E">
   <meta name="theme-color" content="#f0ece4">

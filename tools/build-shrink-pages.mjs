@@ -88,6 +88,43 @@ const PAGES = [
 `,
   },
   {
+    slug: '500kb',
+    kb: 500,
+    label: '500 KB',
+    title: 'Compress Image to 500 KB Online — Free, Private, In Your Browser',
+    description:
+      'Bring a photo down to 500 KB in your browser. Free, unlimited, nothing uploaded — full resolution kept, no visible quality loss.',
+    h1: 'Compress an image<br>to 500 KB',
+    lede: '500 KB is a generous cap — usually a trim, not a downgrade. The tool keeps your full resolution unless it has to, and does the work on your device.',
+    content: `    <section class="copy">
+      <h2>What 500 KB leaves you</h2>
+      <p>A 500 KB JPEG holds a full-resolution 12-megapixel photo comfortably when the scene is
+        ordinary. Only dense foliage, night shots with heavy grain, or text-heavy scans need to give
+        up pixels, and even then the drop is small.</p>
+      <p>Because the tool searches quality before dimensions, a 500 KB target normally costs you
+        compression rather than resolution. Pixels are only sacrificed when quality alone cannot
+        reach the target — which at 500 KB is rare.</p>
+
+      <h2>Where 500 KB is the limit</h2>
+      <ul>
+        <li><strong>Email attachments</strong> — clients allow far more, but corporate filters and
+          contact forms are stricter.</li>
+        <li><strong>Portal uploads</strong> — insurance claims, tenancy applications, listing sites,
+          support tickets.</li>
+        <li><strong>Forums and marketplaces</strong> — 500 KB is a common per-image ceiling.</li>
+        <li><strong>Web pages</strong> — a gallery of 500 KB photos still loads quickly on mobile.</li>
+      </ul>
+
+      <h2>Getting under the cap without a visible loss</h2>
+      <p>Start from the full frame and let the tool do the work. If you already know the subject,
+        crop to it first — bytes spent on background are bytes not spent on the part you care about.</p>
+      <p>Re-encoding also strips EXIF, so GPS location, capture time and camera serial number are
+        gone from the output. That is usually what you want before posting a photo publicly, and worth
+        knowing before you compress one you intend to keep as an original.</p>
+    </section>
+`,
+  },
+  {
     slug: '200kb',
     kb: 200,
     label: '200 KB',
