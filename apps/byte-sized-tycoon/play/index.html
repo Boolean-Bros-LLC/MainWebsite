@@ -128,6 +128,49 @@
       }
 
       /* ---- mobile: full-bleed demo, slim bar to get back ---- */
+      /* Mobile install nudge: anyone playing the browser demo on a phone is the best install
+         candidate we have. Appears once, after a minute of play, and stays dismissed. */
+      #demo-nudge {
+        display: none;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 20;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+        background-color: rgba(10, 13, 11, .97);
+        border-top: 1px solid rgba(237, 233, 224, .18);
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: 10px;
+        line-height: 1.45;
+        letter-spacing: .04em;
+        color: rgba(237, 233, 224, .82);
+      }
+      #demo-nudge[data-open="1"] { display: flex; }
+      #demo-nudge .msg { flex: 1; }
+      #demo-nudge a.get {
+        flex: 0 0 auto;
+        border: 1px solid rgba(237, 233, 224, .55);
+        color: #ede9e0;
+        padding: 6px 10px;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: .12em;
+        white-space: nowrap;
+      }
+      #demo-nudge .x {
+        flex: 0 0 auto;
+        background: none;
+        border: 0;
+        color: rgba(237, 233, 224, .55);
+        font-size: 15px;
+        line-height: 1;
+        padding: 4px 2px 4px 6px;
+        cursor: pointer;
+      }
+
       #demo-back {
         display: none;
         position: fixed;
@@ -148,6 +191,11 @@
         border-bottom: 1px solid #2c2825;
       }
       #demo-back a { color: #2c2825; text-decoration: none; }
+
+      @media (min-width: 900px) {
+        /* the nudge is mobile-only: on desktop the pitch column already carries the store links */
+        #demo-nudge { display: none !important; }
+      }
 
       @media (max-width: 899px) {
         #demo-page { display: block; padding: 0; height: 100dvh; }
@@ -205,6 +253,49 @@
       <!-- The root element for your Expo app. -->
       <div id="demo-device"><div id="root"></div></div>
     </div>
+
+    <div id="demo-nudge" data-open="0" role="complementary" aria-label="Get the app">
+      <span class="msg">Playing in a browser. The app keeps progress while it's closed.</span>
+      <a class="get" href="https://apps.apple.com/us/app/byte-sized-tycoon/id6792836682" target="_blank" rel="noopener">Get it</a>
+      <button class="x" type="button" aria-label="Dismiss">&#10005;</button>
+    </div>
+
+    <script>
+      // Mobile-only install nudge. Fires once after 60s of actual play (a tap), never nags again.
+      (function () {
+        var KEY = 'bst-nudge-dismissed';
+        var nudge = document.getElementById('demo-nudge');
+        if (!nudge) return;
+        var storage;
+        try { storage = window.localStorage.getItem(KEY); } catch (e) { storage = null; }
+        if (storage === '1') return;
+
+        var tapped = false;
+        var fired = false;
+        document.addEventListener('pointerdown', function () { tapped = true; }, { once: true, passive: true });
+
+        function show() {
+          if (fired || !tapped) return;
+          fired = true;
+          if (window.innerWidth >= 900) return;
+          nudge.setAttribute('data-open', '1');
+          if (window.goatcounter && window.goatcounter.count) {
+            window.goatcounter.count({ path: 'bst-demo-nudge-shown', event: true });
+          }
+        }
+        setTimeout(show, 60000);
+
+        nudge.querySelector('.x').addEventListener('click', function () {
+          nudge.setAttribute('data-open', '0');
+          try { window.localStorage.setItem(KEY, '1'); } catch (e) {}
+        });
+        nudge.querySelector('a.get').addEventListener('click', function () {
+          if (window.goatcounter && window.goatcounter.count) {
+            window.goatcounter.count({ path: 'bst-demo-nudge-click', event: true });
+          }
+        });
+      })();
+    </script>
 
     <script src="./_expo/static/js/web/entry-f48b5230f466c06d69e1b767b0ac0752.js" defer></script>
   </body>
