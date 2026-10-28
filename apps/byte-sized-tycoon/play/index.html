@@ -4,7 +4,9 @@
     <meta charset="utf-8" />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Byte-Sized Tycoon</title>
+    <title>Byte-Sized Tycoon — play the browser demo | Boolean Bros LLC</title>
+    <meta name="description" content="Play Byte-Sized Tycoon in your browser: tap the core, buy upgrades, climb from one miner to an orbital data center. No install, no account.">
+    <link rel="canonical" href="https://booleanbros.com/apps/byte-sized-tycoon/play/">
     <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
     <style id="expo-reset">
       /* These styles make the body full-height */
@@ -24,31 +26,186 @@
       }
     </style>
     <meta name="robots" content="noindex, follow">
-  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192.png">
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <style id="demo-shell">
-html, body { background-color: #0a0d0b; }
-#root { display: flex; justify-content: center; }
-#root > div {
-  width: 100%;
-  max-width: 480px;
-  box-shadow: 0 0 0 1px #17211b, 0 0 48px rgba(0, 0, 0, 0.65);
-}
-@media (max-width: 520px) {
-  #root > div { max-width: none; box-shadow: none; }
-}
-</style>
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192.png">
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+    <link rel="stylesheet" href="/assets/site.css">
+    <style id="demo-shell">
+      /* Shell: the game is a portrait app, so on desktop it runs inside a device frame
+         with the pitch beside it instead of floating in a 480px strip. */
+      html, body { height: 100%; }
+      body {
+        background-color: #f0ece4;
+        overflow: hidden;
+      }
+
+      #demo-page {
+        height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(28px, 5vw, 80px);
+        padding: 32px 40px;
+      }
+
+      /* ---- pitch column ---- */
+      #demo-copy {
+        width: 330px;
+        flex: 0 0 auto;
+      }
+      #demo-copy .crumb {
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: 9px;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        color: #655e56;
+        margin-bottom: 22px;
+      }
+      #demo-copy .crumb a { color: #655e56; text-decoration: none; }
+      #demo-copy .crumb a:hover { color: #2c2825; text-decoration: underline; text-underline-offset: 3px; }
+      #demo-copy h1 {
+        font-size: 2.25rem;
+        line-height: .95;
+        letter-spacing: -.025em;
+        font-weight: 900;
+        text-transform: uppercase;
+        color: #2c2825;
+        margin: 0 0 14px;
+      }
+      #demo-copy .pitch {
+        font-size: .9375rem;
+        line-height: 1.6;
+        color: #4a4540;
+        margin: 0 0 24px;
+      }
+      #demo-copy ul {
+        list-style: none;
+        margin: 0 0 26px;
+        padding: 0;
+        border-top: 1px solid #2c2825;
+      }
+      #demo-copy li {
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: 10.5px;
+        line-height: 1.5;
+        color: #4a4540;
+        padding: 9px 0;
+        border-bottom: 1px solid rgba(44, 40, 37, .15);
+      }
+      #demo-copy li b {
+        color: #2c2825;
+        font-weight: 600;
+        letter-spacing: .06em;
+      }
+      #demo-copy .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+      #demo-copy .fine {
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: 9px;
+        line-height: 1.6;
+        letter-spacing: .06em;
+        color: #655e56;
+        margin-top: 18px;
+      }
+
+      /* ---- device frame ---- */
+      #demo-device {
+        position: relative;
+        flex: 0 0 auto;
+        height: min(800px, calc(100dvh - 72px));
+        aspect-ratio: 480 / 800;
+        border-radius: 34px;
+        background-color: #0a0d0b;
+        box-shadow:
+          0 0 0 9px #2c2825,
+          0 0 0 10px #1a1715,
+          0 36px 70px -28px rgba(44, 40, 37, .55);
+        overflow: hidden;
+      }
+      #demo-device #root {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      /* ---- mobile: full-bleed demo, slim bar to get back ---- */
+      #demo-back {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        align-items: center;
+        justify-content: space-between;
+        height: 34px;
+        padding: 0 12px;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: 9px;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        color: #655e56;
+        background-color: rgba(240, 236, 228, .94);
+        border-bottom: 1px solid #2c2825;
+      }
+      #demo-back a { color: #2c2825; text-decoration: none; }
+
+      @media (max-width: 899px) {
+        #demo-page { display: block; padding: 0; height: 100dvh; }
+        #demo-copy { display: none; }
+        #demo-back { display: flex; }
+        #demo-device {
+          position: absolute;
+          top: 34px;
+          left: 0;
+          width: 100%;
+          height: calc(100dvh - 34px);
+          aspect-ratio: auto;
+          border-radius: 0;
+          box-shadow: none;
+        }
+      }
+
+      /* Short desktop windows: drop the frame padding, keep the game whole. */
+      @media (min-width: 900px) and (max-height: 640px) {
+        #demo-device { height: calc(100dvh - 24px); border-radius: 20px; }
+        #demo-page { padding: 12px 24px; }
+      }
+    </style>
   <script data-goatcounter="https://booleanbros.goatcounter.com/count" async src="https://booleanbros.goatcounter.com/count.js"></script>
 </head>
-
   <body>
     <!-- Use static rendering with Expo Router to support running without JavaScript. -->
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <!-- The root element for your Expo app. -->
-    <div id="root"></div>
-  <script src="./_expo/static/js/web/entry-f48b5230f466c06d69e1b767b0ac0752.js" defer></script>
-</body>
+
+    <div id="demo-back">
+      <a href="/apps/byte-sized-tycoon/">← Byte-Sized Tycoon</a>
+      <a href="https://apps.apple.com/us/app/byte-sized-tycoon/id6792836682">App Store</a>
+    </div>
+
+    <div id="demo-page">
+      <section id="demo-copy">
+        <p class="crumb"><a href="/">Home</a> / <a href="/#apps">Apps</a> / Byte-Sized Tycoon</p>
+        <h1>Byte-Sized<br>Tycoon</h1>
+        <p class="pitch">The whole game in a browser tab: tap the core, reinvest the bytes, and climb from one miner to an orbital data center.</p>
+        <ul>
+          <li><b>TAP</b> — mine bytes by hand, watch for crits</li>
+          <li><b>BUILD</b> — upgrades, prestige, quantum multipliers</li>
+          <li><b>DEFEND</b> — squish intrusions before the timer</li>
+        </ul>
+        <div class="actions">
+          <a class="btn" href="https://apps.apple.com/us/app/byte-sized-tycoon/id6792836682" target="_blank" rel="noopener">App Store</a>
+          <a class="btn" href="https://play.google.com/store/apps/details?id=com.booleanbros.bytesizedtycoon" target="_blank" rel="noopener">Google Play</a>
+          <a class="btn" href="/apps/byte-sized-tycoon/">Full app page</a>
+        </div>
+        <p class="fine">Runs entirely in your browser — nothing to install, no account. The iOS and Android apps add offline progress so the numbers keep climbing while the app is closed.</p>
+      </section>
+
+      <!-- The root element for your Expo app. -->
+      <div id="demo-device"><div id="root"></div></div>
+    </div>
+
+    <script src="./_expo/static/js/web/entry-f48b5230f466c06d69e1b767b0ac0752.js" defer></script>
+  </body>
 </html>
