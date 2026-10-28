@@ -11,7 +11,7 @@ import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join, relative, extname } from 'node:path';
 
 const ROOT = new URL('..', import.meta.url).pathname;
-const SNIPPET = '  <script data-goatcounter="https://booleanbros.goatcounter.com/count" async src="https://booleanbros.goatcounter.com/count.js"></script>\n';
+const SNIPPET = '  <script data-goatcounter="https://booleanbros.goatcounter.com/count" async src="/assets/js/goatcounter-count.js"></script>\n';
 const MARKER = 'data-goatcounter';
 const SKIP_DIRS = new Set(['node_modules', '.git', 'vendor', 'dist']);
 

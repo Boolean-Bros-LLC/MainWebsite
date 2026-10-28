@@ -38,7 +38,7 @@ Both outputs are committed on purpose: GitHub Pages serves the repo as-is.
 
 ## Notes
 
-- Only third-party script on the site is the GoatCounter snippet: cookieless, aggregate counts, no personal data, no cookie banner needed. Fonts are self-hosted (no Google Fonts).
+- No third-party scripts: the GoatCounter counter is self-hosted at `/assets/js/goatcounter-count.js` and only sends pageviews to `booleanbros.goatcounter.com`. Cookieless, aggregate, no cookie banner, no consent needed. Refresh that file occasionally from `https://gc.zgo.at/count.js`.
 - `robots.txt` disallows `/tools/` and `/shrink/vendor/`; `sitemap.xml` lists the public pages.
-- **Analytics:** every page carries the GoatCounter snippet. After regenerating pages (`build-app-pages.mjs`, `build-notes.mjs`, `build-shrink-pages.mjs`, `build-resize-pages.mjs`) or re-exporting the BST web demo, run `node tools/add-analytics.mjs` and then `node tools/add-analytics.mjs --check`. The generators embed the tag themselves; the script covers hand-written pages and the exported demo bundle.
+- **Analytics:** every page carries the GoatCounter snippet (`data-goatcounter="https://booleanbros.goatcounter.com/count"`). After regenerating pages (`build-app-pages.mjs`, `build-notes.mjs`, `build-shrink-pages.mjs`, `build-resize-pages.mjs`) or re-exporting the BST web demo, run `node tools/add-analytics.mjs` and then `node tools/add-analytics.mjs --check`. The generators embed the tag themselves; the script covers hand-written pages and the exported demo bundle. Dashboard: `https://booleanbros.goatcounter.com` (creds in `~/Desktop/Development/AI/keys/goatcounter.txt`).
 - IndexNow key file at the repo root submits new URLs to Bing/Yandex via `tools/indexnow.mjs`.
