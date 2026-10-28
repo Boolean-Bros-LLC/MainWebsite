@@ -114,6 +114,7 @@ const html = `<!DOCTYPE html>
     "publisher": { "@type": "Organization", "name": "Boolean Bros LLC", "url": "https://booleanbros.com/" }
   }
   </script>
+  <script data-goatcounter="https://booleanbros.goatcounter.com/count" async src="https://booleanbros.goatcounter.com/count.js"></script>
 </head>
 <body class="font-sans text-charcoal antialiased">
 

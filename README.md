@@ -38,6 +38,7 @@ Both outputs are committed on purpose: GitHub Pages serves the repo as-is.
 
 ## Notes
 
-- No analytics, no cookie banners, no third-party scripts except Google Fonts.
+- Only third-party script on the site is the GoatCounter snippet: cookieless, aggregate counts, no personal data, no cookie banner needed. Fonts are self-hosted (no Google Fonts).
 - `robots.txt` disallows `/tools/` and `/shrink/vendor/`; `sitemap.xml` lists the public pages.
+- **Analytics:** every page carries the GoatCounter snippet. After regenerating pages (`build-app-pages.mjs`, `build-notes.mjs`, `build-shrink-pages.mjs`, `build-resize-pages.mjs`) or re-exporting the BST web demo, run `node tools/add-analytics.mjs` and then `node tools/add-analytics.mjs --check`. The generators embed the tag themselves; the script covers hand-written pages and the exported demo bundle.
 - IndexNow key file at the repo root submits new URLs to Bing/Yandex via `tools/indexnow.mjs`.
