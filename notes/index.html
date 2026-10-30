@@ -58,6 +58,17 @@
       </p>
 
       <div class="border-t border-charcoal">
+        <article id="five-builds-to-find-a-line-of-spaces" class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pt-8 pb-8 border-b border-charcoal/25">
+          <div class="sm:col-span-3 font-mono text-[10px] tracking-widest uppercase text-charcoal-dim pt-1">2026-10-30</div>
+          <div class="sm:col-span-9">
+            <h2 class="text-base font-bold uppercase tracking-wide mb-2">Five builds to find a line of spaces</h2>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">Byte-Sized Tycoon 1.4 spent a full day failing to open. The build quit in under a second, before the splash screen, with a SIGABRT and no JavaScript error in either the system log or the crash report. Five builds went out chasing it: one reverting a layout change, one adding a full-screen error handler, one fixing a genuinely bare string in a tab label, and one teaching that handler to print the component stack.</p>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">The cause was whitespace. JSX keeps a text node made only of spaces or tabs if it sits on the same line as a closing tag. Closing tags separated by a run of spaces compile to a View whose children include a string, and React Native throws Text strings must be rendered within a Text component on the first frame. A run of whitespace is stripped only when it contains a newline, which is why the same pattern is harmless one line lower.</p>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">That throw fires before any error boundary can mount, so the diagnostic screen built to catch it had nothing to catch. The rule we were missing: whitespace with no newline in it is real text to JSX. The fix is two lines, and a second copy of the pattern was sitting in another view, not yet hit by a build, so it went out in the same commit.</p>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">Every build now starts with a grep: a closing tag, a run of spaces, and a closing tag, with no newline between them, has to come back empty across the .tsx files. TypeScript does not see this bug, a source scan that skips whitespace-only text does not see it, and it never reaches a stack trace. Byte-Sized Tycoon 1.4 is on TestFlight with that fix plus the economy and ad changes that were queued behind it.</p>
+            <div class="font-mono text-[11px] mt-1"><a href="/apps/byte-sized-tycoon/" class="underline decoration-1 underline-offset-4 hover:no-underline">Byte-Sized Tycoon</a></div>
+          </div>
+        </article>
         <article id="a-photo-compressor-that-cannot-see-your-photos" class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pt-8 pb-8 border-b border-charcoal/25">
           <div class="sm:col-span-3 font-mono text-[10px] tracking-widest uppercase text-charcoal-dim pt-1">2026-10-19</div>
           <div class="sm:col-span-9">

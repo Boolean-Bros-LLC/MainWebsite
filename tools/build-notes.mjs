@@ -11,6 +11,17 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const NOTES = [
   {
+    date: '2026-10-30',
+    title: 'Five builds to find a line of spaces',
+    body: [
+      'Byte-Sized Tycoon 1.4 spent a full day failing to open. The build quit in under a second, before the splash screen, with a SIGABRT and no JavaScript error in either the system log or the crash report. Five builds went out chasing it: one reverting a layout change, one adding a full-screen error handler, one fixing a genuinely bare string in a tab label, and one teaching that handler to print the component stack.',
+      'The cause was whitespace. JSX keeps a text node made only of spaces or tabs if it sits on the same line as a closing tag. Closing tags separated by a run of spaces compile to a View whose children include a string, and React Native throws Text strings must be rendered within a Text component on the first frame. A run of whitespace is stripped only when it contains a newline, which is why the same pattern is harmless one line lower.',
+      'That throw fires before any error boundary can mount, so the diagnostic screen built to catch it had nothing to catch. The rule we were missing: whitespace with no newline in it is real text to JSX. The fix is two lines, and a second copy of the pattern was sitting in another view, not yet hit by a build, so it went out in the same commit.',
+      'Every build now starts with a grep: a closing tag, a run of spaces, and a closing tag, with no newline between them, has to come back empty across the .tsx files. TypeScript does not see this bug, a source scan that skips whitespace-only text does not see it, and it never reaches a stack trace. Byte-Sized Tycoon 1.4 is on TestFlight with that fix plus the economy and ad changes that were queued behind it.',
+    ],
+    links: [{ label: 'Byte-Sized Tycoon', href: '/apps/byte-sized-tycoon/' }],
+  },
+  {
     date: '2026-10-19',
     title: 'A photo compressor that cannot see your photos',
     body: [
