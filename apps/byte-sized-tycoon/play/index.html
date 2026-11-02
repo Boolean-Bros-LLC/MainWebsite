@@ -231,7 +231,7 @@
 
     <div id="demo-back">
       <a href="/apps/byte-sized-tycoon/">← Byte-Sized Tycoon</a>
-      <a href="https://apps.apple.com/us/app/byte-sized-tycoon/id6792836682">App Store</a>
+      <a id="demo-store" href="https://apps.apple.com/us/app/byte-sized-tycoon/id6792836682" target="_blank" rel="noopener">App Store</a>
     </div>
 
     <div id="demo-page">
@@ -263,7 +263,31 @@
     </div>
 
     <script>
-      // Mobile-only install nudge. Fires once after 60s of actual play (a tap), never nags again.
+      // Send phone visitors to the store that matches their device. iOS is the default.
+      (function () {
+        var IOS = 'https://apps.apple.com/us/app/byte-sized-tycoon/id6792836682';
+        var ANDROID = 'https://play.google.com/store/apps/details?id=com.booleanbros.bytesizedtycoon';
+        var isAndroid = /Android/i.test(navigator.userAgent || '');
+        var url = isAndroid ? ANDROID : IOS;
+        var label = isAndroid ? 'Google Play' : 'App Store';
+
+        var bar = document.getElementById('demo-store');
+        if (bar) {
+          bar.href = url;
+          bar.textContent = label;
+          bar.addEventListener('click', function () { track('bst-demo-store-click-topbar'); });
+        }
+        var get = document.querySelector('#demo-nudge a.get');
+        if (get) get.href = url;
+
+        function track(path) {
+          if (window.goatcounter && window.goatcounter.count) {
+            window.goatcounter.count({ path: path, event: true });
+          }
+        }
+      })();
+
+      // Mobile-only install nudge. Fires once after 60s of actual play, never nags again.
       (function () {
         var KEY = 'bst-nudge-dismissed';
         var nudge = document.getElementById('demo-nudge');
