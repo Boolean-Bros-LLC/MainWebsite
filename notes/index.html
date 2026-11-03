@@ -58,6 +58,18 @@
       </p>
 
       <div class="border-t border-charcoal">
+        <article id="a-scene-manifest-or-your-app-launches-dead" class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pt-8 pb-8 border-b border-charcoal/25">
+          <div class="sm:col-span-3 font-mono text-[10px] tracking-widest uppercase text-charcoal-dim pt-1">2026-11-03</div>
+          <div class="sm:col-span-9">
+            <h2 class="text-base font-bold uppercase tracking-wide mb-2">A scene manifest, or your app launches dead</h2>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">A new game almost shipped broken in a way no error boundary could catch. Hue Drop — our color-matching puzzle — built clean, archived clean, uploaded to TestFlight clean, and then crashed on launch every time, before a single line of our JavaScript ran.</p>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">The crash report pointed at UIKitCore, not our code: EXC_BREAKPOINT inside a function about scene lifecycle adoption. Builds compiled against the newest iOS SDK require an app to declare a scene manifest — without one, UIKit traps the instant it tries to create the first window. Archive success means nothing here; the binary looks fine right up until a real device tries to open it.</p>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">The fix was a small Expo config plugin that adds the missing manifest, moves window creation out of the old app delegate pattern, and adds a scene delegate in its place — written as a plugin specifically so a future rebuild can't silently drop it again. We hit a second wall getting there: the first attempt imported a config-plugins helper the way you'd use it from a normal shell, which works everywhere except inside Xcode's build script sandbox, where that path doesn't resolve. Importing it through Expo's own bundled path instead fixed it for good.</p>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">Once that landed, the rest of the week went into making Hue Drop actually feel good to play: direct color selection instead of cycling through options, an 80-millisecond grace window so a well-timed tap isn't punished by frame-rate luck, and haptic feedback tied to state changes instead of just ring passes. It's in testing now.</p>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">Separately, Byte-Sized Tycoon picked up privacy-first analytics this week — no App Tracking Transparency prompt required, because it doesn't need one. Different problem, same theme: instrumenting an app without making it worse for the person using it.</p>
+            <div class="font-mono text-[11px] mt-1"></div>
+          </div>
+        </article>
         <article id="five-builds-to-find-a-line-of-spaces" class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pt-8 pb-8 border-b border-charcoal/25">
           <div class="sm:col-span-3 font-mono text-[10px] tracking-widest uppercase text-charcoal-dim pt-1">2026-10-30</div>
           <div class="sm:col-span-9">

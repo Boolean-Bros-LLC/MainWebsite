@@ -11,6 +11,18 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const NOTES = [
   {
+    date: '2026-11-03',
+    title: 'A scene manifest, or your app launches dead',
+    body: [
+      'A new game almost shipped broken in a way no error boundary could catch. Hue Drop — our color-matching puzzle — built clean, archived clean, uploaded to TestFlight clean, and then crashed on launch every time, before a single line of our JavaScript ran.',
+      'The crash report pointed at UIKitCore, not our code: EXC_BREAKPOINT inside a function about scene lifecycle adoption. Builds compiled against the newest iOS SDK require an app to declare a scene manifest — without one, UIKit traps the instant it tries to create the first window. Archive success means nothing here; the binary looks fine right up until a real device tries to open it.',
+      "The fix was a small Expo config plugin that adds the missing manifest, moves window creation out of the old app delegate pattern, and adds a scene delegate in its place — written as a plugin specifically so a future rebuild can't silently drop it again. We hit a second wall getting there: the first attempt imported a config-plugins helper the way you'd use it from a normal shell, which works everywhere except inside Xcode's build script sandbox, where that path doesn't resolve. Importing it through Expo's own bundled path instead fixed it for good.",
+      "Once that landed, the rest of the week went into making Hue Drop actually feel good to play: direct color selection instead of cycling through options, an 80-millisecond grace window so a well-timed tap isn't punished by frame-rate luck, and haptic feedback tied to state changes instead of just ring passes. It's in testing now.",
+      "Separately, Byte-Sized Tycoon picked up privacy-first analytics this week — no App Tracking Transparency prompt required, because it doesn't need one. Different problem, same theme: instrumenting an app without making it worse for the person using it.",
+    ],
+    links: [],
+  },
+  {
     date: '2026-10-30',
     title: 'Five builds to find a line of spaces',
     body: [

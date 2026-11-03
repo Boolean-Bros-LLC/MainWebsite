@@ -5,7 +5,14 @@
     <link>https://booleanbros.com/notes/</link>
     <description>A shipping log from an independent mobile studio.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 30 Oct 2026 14:10:27 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 03 Nov 2026 15:00:40 GMT</lastBuildDate>
+    <item>
+      <title>A scene manifest, or your app launches dead</title>
+      <link>https://booleanbros.com/notes/#a-scene-manifest-or-your-app-launches-dead</link>
+      <guid>https://booleanbros.com/notes/#a-scene-manifest-or-your-app-launches-dead</guid>
+      <pubDate>Tue, 03 Nov 2026 12:00:00 GMT</pubDate>
+      <description>A new game almost shipped broken in a way no error boundary could catch. Hue Drop — our color-matching puzzle — built clean, archived clean, uploaded to TestFlight clean, and then crashed on launch every time, before a single line of our JavaScript ran.</description>
+    </item>
     <item>
       <title>Five builds to find a line of spaces</title>
       <link>https://booleanbros.com/notes/#five-builds-to-find-a-line-of-spaces</link>
