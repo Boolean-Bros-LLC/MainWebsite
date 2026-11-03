@@ -133,6 +133,32 @@ const APPS = [
       { label: 'Web version', href: '/shrink/' },
     ],
   },
+  {
+    slug: 'hue-drop',
+    name: 'Hue Drop',
+    tag: 'Reflex',
+    tagline: 'Tap the color before the ring lands.',
+    platform: 'iOS · Android',
+    image: 'hue-drop.jpg',
+    alt: 'Hue Drop — one-tap color matching game',
+    metaDesc:
+      'Hue Drop: one tap, one chance. Tap the color the ring is about to hit, keep the run alive, and climb through five modes including a daily puzzle that is the same for everyone.',
+    about: [
+      'A ring drops toward the ball, split into colored segments, and you tap the color the ball is about to cross. Right, and the ring shatters. Wrong, and the run ends.',
+      'Every stage adds a color and a little speed, so the taps that felt free at the start become a decision made in under a second. Five modes cover the rest: Classic, Sprint, Zen, a daily run that is identical for every player, and Two-Color for when four is too many.',
+      'Coins you earn unlock skins, trails and worlds. No account, no sign-up, and nothing personal collected beyond what the ad network needs to show an ad.',
+    ],
+    features: [
+      'One tap, no timers to wait out',
+      'Five modes including a daily puzzle shared by every player',
+      'Skins, trails and worlds unlocked with coins you earn',
+      'Share a card of your best run',
+      'High-contrast marks and reduced motion for accessibility',
+    ],
+    links: [
+      { label: 'App Store', href: 'https://apps.apple.com/us/app/hue-drop/id6829785379', icon: 'appstore' },
+    ],
+  },
 ];
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
