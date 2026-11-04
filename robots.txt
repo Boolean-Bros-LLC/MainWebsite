@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /tools/
 Disallow: /shrink/vendor/
+Disallow: /review/
 
 Sitemap: https://booleanbros.com/sitemap.xml
