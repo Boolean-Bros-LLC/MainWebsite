@@ -5,7 +5,14 @@
     <link>https://booleanbros.com/notes/</link>
     <description>A shipping log from an independent mobile studio.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 03 Nov 2026 15:00:40 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 10 Nov 2026 15:01:02 GMT</lastBuildDate>
+    <item>
+      <title>The ad system stops working once you're inside someone else's page</title>
+      <link>https://booleanbros.com/notes/#the-ad-system-stops-working-once-you-re-inside-someone-else-</link>
+      <guid>https://booleanbros.com/notes/#the-ad-system-stops-working-once-you-re-inside-someone-else-</guid>
+      <pubDate>Mon, 09 Nov 2026 12:00:00 GMT</pubDate>
+      <description>Hue Drop — the color-matching puzzle from two weeks back — picked up a second life this week as a browser game. Sites like CrazyGames and Poki run a game inside their own page, with their own ad network and their own rules, and almost none of that matches how a phone app works.</description>
+    </item>
     <item>
       <title>A scene manifest, or your app launches dead</title>
       <link>https://booleanbros.com/notes/#a-scene-manifest-or-your-app-launches-dead</link>

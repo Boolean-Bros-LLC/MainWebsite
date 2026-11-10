@@ -58,6 +58,17 @@
       </p>
 
       <div class="border-t border-charcoal">
+        <article id="the-ad-system-stops-working-once-you-re-inside-someone-else-" class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pt-8 pb-8 border-b border-charcoal/25">
+          <div class="sm:col-span-3 font-mono text-[10px] tracking-widest uppercase text-charcoal-dim pt-1">2026-11-09</div>
+          <div class="sm:col-span-9">
+            <h2 class="text-base font-bold uppercase tracking-wide mb-2">The ad system stops working once you're inside someone else's page</h2>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">Hue Drop — the color-matching puzzle from two weeks back — picked up a second life this week as a browser game. Sites like CrazyGames and Poki run a game inside their own page, with their own ad network and their own rules, and almost none of that matches how a phone app works.</p>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">The ad system was the first wall. AdMob only works inside our own app; a portal supplies its own ad SDK and takes a cut of anything it shows, so Hue Drop needed a second version of its ad calls — same function names, but backed by whichever portal SDK is actually present on the page, and doing nothing at all if neither one is there. Audio broke in a quieter way. On the web, a blocked autoplay sound doesn't throw an error you can catch — it rejects a promise instead — so the original try/catch never saw it, and the console filled with warnings on every load. Haptics got dropped from the web build entirely; browsers only allow vibration right after a tap, and the timing didn't line up often enough to be worth keeping.</p>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">The dumbest fix was the layout. The first version embedded the game at a standard 16:9, which stretched the board edge to edge and made it stop looking like a phone game at all — the color ring and the buy row ended up too far apart to read as one screen. Centering it in a column shaped like a phone fixed that in a few lines. Also added a check that looks at the hostname the game is running on and refuses to start anywhere not on the list — our own site, the two portals, nothing else — so a copied build can't just get re-hosted somewhere we don't control.</p>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">It isn't submitted to either portal yet; a preview video and the listing itself are what's left. But the game now runs clean in both places with zero console errors, which had to be true before any of the rest mattered.</p>
+            <div class="font-mono text-[11px] mt-1"></div>
+          </div>
+        </article>
         <article id="a-scene-manifest-or-your-app-launches-dead" class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pt-8 pb-8 border-b border-charcoal/25">
           <div class="sm:col-span-3 font-mono text-[10px] tracking-widest uppercase text-charcoal-dim pt-1">2026-11-03</div>
           <div class="sm:col-span-9">

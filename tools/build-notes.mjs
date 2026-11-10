@@ -11,6 +11,17 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const NOTES = [
   {
+    date: '2026-11-09',
+    title: "The ad system stops working once you're inside someone else's page",
+    body: [
+      "Hue Drop — the color-matching puzzle from two weeks back — picked up a second life this week as a browser game. Sites like CrazyGames and Poki run a game inside their own page, with their own ad network and their own rules, and almost none of that matches how a phone app works.",
+      "The ad system was the first wall. AdMob only works inside our own app; a portal supplies its own ad SDK and takes a cut of anything it shows, so Hue Drop needed a second version of its ad calls — same function names, but backed by whichever portal SDK is actually present on the page, and doing nothing at all if neither one is there. Audio broke in a quieter way. On the web, a blocked autoplay sound doesn't throw an error you can catch — it rejects a promise instead — so the original try/catch never saw it, and the console filled with warnings on every load. Haptics got dropped from the web build entirely; browsers only allow vibration right after a tap, and the timing didn't line up often enough to be worth keeping.",
+      "The dumbest fix was the layout. The first version embedded the game at a standard 16:9, which stretched the board edge to edge and made it stop looking like a phone game at all — the color ring and the buy row ended up too far apart to read as one screen. Centering it in a column shaped like a phone fixed that in a few lines. Also added a check that looks at the hostname the game is running on and refuses to start anywhere not on the list — our own site, the two portals, nothing else — so a copied build can't just get re-hosted somewhere we don't control.",
+      "It isn't submitted to either portal yet; a preview video and the listing itself are what's left. But the game now runs clean in both places with zero console errors, which had to be true before any of the rest mattered.",
+    ],
+    links: [],
+  },
+  {
     date: '2026-11-03',
     title: 'A scene manifest, or your app launches dead',
     body: [
