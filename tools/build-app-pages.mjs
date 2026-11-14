@@ -141,8 +141,20 @@ const APPS = [
     platform: 'iOS · Android',
     image: 'hue-drop.jpg',
     alt: 'Hue Drop — one-tap color matching game',
+    // Search Console 2026-10-16..11-12: /apps/hue-drop/ = 9 impressions at avgPos 7.2,
+    // 0 clicks; top visible query is "how to play hue drops" at avgPos 5.0 with no
+    // on-page answer. Title/description now carry that intent and the page answers it.
+    title: 'Hue Drop: How to Play the Free One-Tap Color Game',
     metaDesc:
-      'Hue Drop: one tap, one chance. Tap the color the ring is about to hit, keep the run alive, and climb through five modes including a daily puzzle that is the same for everyone.',
+      'Tap the color the ring is about to hit. How to play Hue Drop in three steps, what the five modes are, and the iOS and Android downloads. Free, no account.',
+    howTo: {
+      name: 'How to play Hue Drop',
+      steps: [
+        'Watch the ring. It drops toward the ball in coloured segments, and the whole game is that fall.',
+        'Tap the segment the ball is about to cross. One tap is the entire input — right and the ring shatters, wrong and the run ends.',
+        'Stay alive and the stages speed up, adding a colour at a time. Classic, Sprint, Zen, a daily run that is identical for every player, and Two-Color mode are the five ways to play.',
+      ],
+    },
     about: [
       'A ring drops toward the ball, split into colored segments, and you tap the color the ball is about to cross. Right, and the ring shatters. Wrong, and the run ends.',
       'Every stage adds a color and a little speed, so the taps that felt free at the start become a decision made in under a second. Five modes cover the rest: Classic, Sprint, Zen, a daily run that is identical for every player, and Two-Color for when four is too many.',
@@ -157,6 +169,7 @@ const APPS = [
     ],
     links: [
       { label: 'App Store', href: 'https://apps.apple.com/us/app/hue-drop/id6829785379', icon: 'appstore' },
+      { label: 'Google Play', href: 'https://play.google.com/store/apps/details?id=com.booleanbros.huedrop', icon: 'googleplay' },
     ],
   },
 ];
@@ -185,7 +198,7 @@ function page(app, all) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${esc(app.name)} — ${esc(app.tagline)} | Boolean Bros LLC</title>
+  <title>${esc(app.title || `${app.name} — ${app.tagline} | Boolean Bros LLC`)}</title>
   <meta name="description" content="${esc(app.metaDesc || `${app.name}: ${app.tagline} ${app.features[0]}.`)}">
   <link rel="canonical" href="${url}">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232c2825'/%3E%3Cpath d='M8 22 L16 8 L24 22 Z' fill='%23f0ece4'/%3E%3C/svg%3E">
@@ -212,7 +225,21 @@ function page(app, all) {
     "image": ${JSON.stringify(`https://booleanbros.com/assets/apps/${app.image}`)},
     "author": { "@type": "Organization", "name": "Boolean Bros LLC", "url": "https://booleanbros.com/" }
   }
-  </script>
+  </script>${
+    app.howTo
+      ? `
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": ${JSON.stringify(app.howTo.name)},
+    "step": ${JSON.stringify(
+      app.howTo.steps.map((s, i) => ({ '@type': 'HowToStep', position: i + 1, text: s })),
+    )}
+  }
+  </script>`
+      : ''
+  }
   <script data-goatcounter="https://booleanbros.goatcounter.com/count" async src="/assets/js/goatcounter-count.js"></script>
 </head>
 <body class="font-sans text-charcoal antialiased">
@@ -261,7 +288,22 @@ ${links}
 ${app.about.map((p) => `            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">${esc(p)}</p>`).join('\n')}
           </div>
 
-          <div class="border-t border-charcoal mt-8 pt-6">
+${
+            app.howTo
+              ? `          <div class="border-t border-charcoal mt-8 pt-6">
+            <h2 class="font-mono text-[10px] font-semibold tracking-widest uppercase mb-3">${esc(app.howTo.name)}</h2>
+            <ol class="text-charcoal-mid text-sm leading-relaxed space-y-3 list-none">
+${app.howTo.steps
+  .map(
+    (s, i) =>
+      `              <li><span class="font-mono text-[11px] font-semibold mr-2">${String(i + 1).padStart(2, '0')}</span>${esc(s)}</li>`,
+  )
+  .join('\n')}
+            </ol>
+          </div>
+`
+              : ''
+          }          <div class="border-t border-charcoal mt-8 pt-6">
             <h2 class="font-mono text-[10px] font-semibold tracking-widest uppercase mb-3">What's in it</h2>
             <ul class="font-mono text-[11px] text-charcoal-mid leading-relaxed space-y-2">
 ${app.features.map((f) => `              <li>— ${esc(f)}</li>`).join('\n')}

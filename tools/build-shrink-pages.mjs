@@ -162,9 +162,13 @@ const PAGES = [
     slug: 'whatsapp',
     kb: 500,
     label: 'WhatsApp',
-    title: 'Compress Photos for WhatsApp — Free, On-Device, No Upload',
+    // Search Console 2026-10-16..11-12: /shrink/whatsapp/ = 11 impressions at avgPos 8.9,
+    // 0 clicks; visible query "compress whatsapp dp" (profile picture) was unaddressed
+    // on the page. Title/description now name chat, status and profile picture, and the
+    // body answers the DP case.
+    title: 'Compress Photos for WhatsApp — Free, No Upload, Any Size',
     description:
-      'Make photos small enough to send on WhatsApp without handing over a 6 MB original. Free in-browser compressor — pick a size, convert, send. Nothing uploaded.',
+      'Shrink a photo for WhatsApp chat, status or a profile picture. Choose the KB, compress it on your device, send. Free, no upload, no account.',
     h1: 'Compress a photo<br>for WhatsApp',
     lede: 'WhatsApp re-encodes every photo you send, so the file that arrives is already smaller and softer than the one you started with. Shrink it yourself first and you decide what it looks like.',
     content: `    <section class="copy">
@@ -185,6 +189,16 @@ const PAGES = [
         <li><strong>Group chats</strong> — go smaller. One large photo lands on everyone's phone and
           their data plan.</li>
       </ul>
+
+      <h2>Profile pictures (WhatsApp DP) and status</h2>
+      <p>A profile photo is downloaded at a size you do not control — somewhere around 640 px on
+        the long edge — so uploading a 12-megapixel original just means WhatsApp throws most of it
+        away. Crop it square first, set <strong>Max dimension</strong> to 640, and pick 50–100 KB. It
+        will look identical in the app and upload instantly on a bad signal.</p>
+      <p>Status images are shown full-screen and portrait, so they want more pixels than a DP but
+        still nothing near a camera original: 1080 px wide at 200–500 KB is the sweet spot. If a
+        status is a screenshot or graphic with text, keep quality higher (500 KB) — text survives
+        re-encoding far worse than faces do.</p>
 
       <h2>Before you hit send</h2>
       <p>Re-encoding strips EXIF, which means GPS coordinates, capture time and camera details are not
