@@ -7,6 +7,7 @@ custom domain (`CNAME`), so **pushing to main deploys** (~50 s).
 
 ```
 index.html              studio homepage
+ship/                   fixed-fee app submission service page (hand-written, links to the Fiverr gig)
 privacy_policy/         privacy policy (linked from both app stores)
 shrink/                 free in-browser image compressor (no build step, no deps)
   index.html            the compressor + 100 KB landing page
