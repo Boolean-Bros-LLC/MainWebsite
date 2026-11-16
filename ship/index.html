@@ -393,5 +393,25 @@
     </div>
   </footer>
 
+  <script>
+    // Outbound click counting. GoatCounter does not track outbound links, and "did anybody press the
+    // Fiverr button" is the only number that matters on this page. Clicks are recorded as the event
+    // path /ship/fiverr-click so they never mix with pageviews.
+    (function () {
+      var links = document.querySelectorAll('a[href*="fiverr.com"]');
+      function record() {
+        try {
+          if (window.goatcounter && typeof window.goatcounter.count === 'function') {
+            window.goatcounter.count({ path: '/ship/fiverr-click', title: 'Fiverr click', event: true });
+          } else {
+            var img = new Image();
+            img.src = 'https://booleanbros.goatcounter.com/count?p=%2Fship%2Ffiverr-click&t=Fiverr+click&e=true&rnd=' + Date.now();
+          }
+        } catch (e) { /* counting must never block the click */ }
+      }
+      for (var i = 0; i < links.length; i++) links[i].addEventListener('click', record);
+    })();
+  </script>
+
 </body>
 </html>
