@@ -11,6 +11,16 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const NOTES = [
   {
+    date: '2026-11-16',
+    title: 'A page for the rejections we already know by number',
+    body: [
+      "The site got a new page this week: /ship/, a fixed-fee offer to fix the App Store and Play Store rejections we've already hit ourselves. Named by the actual codes: 4.2.2, 5.1.1(v), 5.1.2, 3.1.1, ITMS-91053, ITMS-90717, because that's what you search for at 1 a.m. the night before a deadline. Three prices, four FAQ entries, two ways to reach us. It went live the same week as a hands-on version of the same offer elsewhere, so there's finally a page on our own domain instead of a listing you have to leave the site to read.",
+      "Building it turned up a real bug on the sibling build site. The header there never got a mobile breakpoint, so at phone width the six nav links ran wider than the screen and every page quietly scrolled sideways. Nobody caught it, because nobody tests a desktop layout by eye at 390px. One breakpoint in the stylesheet fixed the whole site, not just the new page. Checking it also taught us the lazy way doesn't work: headless Chrome with a forced window size still clamps to a wider minimum here, so the screenshot you get back is a crop of a wide page, not an honest narrow one. The real check drives the browser's own device-metrics override and reads the page's actual width back.",
+      "The new page also ships with its own instrumentation. Both buttons record a click event, through the site's analytics script when it loads and a plain image ping when it doesn't, built to fail silently rather than ever block the click. Small thing. It's the difference between guessing whether the page works and knowing.",
+    ],
+    links: [{ label: 'Open the submission service', href: '/ship/' }],
+  },
+  {
     date: '2026-11-09',
     title: "The ad system stops working once you're inside someone else's page",
     body: [

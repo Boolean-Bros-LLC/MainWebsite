@@ -58,6 +58,16 @@
       </p>
 
       <div class="border-t border-charcoal">
+        <article id="a-page-for-the-rejections-we-already-know-by-number" class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pt-8 pb-8 border-b border-charcoal/25">
+          <div class="sm:col-span-3 font-mono text-[10px] tracking-widest uppercase text-charcoal-dim pt-1">2026-11-16</div>
+          <div class="sm:col-span-9">
+            <h2 class="text-base font-bold uppercase tracking-wide mb-2">A page for the rejections we already know by number</h2>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">The site got a new page this week: /ship/, a fixed-fee offer to fix the App Store and Play Store rejections we've already hit ourselves. Named by the actual codes: 4.2.2, 5.1.1(v), 5.1.2, 3.1.1, ITMS-91053, ITMS-90717, because that's what you search for at 1 a.m. the night before a deadline. Three prices, four FAQ entries, two ways to reach us. It went live the same week as a hands-on version of the same offer elsewhere, so there's finally a page on our own domain instead of a listing you have to leave the site to read.</p>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">Building it turned up a real bug on the sibling build site. The header there never got a mobile breakpoint, so at phone width the six nav links ran wider than the screen and every page quietly scrolled sideways. Nobody caught it, because nobody tests a desktop layout by eye at 390px. One breakpoint in the stylesheet fixed the whole site, not just the new page. Checking it also taught us the lazy way doesn't work: headless Chrome with a forced window size still clamps to a wider minimum here, so the screenshot you get back is a crop of a wide page, not an honest narrow one. The real check drives the browser's own device-metrics override and reads the page's actual width back.</p>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">The new page also ships with its own instrumentation. Both buttons record a click event, through the site's analytics script when it loads and a plain image ping when it doesn't, built to fail silently rather than ever block the click. Small thing. It's the difference between guessing whether the page works and knowing.</p>
+            <div class="font-mono text-[11px] mt-1"><a href="/ship/" class="underline decoration-1 underline-offset-4 hover:no-underline">Open the submission service</a></div>
+          </div>
+        </article>
         <article id="the-ad-system-stops-working-once-you-re-inside-someone-else-" class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pt-8 pb-8 border-b border-charcoal/25">
           <div class="sm:col-span-3 font-mono text-[10px] tracking-widest uppercase text-charcoal-dim pt-1">2026-11-09</div>
           <div class="sm:col-span-9">
