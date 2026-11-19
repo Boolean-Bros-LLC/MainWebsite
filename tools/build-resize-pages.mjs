@@ -11,6 +11,51 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const MASTER = join(ROOT, 'resize/index.html');
 const ORIGIN = 'https://booleanbros.com';
 
+const FAQ = {
+  '600x600': [
+    ['What is a 600x600 image used for?', 'Marketplace and product listings, avatars, and profile photos. It is the size most shopping feeds ask for and it still looks sharp in a grid.'],
+    ['How do I make a 600x600 photo?', 'Set width and height to 600 here, crop to a square first if the source is landscape, then download.'],
+    ['Should I crop or pad to square?', 'Crop. Padding adds dead space that makes a product look small in the thumbnail.'],
+  ],
+  '1080x1080': [
+    ['How do I resize a photo to 1080x1080?', 'Set the target to 1080 by 1080, crop to a square, and export. 1080 px is the resolution Instagram uses for a square post.'],
+    ['Is 1080x1080 right for Instagram?', 'Yes for square feed posts and carousels. Stories and reels are 1080x1920.'],
+    ['Will resizing distort the image?', 'Not if you crop to the square first. Stretching a rectangle into a square is what makes faces look wrong.'],
+  ],
+  '2x2-inch': [
+    ['What pixel size is a 2x2 inch photo?', '600x600 pixels at 300 DPI, which is the print standard. At 150 DPI the same print size is 300x300 pixels.'],
+    ['Is 2x2 inch the US passport and visa size?', 'Yes. US passport photos and most visa applications ask for 2x2 inches with the head between 1 and 1 3/8 inches tall.'],
+    ['What DPI do I need for printing?', '300 DPI. Below 200 the print looks soft, which is why photo services reject it.'],
+  ],
+};
+
+function renderFaq(faq) {
+  const items = faq.map(([q, a], i) => `      <details${i === 0 ? ' open' : ''}>
+        <summary>${q}</summary>
+        <p>${a}</p>
+      </details>`).join('\n');
+  return `    <section class="copy" id="faq">
+      <h2>Questions</h2>
+${items}
+    </section>
+`;
+}
+
+function faqLd(faq, url) {
+  const doc = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': url + '#faq',
+    mainEntity: faq.map(([q, a]) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  };
+  return `<script type="application/ld+json">${JSON.stringify(doc)}</script>`;
+}
+
+
 const PAGES = [
   {
     slug: '600x600',
@@ -131,6 +176,12 @@ function build(page) {
   html = replaceOnce(html, /<h1>Resize to<br>exact pixels<\/h1>/, `<h1>${page.h1}</h1>`, 'h1');
   html = replaceOnce(html, /<p class="lede">[\s\S]*?<\/p>/, `<p class="lede">${page.lede}</p>`, 'lede');
   html = replaceOnce(html, /    <section class="copy">[\s\S]*?<\/section>\n/, page.content, 'content');
+  const faq = FAQ[page.slug];
+  if (faq) {
+    html = replaceOnce(html, /    <section class="copy" id="faq">[\s\S]*?<\/section>\n/, renderFaq(faq), 'faq section');
+    html = html.replace(/,\s*\{\s*"@type": "FAQPage",[\s\S]*?\n    \}\n  \]/, '\n  ]');
+    html = html.replace('</head>', faqLd(faq, url) + '\n</head>');
+  }
   html = replaceOnce(html, "var state = { w: 0, h: 0, lock: true, fit: 'fit', fmt: 'image/jpeg', ratio: null };",
     `var state = { w: ${page.w}, h: ${page.h}, lock: true, fit: '${page.fit}', fmt: 'image/jpeg', ratio: ${page.w} / ${page.h} };`, 'state');
 

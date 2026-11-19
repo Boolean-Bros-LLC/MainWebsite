@@ -31,31 +31,6 @@
       "browserRequirements": "Requires JavaScript",
       "description": "Resize photos to an exact pixel size entirely in the browser. No upload, no account.",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Are my photos uploaded?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. The resizing happens in your browser. There is no server, so there is nothing to upload to. Disconnect from the internet after the page loads and it still works." }
-        },
-        {
-          "@type": "Question",
-          "name": "What is the difference between fit and fill?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Fit shrinks the image until both dimensions fit inside your target, adding background where the aspect ratios differ. Fill scales it until it covers the target and crops the overflow. Use fit when you cannot lose any of the photo, and fill when the frame must be completely covered." }
-        },
-        {
-          "@type": "Question",
-          "name": "How do I make a 2x2 inch photo?",
-          "acceptedAnswer": { "@type": "Answer", "text": "At 300 DPI, 2x2 inches is 600x600 pixels. Choose the 2x2 inch preset, use fill to crop to a square, and export as JPEG." }
-        },
-        {
-          "@type": "Question",
-          "name": "Does resizing remove EXIF data?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Re-encoding through a canvas writes a new file with no EXIF block, so GPS coordinates, capture time and camera details are dropped. Orientation is applied to the pixels first, so photos stay upright." }
-        }
-      ]
     }
   ]
 }
@@ -150,6 +125,7 @@ footer a:hover{color:var(--charcoal);}
 a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--charcoal);outline-offset:2px;}
 </style>
   <script data-goatcounter="https://booleanbros.goatcounter.com/count" async src="/assets/js/goatcounter-count.js"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://booleanbros.com/resize/600x600/#faq","mainEntity":[{"@type":"Question","name":"What is a 600x600 image used for?","acceptedAnswer":{"@type":"Answer","text":"Marketplace and product listings, avatars, and profile photos. It is the size most shopping feeds ask for and it still looks sharp in a grid."}},{"@type":"Question","name":"How do I make a 600x600 photo?","acceptedAnswer":{"@type":"Answer","text":"Set width and height to 600 here, crop to a square first if the source is landscape, then download."}},{"@type":"Question","name":"Should I crop or pad to square?","acceptedAnswer":{"@type":"Answer","text":"Crop. Padding adds dead space that makes a product look small in the thumbnail."}}]}</script>
 </head>
 <body>
 
@@ -274,31 +250,17 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 
     <section class="copy" id="faq">
       <h2>Questions</h2>
-
       <details open>
-        <summary>Are my photos uploaded anywhere?</summary>
-        <p>No. There is no backend. The page contains all the code it needs and your browser does the
-          decoding and resizing locally. Disconnect from the internet after the page loads and it keeps
-          working.</p>
+        <summary>What is a 600x600 image used for?</summary>
+        <p>Marketplace and product listings, avatars, and profile photos. It is the size most shopping feeds ask for and it still looks sharp in a grid.</p>
       </details>
-
       <details>
-        <summary>How do I make a 2×2 inch photo?</summary>
-        <p>At 300 DPI, 2×2 inches is <strong>600×600 pixels</strong>. Choose the 2×2 inch preset, use
-          <em>fill</em> to crop to a square, and export as JPEG.</p>
+        <summary>How do I make a 600x600 photo?</summary>
+        <p>Set width and height to 600 here, crop to a square first if the source is landscape, then download.</p>
       </details>
-
       <details>
-        <summary>Does resizing remove EXIF and GPS data?</summary>
-        <p>Yes. Re-encoding through a canvas writes a fresh file with no EXIF block, so GPS coordinates,
-          capture time and camera model are dropped. Rotation is applied to the pixels first, so portrait
-          photos stay upright.</p>
-      </details>
-
-      <details>
-        <summary>Will it upscale a small image?</summary>
-        <p>It will, but it cannot invent detail. If you ask for 4000 px from a 600 px photo you get a
-          larger, softer image. Downscaling is always the better direction.</p>
+        <summary>Should I crop or pad to square?</summary>
+        <p>Crop. Padding adds dead space that makes a product look small in the thumbnail.</p>
       </details>
     </section>
   </div>

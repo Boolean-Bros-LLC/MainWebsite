@@ -34,51 +34,6 @@
         "On-device — nothing uploaded",
         "Strips EXIF metadata including GPS"
       ]
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Are my photos uploaded to a server?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. Every photo is decoded, resized and re-encoded by your own browser. Nothing is sent anywhere. You can confirm it by disconnecting from the internet after the page loads — the tool still works."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do I compress an image to exactly 100 KB?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Choose the 100 KB preset, drop your image in, and the tool searches for the highest JPEG quality that fits under 100 KB. If no quality setting fits, it reduces the pixel dimensions and tries again until it lands under the target."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Does compressing remove EXIF and GPS data?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. Re-encoding through a canvas writes a fresh file with no EXIF block, so capture date, camera model and GPS coordinates are dropped. Your photo's orientation is applied to the pixels first, so it still looks upright."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What file types are supported?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "JPEG, PNG and WebP. HEIC files from iPhones are not decodable in most browsers — export them as JPEG first, or use the Image Shrinker app, which handles them on-device."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is there a file size or daily limit?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No limit on this page. It is free and unlimited because there is no server to pay for. The mobile app has a free daily batch limit and an optional one-time Pro upgrade."
-          }
-        }
-      ]
     }
   ]
 }
@@ -192,6 +147,7 @@ footer a:hover{color:var(--charcoal);}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
 </style>
   <script data-goatcounter="https://booleanbros.goatcounter.com/count" async src="/assets/js/goatcounter-count.js"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://booleanbros.com/shrink/500kb/#faq","mainEntity":[{"@type":"Question","name":"How many MB is 500 KB?","acceptedAnswer":{"@type":"Answer","text":"0.5 MB. Email and upload forms usually quote limits in MB, so 500 KB uses about 2.5 percent of a 20 MB attachment cap."}},{"@type":"Question","name":"When should I stop at 500 KB instead of going smaller?","acceptedAnswer":{"@type":"Answer","text":"When the image needs to hold detail: product shots, print, screenshots with small text. At 500 KB a 2000 px wide JPEG still reads cleanly."}},{"@type":"Question","name":"Is 500 KB small enough to email?","acceptedAnswer":{"@type":"Answer","text":"Yes. Attachments are slow to send above a few MB, so 500 KB per photo means a dozen images still fit comfortably."}}]}</script>
 </head>
 <body>
 
@@ -333,46 +289,17 @@ footer a:hover{color:var(--charcoal);}
 
     <section class="copy" id="faq">
       <h2>Questions</h2>
-
       <details open>
-        <summary>Are my photos uploaded anywhere?</summary>
-        <p>No. There is no backend. The page contains all the code it needs, and your browser does the
-          decoding and encoding locally. Disconnect from the internet after the page loads and it keeps
-          working — that is the easiest way to verify it.</p>
+        <summary>How many MB is 500 KB?</summary>
+        <p>0.5 MB. Email and upload forms usually quote limits in MB, so 500 KB uses about 2.5 percent of a 20 MB attachment cap.</p>
       </details>
-
       <details>
-        <summary>How do I get a photo under 100 KB for a form upload?</summary>
-        <p>Select the 100 KB preset, drop the file in, and download the result. Most government, visa and
-          job-portal forms accept a JPEG under 100 KB — if the form also caps dimensions, set max dimension
-          to 800 px or 1280 px as well.</p>
+        <summary>When should I stop at 500 KB instead of going smaller?</summary>
+        <p>When the image needs to hold detail: product shots, print, screenshots with small text. At 500 KB a 2000 px wide JPEG still reads cleanly.</p>
       </details>
-
       <details>
-        <summary>Why is the output JPEG when I uploaded a PNG?</summary>
-        <p>PNG is lossless, so a photograph stays enormous unless you crop it. Choosing JPEG or WebP lets
-          the tool actually hit your target size. Switch the output to PNG if you need lossless output and
-          transparency — the tool will then reduce dimensions instead of quality, and may report that the
-          target cannot be reached.</p>
-      </details>
-
-      <details>
-        <summary>Does it work with HEIC photos from an iPhone?</summary>
-        <p>Usually no — most browsers cannot decode HEIC. Export to JPEG first (iOS: Share → Save to Files →
-          keep as JPEG, or change Camera → Formats → Most Compatible), or use the Image Shrinker app, which
-          handles HEIC directly on-device.</p>
-      </details>
-
-      <details>
-        <summary>Is there a limit on how many images I can compress?</summary>
-        <p>No limit, and no daily cap. There is no server doing the work, so there is nothing to meter.
-          The mobile app has a free daily batch limit plus a one-time Pro upgrade that removes ads.</p>
-      </details>
-
-      <details>
-        <summary>What about really large images?</summary>
-        <p>Images are capped at 4096 px on the long edge before processing so a 50-megapixel file does not
-          exhaust browser memory. For a target size like 100 KB that ceiling makes no practical difference.</p>
+        <summary>Is 500 KB small enough to email?</summary>
+        <p>Yes. Attachments are slow to send above a few MB, so 500 KB per photo means a dozen images still fit comfortably.</p>
       </details>
     </section>
   </div>

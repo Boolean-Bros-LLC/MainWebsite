@@ -17,6 +17,71 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const MASTER = join(ROOT, 'shrink/index.html');
 const ORIGIN = 'https://booleanbros.com';
 
+const FAQ = {
+  '20kb': [
+    ['How do I compress a photo to 20 KB?', 'Pick the 20 KB preset and drop the photo in. The tool lowers JPEG quality first, then the pixel dimensions, until the file lands under 20 KB.'],
+    ['Why does a 20 KB photo look blocky?', '20 KB is about 20,000 bytes for the whole image. Fine detail costs bytes, so a face survives and foliage or small text turns to mush. Cropping to the part that matters is the real fix.'],
+    ['What pixel size fits in 20 KB?', 'Roughly 600x800 for a simple scene, less when the frame is busy. If the form also caps dimensions, set Max dimension before converting or you will do it twice.'],
+  ],
+  '50kb': [
+    ['How do I get an image under 50 KB?', 'Choose the 50 KB preset and drop the file in. Quality is reduced first, then dimensions, until the encoded file is under the target.'],
+    ['Is 50 KB enough for a passport or visa photo?', 'Usually yes when the form asks for 50 KB at around 600x800. Most rejections are about pixel dimensions, not bytes, so check both numbers in the form help text.'],
+    ['Will a 50 KB photo look bad on a phone?', 'At 600x800 it looks normal on a phone screen. It will look soft if someone opens it full width on a desktop monitor.'],
+  ],
+  '200kb': [
+    ['How do I compress an image to 200 KB?', 'Select 200 KB, drop the photo in, and download. The tool keeps the largest dimensions that still fit the target, so the result stays sharp.'],
+    ['Is 200 KB good for a website or an email?', 'Yes. At 200 KB a photo loads fast on mobile data and still looks clean in a browser at typical sizes. It is the usual target for a content image.'],
+    ['Why did my PNG stay large?', 'PNG is lossless, so photographs stay big unless the pixel count drops. Switch the output to JPEG or WebP to reach 200 KB at full dimensions.'],
+  ],
+  '500kb': [
+    ['How many MB is 500 KB?', '0.5 MB. Email and upload forms usually quote limits in MB, so 500 KB uses about 2.5 percent of a 20 MB attachment cap.'],
+    ['When should I stop at 500 KB instead of going smaller?', 'When the image needs to hold detail: product shots, print, screenshots with small text. At 500 KB a 2000 px wide JPEG still reads cleanly.'],
+    ['Is 500 KB small enough to email?', 'Yes. Attachments are slow to send above a few MB, so 500 KB per photo means a dozen images still fit comfortably.'],
+  ],
+  'heic': [
+    ['Why will my iPhone HEIC photo not upload?', 'Many upload forms and older browsers only accept JPEG or PNG. Safari on iOS can decode HEIC, most other browsers cannot.'],
+    ['How do I convert HEIC to JPG?', 'Drop the file here in Safari or on macOS and download the JPEG. Elsewhere, set iOS Camera to Formats > Most Compatible, or export from Photos as JPEG.'],
+    ['Does converting HEIC to JPEG lose quality?', 'A little. HEIC compresses more efficiently than JPEG, so the same quality is a larger file. At the settings used here the difference is hard to see on a screen.'],
+  ],
+  'whatsapp': [
+    ['How do I compress a photo for a WhatsApp profile picture?', 'Crop to a square first, then compress to 200 to 500 KB. WhatsApp shrinks the image itself, so uploading something already small avoids a second round of compression.'],
+    ['Why does WhatsApp make my photos blurry?', 'It re-compresses everything and caps dimensions. Sending as a document preserves the original, which is why files sent that way look sharper.'],
+    ['What size should a WhatsApp DP be?', 'A 500x500 square is enough. Anything larger gets reduced by WhatsApp anyway.'],
+  ],
+  'email': [
+    ['How do I compress photos for email?', 'Aim for 200 to 500 KB per photo. Most mail servers cap the whole message at 20 to 25 MB, and large attachments are slow to send and often blocked.'],
+    ['What size is safe for an email attachment?', 'Around 500 KB to 1 MB per image. A dozen of those still fits inside a typical 20 MB limit.'],
+    ['Will the recipient notice the compression?', 'Not on a screen at normal size. It becomes visible if they zoom or print.'],
+  ],
+};
+
+function renderFaq(faq) {
+  const items = faq.map(([q, a], i) => `      <details${i === 0 ? ' open' : ''}>
+        <summary>${q}</summary>
+        <p>${a}</p>
+      </details>`).join('\n');
+  return `    <section class="copy" id="faq">
+      <h2>Questions</h2>
+${items}
+    </section>
+`;
+}
+
+function faqLd(faq, url) {
+  const doc = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': url + '#faq',
+    mainEntity: faq.map(([q, a]) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  };
+  return `<script type="application/ld+json">${JSON.stringify(doc)}</script>`;
+}
+
+
 const PAGES = [
   {
     slug: '20kb',
@@ -339,6 +404,12 @@ function build(page) {
     'lede'
   );
   html = replaceOnce(html, /    <section class="copy">[\s\S]*?<\/section>\n/, page.content, 'content section');
+  const faq = FAQ[page.slug];
+  if (faq) {
+    html = replaceOnce(html, /    <section class="copy" id="faq">[\s\S]*?<\/section>\n/, renderFaq(faq), 'faq section');
+    html = html.replace(/,\s*\{\s*"@type": "FAQPage",[\s\S]*?\n    \}\n  \]/, '\n  ]');
+    html = html.replace('</head>', faqLd(faq, url) + '\n</head>');
+  }
 
   // Default target for this page (also drives the footer before the first file).
   html = replaceOnce(
