@@ -1,7 +1,11 @@
+# /tools/ holds build scripts (.mjs) — not content, no reason to crawl.
+# /review/ holds a 4.8 MB screen recording supplied to App Review — media, not a page.
+# /shrink/vendor/ is deliberately NOT blocked: heic-to.js is a rendering dependency of the
+# /shrink/ and /pdf/ pages, and blocking it made Search Console report the pages' own script
+# as an unreachable URL. It is public, MIT-licensed code with nothing to hide.
 User-agent: *
 Allow: /
 Disallow: /tools/
-Disallow: /shrink/vendor/
 Disallow: /review/
 
 Sitemap: https://booleanbros.com/sitemap.xml
