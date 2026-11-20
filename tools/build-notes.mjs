@@ -11,6 +11,16 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const NOTES = [
   {
+    date: '2026-11-19',
+    title: "A submission package for Hue Drop's browser build",
+    body: [
+      "Hue Drop's move onto browser game portals finally shipped. Two weeks ago we said the CrazyGames build wasn't submitted yet, just a preview video and the listing left to go. This week the SDK integration got finished, a submission package got built, and the whole thing went up. A reply came back the next morning. It only confirms the submission landed; whether CrazyGames approves it is still unread.",
+      "Most of the week went into the gap between \"runs on my machine\" and \"runs inside someone else's iframe.\" The embed had been shaped like a phone column, tall and narrow, built for a touchscreen. Portal frames run wide and short instead. So the play screen got rebuilt to fill that frame edge to edge, and the menu got reworked so it fits a short frame without clipping the title art. You don't catch this testing on a phone. You only catch it once you measure the actual window a portal gives you.",
+      "A few smaller fixes rode along. Keyboard controls went in, Q/W/E/R to pick a color and Escape to pause, since portal players use a desktop browser, not a touchscreen. The favicon had been quietly shipping as Expo's placeholder icon instead of the real game icon since the first build; nobody noticed until this pass. The color row and the ring-segment rendering got memoized too, after a one-shot animation was caught restarting faster than it should: a frame-rate artifact, not a design choice.",
+    ],
+    links: [],
+  },
+  {
     date: '2026-11-16',
     title: 'A page for the rejections we already know by number',
     body: [

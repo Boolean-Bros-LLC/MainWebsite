@@ -5,7 +5,14 @@
     <link>https://booleanbros.com/notes/</link>
     <description>A shipping log from an independent mobile studio.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 17 Nov 2026 15:01:48 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2026 15:01:45 GMT</lastBuildDate>
+    <item>
+      <title>A submission package for Hue Drop's browser build</title>
+      <link>https://booleanbros.com/notes/#a-submission-package-for-hue-drop-s-browser-build</link>
+      <guid>https://booleanbros.com/notes/#a-submission-package-for-hue-drop-s-browser-build</guid>
+      <pubDate>Thu, 19 Nov 2026 12:00:00 GMT</pubDate>
+      <description>Hue Drop's move onto browser game portals finally shipped. Two weeks ago we said the CrazyGames build wasn't submitted yet, just a preview video and the listing left to go. This week the SDK integration got finished, a submission package got built, and the whole thing went up. A reply came back the next morning. It only confirms the submission landed; whether CrazyGames approves it is still unread.</description>
+    </item>
     <item>
       <title>A page for the rejections we already know by number</title>
       <link>https://booleanbros.com/notes/#a-page-for-the-rejections-we-already-know-by-number</link>

@@ -58,6 +58,16 @@
       </p>
 
       <div class="border-t border-charcoal">
+        <article id="a-submission-package-for-hue-drop-s-browser-build" class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pt-8 pb-8 border-b border-charcoal/25">
+          <div class="sm:col-span-3 font-mono text-[10px] tracking-widest uppercase text-charcoal-dim pt-1">2026-11-19</div>
+          <div class="sm:col-span-9">
+            <h2 class="text-base font-bold uppercase tracking-wide mb-2">A submission package for Hue Drop's browser build</h2>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">Hue Drop's move onto browser game portals finally shipped. Two weeks ago we said the CrazyGames build wasn't submitted yet, just a preview video and the listing left to go. This week the SDK integration got finished, a submission package got built, and the whole thing went up. A reply came back the next morning. It only confirms the submission landed; whether CrazyGames approves it is still unread.</p>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">Most of the week went into the gap between "runs on my machine" and "runs inside someone else's iframe." The embed had been shaped like a phone column, tall and narrow, built for a touchscreen. Portal frames run wide and short instead. So the play screen got rebuilt to fill that frame edge to edge, and the menu got reworked so it fits a short frame without clipping the title art. You don't catch this testing on a phone. You only catch it once you measure the actual window a portal gives you.</p>
+            <p class="text-charcoal-mid text-sm leading-relaxed mb-3">A few smaller fixes rode along. Keyboard controls went in, Q/W/E/R to pick a color and Escape to pause, since portal players use a desktop browser, not a touchscreen. The favicon had been quietly shipping as Expo's placeholder icon instead of the real game icon since the first build; nobody noticed until this pass. The color row and the ring-segment rendering got memoized too, after a one-shot animation was caught restarting faster than it should: a frame-rate artifact, not a design choice.</p>
+            <div class="font-mono text-[11px] mt-1"></div>
+          </div>
+        </article>
         <article id="a-page-for-the-rejections-we-already-know-by-number" class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 pt-8 pb-8 border-b border-charcoal/25">
           <div class="sm:col-span-3 font-mono text-[10px] tracking-widest uppercase text-charcoal-dim pt-1">2026-11-16</div>
           <div class="sm:col-span-9">
