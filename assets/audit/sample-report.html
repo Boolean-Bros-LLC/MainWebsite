@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
-<title>Acme — submission readiness BB-20261115-ACME</title>
+<title>capacitor — submission readiness BB-20261120-CAPACITOR</title>
 <style>
 :root{--ink:#14171a;--mut:#5a6672;--line:#e3e7eb;--bg:#fbfcfd}
 *{box-sizing:border-box}
@@ -8,11 +8,11 @@ body{margin:0;padding:40px;font:15px/1.55 -apple-system,BlinkMacSystemFont,"Sego
 h1{font-size:26px;margin:0 0 6px;letter-spacing:-.3px}
 h2{font-size:13px;text-transform:uppercase;letter-spacing:.9px;color:var(--mut);margin:34px 0 12px}
 .meta{color:var(--mut);font-size:13px;margin-bottom:20px;line-height:1.7}
-.verdict{display:inline-block;padding:6px 13px;border-radius:999px;font-weight:650;font-size:12.5px;letter-spacing:.3px;color:#fff;background:#1a7f37}
+.verdict{display:inline-block;padding:6px 13px;border-radius:999px;font-weight:650;font-size:12.5px;letter-spacing:.3px;color:#fff;background:#9a6700}
 .cards{display:flex;gap:12px;margin:22px 0 8px;flex-wrap:wrap}
 .card{flex:1 1 110px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#fff}
 .card b{display:block;font-size:21px;letter-spacing:-.4px}
-.card span{color:var(--mut);font-size:11.5px;text-transform:uppercase;letter-spacing:.6px}
+.card span{color:var(--mut);font-size:11.5px;text-transform:uppercase;letter-spacing:.6px;display:block;min-height:2.6em}
 table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13.5px}
 th{background:#f4f6f8;font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--mut)}
@@ -24,7 +24,12 @@ code{font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;color:#374151}
 .sub{color:var(--mut)}
 .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .total td{font-weight:700;border-top:2px solid var(--ink)}
+.saving td{color:#1a7f37;font-weight:600}
+.groupbreak td{border-top:2px solid var(--line)}
 .note{color:var(--mut);font-size:12.5px;margin-top:14px;border-left:3px solid var(--line);padding-left:14px}
+.note ul{margin:6px 0;padding-left:18px}
+.note li{margin:2px 0}
+.note p{margin:8px 0 0}
 .stopper{background:#fff4f4;border:1px solid #f3c9cb;border-radius:10px;padding:14px 16px}
 footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);color:var(--mut);font-size:11.5px;display:flex;justify-content:space-between}
 .cover{min-height:82vh;display:flex;flex-direction:column;justify-content:center}
@@ -47,19 +52,22 @@ footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);color:v
 
 <div class="cover pagebreak">
   <div class="kicker">Submission readiness assessment</div>
-  <h1>Acme</h1>
+  <h1>capacitor</h1>
   <div class="for">Prepared for Acme Inc</div>
   <div class="meta">
-    Engagement BB-20261115-ACME<br>
-    November 15, 2026<br>
-    Framework: capacitor — configuration read from capacitor.config.json
+    Engagement BB-20261120-CAPACITOR<br>
+    November 20, 2026<br>
+    Framework: capacitor — configuration read from capacitor.config.json<br>
+    43 checks · gate v0.10.0
   </div>
-  <div><span class="verdict">QUOTABLE</span></div>
+  <div><span class="verdict">QUOTABLE · 3 priced items</span>
+  <div class="badge-note">Quotable means every failed check below carries a fixed price. A finding that cannot be fixed would read BLOCKED instead.</div></div>
   <div class="cards">
-    <div class="card"><span>Checks passed</span><b>12</b></div>
-    <div class="card"><span>Failed</span><b>4</b></div>
+    <div class="card"><span>Checks passed</span><b>22</b></div>
+    <div class="card"><span>Failed</span><b>3</b></div>
     <div class="card"><span>Warnings</span><b>3</b></div>
-    <div class="card"><span>Needs your input</span><b>5</b></div>
+    <div class="card"><span>Needs input</span><b>5</b></div>
+    <div class="card"><span>Not applicable</span><b>10</b></div>
   </div>
 </div>
 
@@ -73,17 +81,10 @@ footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);color:v
     </tr>
 <tr>
       <td><span class="chip" style="background:#c1272d">FAIL</span></td>
-      <td><code>android.target</code></td>
-      <td>Android</td>
-      <td>targetSdkVersion ≥ 35<div class="rule">Play requirement</div></td>
-      <td>targetSdk 34 below Play's 35 floor<div class="fix">Fix: bump the value, rebuild, retest</div></td>
-    </tr>
-<tr>
-      <td><span class="chip" style="background:#c1272d">FAIL</span></td>
-      <td><code>android.perms</code></td>
-      <td>Android</td>
-      <td>No inherited or unjustified sensitive permissions<div class="rule">Play data-permissions policy</div></td>
-      <td>READ_EXTERNAL_STORAGE — storage access — Play asks why; usually removable on API 33+ (committed manifest; Play reads the merged manifest of the uploaded AAB — confirm there too)<div class="fix">Fix: remove what the app does not use; every retained permission needs a written justification</div></td>
+      <td><code>web.42</code></td>
+      <td>Product</td>
+      <td>Not a thin web wrapper (guideline 4.2)<div class="rule">4.2 minimum functionality</div></td>
+      <td>web-wrapper shell with 4 native capability dep(s) — reads as a website in a frame<div class="fix">Fix: add real native capability (haptics, notifications, offline storage, share, camera) or reprice as a rebuild</div></td>
     </tr>
 <tr>
       <td><span class="chip" style="background:#c1272d">FAIL</span></td>
@@ -94,10 +95,17 @@ footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);color:v
     </tr>
 <tr>
       <td><span class="chip" style="background:#9a6700">WARN</span></td>
+      <td><code>proj.nodemodules</code></td>
+      <td>Project</td>
+      <td>node_modules not committed</td>
+      <td>no .gitignore<div class="fix">Fix: add .gitignore with node_modules and .env</div></td>
+    </tr>
+<tr>
+      <td><span class="chip" style="background:#9a6700">WARN</span></td>
       <td><code>cfg.versions</code></td>
       <td>Config</td>
       <td>Version and build numbers set explicitly</td>
-      <td>1.0.0; ios build number unset (prebuild defaults to "1")<div class="fix">Fix: set explicitly now — the first upload works either way, the second one collides</div></td>
+      <td>2.0.0; ios build number unset (prebuild defaults to "1")<div class="fix">Fix: set explicitly now — the first upload works either way, the second one collides</div></td>
     </tr>
 <tr>
       <td><span class="chip" style="background:#9a6700">WARN</span></td>
@@ -105,13 +113,6 @@ footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);color:v
       <td>iOS</td>
       <td>Export compliance answered</td>
       <td>not declared in Info.plist — answered per upload instead<div class="fix">Fix: declare false unless the app implements its own crypto</div></td>
-    </tr>
-<tr>
-      <td><span class="chip" style="background:#9a6700">WARN</span></td>
-      <td><code>android.icon</code></td>
-      <td>Android</td>
-      <td>Adaptive icon configured</td>
-      <td>no adaptive icon config and no launcher resources found<div class="fix">Fix: modern launchers show a blank tile</div></td>
     </tr>
 <tr>
       <td><span class="chip" style="background:#57606a">UNKNOWN</span></td>
@@ -153,7 +154,7 @@ footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);color:v
       <td><code>proj.package</code></td>
       <td>Project</td>
       <td>Project manifest parses; framework identified</td>
-      <td>package.json ok — capacitor; 9 deps</td>
+      <td>package.json ok — capacitor; 7 deps</td>
     </tr>
 <tr>
       <td><span class="chip" style="background:#1a7f37">PASS</span></td>
@@ -164,17 +165,24 @@ footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);color:v
     </tr>
 <tr>
       <td><span class="chip" style="background:#1a7f37">PASS</span></td>
-      <td><code>proj.nodemodules</code></td>
+      <td><code>proj.scale</code></td>
       <td>Project</td>
-      <td>node_modules not committed</td>
-      <td>.gitignore excludes node_modules</td>
+      <td>Repository size within what this audit can read</td>
+      <td>7 text files scanned</td>
+    </tr>
+<tr>
+      <td><span class="chip" style="background:#1a7f37">PASS</span></td>
+      <td><code>cfg.scope</code></td>
+      <td>Config</td>
+      <td>Auditing the app the client means</td>
+      <td>[client repo]</td>
     </tr>
 <tr>
       <td><span class="chip" style="background:#1a7f37">PASS</span></td>
       <td><code>cfg.ids</code></td>
       <td>Config</td>
       <td>Bundle id / package name present and valid</td>
-      <td>com.acme.app / com.acme.app (from capacitor.config.json)</td>
+      <td>com.cap.fixture / com.cap.fixture (from capacitor.config.json)</td>
     </tr>
 <tr>
       <td><span class="chip" style="background:#1a7f37">PASS</span></td>
@@ -202,21 +210,63 @@ footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);color:v
       <td><code>ios.icon</code></td>
       <td>iOS</td>
       <td>App icon is 1024×1024 with no alpha channel<div class="rule">ITMS-90717</div></td>
-      <td>resources/icon.png 1024×1024, no alpha</td>
+      <td>ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png 1024×1024, no alpha</td>
     </tr>
 <tr>
       <td><span class="chip" style="background:#1a7f37">PASS</span></td>
       <td><code>android.package</code></td>
       <td>Android</td>
       <td>applicationId valid for Play</td>
-      <td>com.acme.app</td>
+      <td>com.cap.fixture</td>
     </tr>
 <tr>
       <td><span class="chip" style="background:#1a7f37">PASS</span></td>
-      <td><code>web.42</code></td>
+      <td><code>android.target</code></td>
+      <td>Android</td>
+      <td>targetSdkVersion ≥ 35<div class="rule">Play requirement</div></td>
+      <td>targetSdk 35</td>
+    </tr>
+<tr>
+      <td><span class="chip" style="background:#1a7f37">PASS</span></td>
+      <td><code>android.perms</code></td>
+      <td>Android</td>
+      <td>No inherited or unjustified sensitive permissions<div class="rule">Play data-permissions policy</div></td>
+      <td>no sensitive permissions declared</td>
+    </tr>
+<tr>
+      <td><span class="chip" style="background:#1a7f37">PASS</span></td>
+      <td><code>android.manifest_hygiene</code></td>
+      <td>Android</td>
+      <td>Release manifest has no debug or data-leak settings<div class="rule">Play policy + basic security</div></td>
+      <td>no debuggable, legacy-storage, backup or stray-export settings</td>
+    </tr>
+<tr>
+      <td><span class="chip" style="background:#1a7f37">PASS</span></td>
+      <td><code>android.icon</code></td>
+      <td>Android</td>
+      <td>Adaptive icon configured</td>
+      <td>launcher icon resources present (android/app/src/main/res/mipmap-hdpi/ic_launcher.png)</td>
+    </tr>
+<tr>
+      <td><span class="chip" style="background:#1a7f37">PASS</span></td>
+      <td><code>store.name</code></td>
+      <td>Store</td>
+      <td>App name is within store limits and rules</td>
+      <td>"Cap Fixture" (11 chars)</td>
+    </tr>
+<tr>
+      <td><span class="chip" style="background:#1a7f37">PASS</span></td>
+      <td><code>prod.localhost</code></td>
       <td>Product</td>
-      <td>Not a thin web wrapper (guideline 4.2)<div class="rule">4.2 minimum functionality</div></td>
-      <td>5 native capabilities around a web core — 4.2 risk is low but arguable</td>
+      <td>No dev-only endpoints left in the app source</td>
+      <td>no localhost, loopback or .local endpoints in source</td>
+    </tr>
+<tr>
+      <td><span class="chip" style="background:#1a7f37">PASS</span></td>
+      <td><code>repo.signing</code></td>
+      <td>Handoff</td>
+      <td>No signing material committed to the repo<div class="rule">key compromise</div></td>
+      <td>no keystores or profiles found (not a git repo)</td>
     </tr>
 <tr>
       <td><span class="chip" style="background:#1a7f37">PASS</span></td>
@@ -230,14 +280,49 @@ footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);color:v
       <td><code>build.path</code></td>
       <td>Build</td>
       <td>A known build path exists</td>
-      <td>ios/ project | android/ gradle project</td>
+      <td>ios/ project · android/ gradle project</td>
     </tr>
 <tr>
+      <td><span class="chip" style="background:#1a7f37">PASS</span></td>
+      <td><code>android.cleartext</code></td>
+      <td>Android</td>
+      <td>Cleartext HTTP not enabled</td>
+      <td>no cleartext traffic allowance</td>
+    </tr>
+<tr>
+      <td><span class="chip" style="background:#1a7f37">PASS</span></td>
+      <td><code>store.ids</code></td>
+      <td>Config</td>
+      <td>iOS and Android identifiers agree</td>
+      <td>com.cap.fixture</td>
+    </tr>
+<tr>
+      <td><span class="chip" style="background:#1a7f37">PASS</span></td>
+      <td><code>sdk.inventory</code></td>
+      <td>Privacy</td>
+      <td>Third-party SDKs inventoried for the privacy labels</td>
+      <td>no third-party SDKs detected in dependencies</td>
+    </tr>
+<tr class="groupbreak">
       <td><span class="chip" style="background:#8250df">SKIP</span></td>
       <td><code>ios.att</code></td>
       <td>iOS</td>
       <td>ATT prompt configured for IDFA / ad SDK<div class="rule">5.1.2</div></td>
       <td>no ad SDK in dependencies</td>
+    </tr>
+<tr>
+      <td><span class="chip" style="background:#8250df">SKIP</span></td>
+      <td><code>ios.privacy_reasons</code></td>
+      <td>iOS</td>
+      <td>Required-reason APIs declared in the privacy manifest<div class="rule">ITMS-91053</div></td>
+      <td>no app-level privacy manifest to compare against</td>
+    </tr>
+<tr>
+      <td><span class="chip" style="background:#8250df">SKIP</span></td>
+      <td><code>ios.displayname</code></td>
+      <td>iOS</td>
+      <td>Display name is set (not the bundle name)</td>
+      <td>no Info.plist to inspect</td>
     </tr>
 <tr>
       <td><span class="chip" style="background:#8250df">SKIP</span></td>
@@ -258,7 +343,7 @@ footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);color:v
       <td><code>acct.deletion</code></td>
       <td>Policy</td>
       <td>Account deletion exists if accounts can be created<div class="rule">5.1.1(v)</div></td>
-      <td>no account creation flow detected</td>
+      <td>no auth SDK in dependencies — no account surface to delete from</td>
     </tr>
 <tr>
       <td><span class="chip" style="background:#8250df">SKIP</span></td>
@@ -266,21 +351,47 @@ footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);color:v
       <td>Policy</td>
       <td>User-generated content has reporting and blocking<div class="rule">1.2</div></td>
       <td>no backend/auth SDK — no UGC surface detected</td>
+    </tr>
+<tr>
+      <td><span class="chip" style="background:#8250df">SKIP</span></td>
+      <td><code>store.shot_dims</code></td>
+      <td>Store</td>
+      <td>Screenshots meet the stores' size requirements</td>
+      <td>no screenshot directory to measure</td>
+    </tr>
+<tr>
+      <td><span class="chip" style="background:#8250df">SKIP</span></td>
+      <td><code>store.urls_live</code></td>
+      <td>Store</td>
+      <td>Privacy policy and support URLs actually resolve</td>
+      <td>not checked — pass --online to resolve the URLs (makes network requests)</td>
+    </tr>
+<tr>
+      <td><span class="chip" style="background:#8250df">SKIP</span></td>
+      <td><code>ios.ats</code></td>
+      <td>iOS</td>
+      <td>App Transport Security not blanket-disabled<div class="rule">App Review asks why</div></td>
+      <td>no Info.plist to inspect</td>
     </tr></tbody></table>
 
 <h2>Quote</h2>
+<p class="sub" style="margin:0 0 6px">These are fixed prices for me to do the work — not an invoice. Nothing is owed unless you ask me to start; the report itself is the whole deliverable.</p>
 <table class="quote"><tbody>
         <tr><td>Managed launch — both stores, store assets, submission, rejection handling</td><td class="num">$495</td></tr>
-        <tr><td>PrivacyInfo.xcprivacy present in the app target <span class="sub">remediation</span></td><td class="num">$50</td></tr><tr><td>targetSdkVersion ≥ 35 <span class="sub">remediation</span></td><td class="num">$75</td></tr><tr><td>No inherited or unjustified sensitive permissions <span class="sub">remediation</span></td><td class="num">$75</td></tr><tr><td>Screenshots ready for both stores <span class="sub">remediation</span></td><td class="num">$125</td></tr>
-        <tr class="total"><td>Total — founding rate</td><td class="num">$820</td></tr>
-        <tr><td class="sub">Same scope at standard rate</td><td class="num sub">$1220</td></tr>
+        <tr><td>PrivacyInfo.xcprivacy present in the app target <span class="sub">remediation</span></td><td class="num">$50</td></tr><tr><td>Not a thin web wrapper (guideline 4.2) <span class="sub">remediation</span></td><td class="num">$350</td></tr><tr><td>Screenshots ready for both stores <span class="sub">remediation</span></td><td class="num">$125</td></tr>
+        
+        <tr class="total"><td>Total — founding rate</td><td class="num">1020</td></tr>
+        <tr><td class="sub">Same scope at the standard rate</td><td class="num sub">$1420</td></tr>
+        <tr><td class="saving">Founding rate saves</td><td class="num saving">$400</td></tr>
       </tbody></table>
 
 <h2>What this report does not cover</h2>
 <div class="note">
 Limited to the checks above, as of the timestamp on the cover. It is not a security audit, not a code-quality review, and not a guarantee of App Review acceptance.
-Still to be confirmed by the client: Launch on a clean device with no dev server or debugger attached; App Store Connect / Play Console history (prior rejections, existing builds); Content licensing and trademark clearance; EU DSA trader status and any regional declarations.
+<p>Still to be confirmed by the client:</p>
+<ul><li>Launch on a clean device with no dev server or debugger attached</li><li>App Store Connect / Play Console history (prior rejections, existing builds)</li><li>Content licensing and trademark clearance</li><li>EU DSA trader status and any regional declarations</li></ul>
+<p>The quote is valid for 7 days and assumes the repository is unchanged from this assessment. Work added to the repo before submission is scoped and quoted before anything starts.</p>
 </div>
 
-<footer><span>Boolean Bros LLC · BB-20261115-ACME</span><span>Acme — submission readiness</span></footer>
+<footer><span>Boolean Bros LLC · BB-20261120-CAPACITOR</span><span>Nov 20, 2026</span></footer>
 </div></body></html>
