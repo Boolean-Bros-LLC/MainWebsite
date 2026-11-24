@@ -11,6 +11,17 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const NOTES = [
   {
+    date: '2026-11-20',
+    title: 'A sample report instead of a promise',
+    body: [
+      "The /ship/ page went live two weeks back as a fixed-fee offer to fix the exact App Store and Play rejections we've hit ourselves. This week it turned from a pitch into something you can actually check before you pay: pricing on the audit tier, a link straight to checkout, and a real sample report sitting next to the price instead of a \"trust us.\"",
+      "Building that sample caught its own mistake. The first version had been generated from an older, smaller check run that no longer matched what the page claims the audit covers — a demo that quietly contradicted the product. It got thrown out and regenerated from the current, larger check gate, run against an anonymized fixture app so nobody's real project shows up in a marketing asset. A duplicate HTML copy of the same report got dropped too, because having the same content live twice tripped the site's own analytics check. Small bug, but it's the kind that only shows up once you make a second copy of something.",
+      "The page also picked up a proof section, four claims with receipts instead of four adjectives: one real rejection-to-approval turnaround on HiLo (rejected on a Thursday, approved the next morning after the actual fix), all five apps live on both stores, and the same check-gate tool run clean against two codebases we didn't write ourselves. If you're going to say \"we know what reviewers reject,\" the cheapest way to back it up is to show the one time it happened to us.",
+      "Smaller thing that rode along: a short demo video for the Expo Production Starter template, hosted directly on our own site instead of the storefront. Gumroad's product editor doesn't have a video block — text, a button, an X post, an upsell, reviews, that's the list — so the walkthrough lives here and the product page just links to it.",
+    ],
+    links: [{ label: 'Open the submission service', href: '/ship/' }],
+  },
+  {
     date: '2026-11-19',
     title: "A submission package for Hue Drop's browser build",
     body: [
